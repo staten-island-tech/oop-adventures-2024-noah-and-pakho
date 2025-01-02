@@ -19,7 +19,4 @@ app.iconphoto(False, app_icon)
 
 pygame.mixer.init()
 
-menu_bar = Menu(app)
-app.config(menu=menu_bar)
-
 app.mainloop()
