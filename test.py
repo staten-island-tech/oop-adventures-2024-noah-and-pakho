@@ -47,7 +47,7 @@ class Merchant:
         player.add_item(Item(item_name, item.price, quantity))
         item.quantity -= quantity
         print(f"{player.name} bought {quantity} {item_name}(s) for {total_cost} gold.")
-        print(f"{player.name} has {player.gold} left")
+        print(f"{player.name} has {player.gold} gold left.")
         return True
     
     def __str__(self):
