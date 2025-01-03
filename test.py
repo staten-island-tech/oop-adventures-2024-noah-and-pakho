@@ -1,3 +1,5 @@
+import os
+
 class Item:
     def __init__(self, name, price, quantity):
         self.name = name
@@ -69,27 +71,29 @@ class Player:
         else:
             self.inventory[item.name] = item
 # Example Usage:
+while True:
+    # Create some items
+    sword = Item("Sword", 50, 10)
+    shield = Item("Shield", 40, 5)
+    testpotion = Item("Test Bucket Please Ignore", 200, 2)
 
-# Create some items
-sword = Item("Sword", 50, 10)
-shield = Item("Shield", 40, 5)
+    # Create a merchant and add items to their inventory
+    merchant = Merchant("Shopkeep")
+    merchant.add_item(sword)
+    merchant.add_item(shield)
+    merchant.add_item(testpotion)
 
-# Create a merchant and add items to their inventory
-merchant = Merchant("Shopkeeper")
-merchant.add_item(sword)
-merchant.add_item(shield)
+    # Create a player
+    player = Player("PENI!", 500)
 
-# Create a player
-player = Player("Hero", 200)
+    # List available items for sale
+    merchant.list_items()
 
-# List available items for sale
-merchant.list_items()
+    # Player buys some items from the merchant
+    boughtItem = input("Which item would you like to buy? ").strip()
+    boughtItemAmt = int(input("How many would you like to buy? "))
+    merchant.sell_item(player, boughtItem, boughtItemAmt)
 
-# Player buys some items from the merchant
-boughtItem = input("Which item would you like to buy? ").capitalize().strip()
-boughtItemAmt = int(input("How many would you like to buy? "))
-merchant.sell_item(player, boughtItem, boughtItemAmt)
-
-# Show updated player and merchant status
-print(player)
-print(merchant)
+    # Show updated player and merchant status
+    print(player)
+    print(merchant)
