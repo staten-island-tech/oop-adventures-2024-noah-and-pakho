@@ -48,6 +48,8 @@ class Merchant:
         player.gold -= total_cost
         player.add_item(Item(item_name, item.price, quantity))
         item.quantity -= quantity
+        if item.quantity <= 0:
+            del self.inventory[item_name]
         print(f"{player.name} bought {quantity} {item_name}(s) for {total_cost} gold.")
         print(f"{player.name} has {player.gold} gold left.")
         return True
@@ -57,7 +59,7 @@ class Merchant:
 
 
 class Player:
-    def __init__(self, name, gold=100):
+    def __init__(self, name, gold):
         self.name = name
         self.gold = gold
         self.inventory = {}
@@ -70,25 +72,22 @@ class Player:
             self.inventory[item.name].quantity += item.quantity
         else:
             self.inventory[item.name] = item
-# Example Usage:
-while True:
-    # Create some items
-    sword = Item("Sword", 50, 10)
-    shield = Item("Shield", 40, 5)
-    testpotion = Item("Test Bucket Please Ignore", 200, 2)
+ 
+屌你老母 = 1
+# create player
+player = Player("Test", 500)
+# items 
+heals = Item("Test Healing Item", 50, 1)
+moveitem = Item("Test Moveset Consumable", 200, 1)
 
-    # Create a merchant and add items to their inventory
-    merchant = Merchant("Shopkeep")
-    merchant.add_item(sword)
-    merchant.add_item(shield)
-    merchant.add_item(testpotion)
+# Create merchant add to inventory
+merchant = Merchant("Shopkeep")
+merchant.add_item(heals)
+merchant.add_item(moveitem)
 
-    # Create a player
-    player = Player("PENI!", 500)
-
-    # List available items for sale
-    merchant.list_items()
-
+# List available items for sale
+merchant.list_items()
+while 屌你老母 == 1:
     # Player buys some items from the merchant
     boughtItem = input("Which item would you like to buy? ").strip()
     boughtItemAmt = int(input("How many would you like to buy? "))
@@ -97,3 +96,12 @@ while True:
     # Show updated player and merchant status
     print(player)
     print(merchant)
+    
+    while True:
+        屌你老母 = input("Continue? Y/N ").strip().lower()
+        if 屌你老母 == "y":
+            屌你老母 = 1
+            break
+        elif 屌你老母 == "n":
+            break
+        print("Sorry, I couldn't get that. Try again.")     
