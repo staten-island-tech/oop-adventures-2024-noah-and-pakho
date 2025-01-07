@@ -114,7 +114,7 @@ class Game:
                     break
                 print("Sorry, I couldn't get that. Try again.")
 
-"""and then here theres gonna be a function to lead into the other"""
+"""and then here theres gonna be a function from the rest of the project maybe to lead into the other"""
 
 Game.inShop()
 os.system('cls')
