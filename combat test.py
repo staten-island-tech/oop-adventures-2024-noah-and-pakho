@@ -42,7 +42,7 @@ class Game:
     def heroSelect(self):
         while True:  # this loop will continue infinitely until told otherwise ("break" or "return")
             self.displayParty()
-            selectedPosition = input("Please select a character by entering a letter: ").strip() # .strip() removes any spaces
+            selectedPosition = input("Please select a character by entering a letter: ").strip().upper() # .strip() removes any spaces
 
             if not selectedPosition: # variables with an inputted value start with the None value. So, if there is no inputted value for selectedPosition, it will have no value and the "not" portion works.
                 input("Invalid position selected. Press enter to retry. ") # if selectedPosition has no value, it will tell you.
@@ -53,7 +53,8 @@ class Game:
                 if selectedPosition == hero.position:
                     os.system("cls")
                     self.selectedHero = hero
-                    moveset.append(list(hero.moveset))
+                    for move in hero.moveset:
+                        moveset.append(move)
                     return # once enter is pressed, you exit the loop
             
             input("Invalid position selected. Press enter to retry. ")
@@ -70,7 +71,7 @@ class Game:
     def enemySelect(self):
         while True:
             self.displayEnemyParty()
-            selectedEnemyPosition = input("Please target an enemy by entering a letter: ").strip()
+            selectedEnemyPosition = input("Please target an enemy by entering a letter: ").strip().upper()
 
             if not selectedEnemyPosition:
                 input("Invalid position selected. Press enter to retry. ")
@@ -88,7 +89,12 @@ class Game:
     def displayMoveset(self):
         os.system("cls")
         print(f"{self.selectedHero.name} is attacking {self.selectedEnemy.name}!")
-        print(moveset)
+        print(" ")
+        print("Moveset:")
+        for move in moveset:
+            print(move)
+        print(" ")
+        input("Press Enter to continue. ")
 
 
 
@@ -163,3 +169,8 @@ while Running:
         # this is done by assigning the moveset param for the Hero class a list value.
         # once a valid character is selected, it will append the list of moves to the moveset variable, another list.
         # REMINDER: make it so that, after you select a move & damage is calculated, you remove everything from the list.
+    # make it so that when appending the movelist to the movelist variable, you append each individual value instead of the whole list itself.
+
+# 1/4 to do list:
+
+# make it so that, after pressing enter in the final step of displayMoveset, the moveset list is reset.
