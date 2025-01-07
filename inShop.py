@@ -118,5 +118,4 @@ class Game:
 
 Game.inShop()
 os.system('cls')
-test.greet("Alice")
-os.system('cls')
+test.greet("Test")
