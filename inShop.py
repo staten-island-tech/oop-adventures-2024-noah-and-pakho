@@ -11,7 +11,7 @@ class Item:
         return f"{self.name} (Price: {self.price}, Quantity: {self.quantity})"
 
     def is_available(self):
-        """Checks if the item is available for purchase."""
+        # check if available for purchase
         return self.quantity > 0
 
 
@@ -81,18 +81,18 @@ class Game:
         # create player
         player = Player("Test", 500)
         # items 
-        heals = Item("Test Healing Item", 50, 1)
-        moveitem = Item("Test Moveset Consumable", 200, 1)
+        heals = Item("Potion of Healing", 50, 1)
+        xpItem = Item("XP Bottle", 200, 1)
 
         # Create merchant add to inventory
         merchant = Merchant("Shopkeep")
         merchant.add_item(heals)
-        merchant.add_item(moveitem)
+        merchant.add_item(xpItem)
 
         # List available items for sale
         merchant.list_items()
         while 屌你老母 == 1:
-            # Player buys some items from the merchant
+            # Player buys items from the merchant
             boughtItem = input("Which item would you like to buy? ").strip()
             os.system('cls')
             boughtItemAmt = int(input("How many would you like to buy? "))
@@ -105,12 +105,12 @@ class Game:
             
             while True:
                 屌你老母 = input("Continue? Y/N ").strip().lower()
-                if 屌你老母 == "y":
+                if 屌你老母 == "y" or 屌你老母 == "yes":
                     屌你老母 = 1
                     os.system('cls')
                     merchant.list_items()
                     break
-                elif 屌你老母 == "n":
+                elif 屌你老母 == "n" or 屌你老母 == "no":
                     break
                 print("Sorry, I couldn't get that. Try again.")
 
@@ -118,4 +118,3 @@ class Game:
 
 Game.inShop()
 os.system('cls')
-test.greet("Test")
