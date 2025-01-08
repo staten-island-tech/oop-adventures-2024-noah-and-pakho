@@ -49,7 +49,7 @@ class Game:
         os.system("cls")
         for hero in self.heroes: # loop that iterates through the list of heroes and displays each hero's stats
             print(f"Name: {hero.name} [{hero.position}]")
-            print(f"Health: {hero.health} / Energy: {hero.energy}")      
+            print(f"Health: {hero.currentHealth} / Energy: {hero.currentEnergy}")      
     
     def heroSelect(self):
         while True: # used to create an infinite loop. while in this loop, you are repeatedly asked to select a hero. the loop is only broken when you select a valid position.
@@ -72,7 +72,7 @@ class Game:
         os.system("cls")
         for enemy in self.enemies: # loop that iterates through list of enemies
             print(f"Name: {enemy.name} [{enemy.position}]")
-            print(f"Health: {enemy.health}")
+            print(f"Health: {enemy.currentHealth}")
         print(" ")
         print(f"Selected Hero: {self.selectedHero.name}") # reminder that shows your selected hero
 
@@ -127,16 +127,19 @@ class Game:
         print(f"{self.selectedHero.name} dealt 0 damage to {self.selectedEnemy.name}!")
         print(" ")
         input("Press Enter to continue.")
-
-Jade = Hero("Jade", 150, 100, 1, [("Shoulder Bash", "A"), ("Uppercut", "B"), ("Toss", "C"), (None, "D")], "A")
+Jade = Hero("Jade", 110, 110, 0, 100, 10, 1, [("Shoulder Bash", "A"), ("Uppercut", "B"), ("Toss", "C"), (None, "D")], "A")
+Kelsey = Hero("Kelsey", 80, 80, 0, 90, 8, 1, [("Jab", "A"), ("Drop Kick", "B")], "B")
+Cashmere = Hero("Cashmere", 100, 100, 0, 90, 7, 1, [("Cook", "A"), ("Whack", "B")], "C")
+Ceres = Hero("Ceres", 90, 90, 0, 50, 8, 1, [("Shoulder Bash", "A"), ("Study", "B")], "D")
+"""Jade = Hero("Jade", 150, 100, 1, [("Shoulder Bash", "A"), ("Uppercut", "B"), ("Toss", "C"), (None, "D")], "A")
 Kelsey = Hero("Kelsey", 85, 125, 1, [("Jab", "A"), ("Drop Kick", "B")], "B")
 Cashmere = Hero("Cashmere", 125, 100, 1, [("Cook", "A"), ("Whack", "B")], "C")
-Ceres = Hero("Ceres", 100, 150, 1, [("Shoulder Bash", "A"), ("Study", "B")], "D")
+Ceres = Hero("Ceres", 100, 150, 1, [("Shoulder Bash", "A"), ("Study", "B")], "D")"""
 heroes = [Jade, Kelsey, Cashmere, Ceres]
 
-Slime = Enemy("Slime", 50, {"Goo'd", "Acid Spit"}, "A")
-Goblin = Enemy("Goblin", 75, {"Bash"}, "B")
-Skeleton = Enemy("Skeleton", 100, {"Slice", "Shoot"}, "C")
+Slime = Enemy("Slime", 50, 50,{"Goo'd", "Acid Spit"}, "A")
+Goblin = Enemy("Goblin", 75, 75, {"Bash"}, "B")
+Skeleton = Enemy("Skeleton", 100, 100, {"Slice", "Shoot"}, "C")
 enemies = [Slime, Goblin, Skeleton]
 
 game = Game(heroes, enemies)
