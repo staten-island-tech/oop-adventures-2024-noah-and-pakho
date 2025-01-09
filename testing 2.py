@@ -16,8 +16,8 @@ class Hero: # class for your characters
     def displayStats(self): # displays a character's stats
         print(f"Name: {self.name}")
         print(f"Health: {self.currentHealth} / {self.maxHealth}")
-        print(f"Energy: {self.energy}")
-        print(f"Moveset: {self.moveset}")
+        print(f"Energy: {self.currentEnergy} / {self.maxEnergy}")
+        print(f"Moveset: {[move[0] for move in self.moveset]}")
 
 class Enemy: # a class for enemies you fight against
     def __init__(self, name, currentHealth, maxHealth, moveset, position):
@@ -33,10 +33,12 @@ class Enemy: # a class for enemies you fight against
         print(f"Moveset: {self.moveset}")
 
 class Attack:
-    def __init__(self, damage, energyCost):
+    def __init__(self, damage, energyCost, name = "Unnamed Attack"):
         self.damage = damage
         self.energyCost = energyCost
-        
+        self.name = name
+    def __str__(self):
+        return self.name
 
 class Game:
     def __init__(self, heroes, enemies): # every instance of game will already have the list of heroes & enemies.
@@ -77,7 +79,7 @@ class Game:
         print(f"Selected Hero: {self.selectedHero.name}") # reminder that shows your selected hero
 
     def enemySelect(self):
-        while True: # same loop in hero select
+        while True:
             self.displayEnemyParty()
             selectedEnemyPosition = input("Please target an enemy by entering a letter: ").strip().upper()
 
@@ -99,22 +101,22 @@ class Game:
         print(f"{self.selectedHero.name} is attacking {self.selectedEnemy.name}!") # tells you which hero is attacking which enemy
         print(" ")
         print(f"{self.selectedHero.name}'s Moveset:")  # reminder of who's moveset you're looking at 
-        for move, letter in self.selectedHero.moveset: # this for loop is a special kind of loop only for unpacking tuples (or iterating over a list of tuples). move will be the first value in the tuple (name), and letter will be the second value (position).
-            if move: # movesets will have a maximum size of 4 moves, but a character wont always have exactly 4 moves. empty move slots will have "None" as the name value. this if statement checks if a move has a None value or not; if it does, it wont print its name.
-                print(f"{move} [{letter}]")
+        for move, letter, attack in self.selectedHero.moveset:
+            if move: 
+                print(f"{move} [{letter}] (Cost: {attack.energyCost} Energy, Damage: {attack.damage})")
         print(" ")
 
     def moveSelect(self):
-        while True: # same loop in hero select
+        while True:
             self.displayMoveset()
             selectedMovePosition = input("Please select a move by entering the letter: ").strip().upper()
 
-            positions = [position for _, position in self.selectedHero.moveset] # this is called list comprehension. it's a for loop that unpacks the tuples in the selected hero's moveset and puts the second tuple value (position) into the list for later use.
+            positions = [letter for _, letter, _ in self.selectedHero.moveset if letter]
             # the reason why an underscore is where the name value would usually be is because it indicates that the name value is of no use in this situation.
             if selectedMovePosition in positions:
-                for move, position in self.selectedHero.moveset: 
-                    if position == selectedMovePosition:
-                        return move # returns the value to where it was originially called to be stored in the selectedMove variable. also breaks out of the loop.
+                for move, letter, attack in self.selectedHero.moveset: 
+                    if letter == selectedMovePosition and move:
+                        return attack # returns the value to where it was originially called to be stored in the selectedMove variable. also breaks out of the loop.
             else:
                 input("Invalid move selection. Press Enter to retry. ")
                 os.system("cls")
@@ -123,20 +125,34 @@ class Game:
         selectedMove = self.moveSelect()
         os.system("cls")
         print(f"{self.selectedHero.name} uses {selectedMove} on {self.selectedEnemy.name}!") # tells you who uses what move on what enemy.
-        # logic for calculating damage will go here
-        print(f"{self.selectedHero.name} dealt 0 damage to {self.selectedEnemy.name}!")
+        damage = selectedMove.damage + (self.selectedHero.level * 2)
+        self.selectedEnemy.currentHealth -= damage
+        print(f"{self.selectedHero.name} dealt {damage} damage to {self.selectedEnemy.name}!")
+        if self.selectedEnemy.currentHealth <= 0:
+            self.selectedEnemy.currentHealth = 0
+            print(f"{self.selectedEnemy.name} has been vanquished...")
+            self.selectedEnemy = None
         print(" ")
         input("Press Enter to continue.")
-Jade = Hero("Jade", 110, 110, 0, 100, 10, 1, [("Shoulder Bash", "A"), ("Uppercut", "B"), ("Toss", "C"), (None, "D")], "A")
-Kelsey = Hero("Kelsey", 80, 80, 0, 90, 8, 1, [("Jab", "A"), ("Drop Kick", "B")], "B")
-Cashmere = Hero("Cashmere", 100, 100, 0, 90, 7, 1, [("Cook", "A"), ("Whack", "B")], "C")
-Ceres = Hero("Ceres", 90, 90, 0, 50, 8, 1, [("Shoulder Bash", "A"), ("Study", "B")], "D")
-"""Jade = Hero("Jade", 150, 100, 1, [("Shoulder Bash", "A"), ("Uppercut", "B"), ("Toss", "C"), (None, "D")], "A")
-Kelsey = Hero("Kelsey", 85, 125, 1, [("Jab", "A"), ("Drop Kick", "B")], "B")
-Cashmere = Hero("Cashmere", 125, 100, 1, [("Cook", "A"), ("Whack", "B")], "C")
-Ceres = Hero("Ceres", 100, 150, 1, [("Shoulder Bash", "A"), ("Study", "B")], "D")"""
+
+# moves
+shoulderBash = Attack(damage = 17, energyCost = 15, name = "Shoulder Bash")
+uppercut = Attack(damage = 12, energyCost = 10, name = "Uppercut")
+toss = Attack(damage = 20, energyCost = 25, name = "Toss")
+jab = Attack(damage=8, energyCost = 8, name = "Jab")
+dropKick = Attack(damage = 13, energyCost = 13, name = "Drop Kick")
+whack = Attack(damage = 5, energyCost = 1, name = "Whack")
+cook = Attack(damage = 1, energyCost = 15, name = "Cook")
+study = Attack(damage = 0, energyCost = 10, name = "Study")
+
+# characters/heroes
+Jade = Hero("Jade", 110, 110, 0, 100, 10, 1, [("Shoulder Bash", "A", shoulderBash), ("Uppercut", "B", uppercut), ("Toss", "C", toss)], "A")
+Kelsey = Hero("Kelsey", 80, 80, 0, 90, 8, 1, [("Jab", "A", jab), ("Drop Kick", "B", dropKick)], "B")
+Cashmere = Hero("Cashmere", 100, 100, 0, 90, 7, 1, [("Cook", "A", cook), ("Whack", "B", whack)], "C")
+Ceres = Hero("Ceres", 90, 90, 0, 50, 8, 1, [("Shoulder Bash", "A", shoulderBash), ("Study", "B", study)], "D")
 heroes = [Jade, Kelsey, Cashmere, Ceres]
 
+# enemies
 Slime = Enemy("Slime", 50, 50,{"Goo'd", "Acid Spit"}, "A")
 Goblin = Enemy("Goblin", 75, 75, {"Bash"}, "B")
 Skeleton = Enemy("Skeleton", 100, 100, {"Slice", "Shoot"}, "C")
@@ -155,7 +171,6 @@ while True:
 
         if game.selectedEnemy:
             game.combatTurn()
-            break
             
 
 # common patterns in code:
