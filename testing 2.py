@@ -43,6 +43,7 @@ class Enemy: # a class for enemies you fight against
             damage = random.randint(2, 7) * (self.strength / 5)
             targetHero.currentHealth -= damage
             print(f"{self.name} dealt {damage} damage to {targetHero.name}!")
+            input("Press Enter to continue. ")
 
             if targetHero.currentHealth <= 0:
                 targetHero.currentHealth = 0
@@ -103,11 +104,12 @@ class Game:
 
     def enemySelect(self):
         os.system("cls")
+        print(f"{self.selectedHero.name} is attacking!")
         print("Available enemies to target: ")
         aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
         for enemy in aliveEnemies:
             print(f"Name: {enemy.name} [{enemy.position}]")
-            print(f"Health: {enemy.currentHealth}")
+            print(f"Health: {enemy.currentHealth} / {enemy.maxHealth}")
         print("")
         while True:
             selectedEnemyPosition = input("Please target an enemy by entering a letter: ").strip().upper()
@@ -229,4 +231,18 @@ while True:
             game.combatTurn()
             
 
-# NOAH YOUR COMMENTS SUCK ABSOLUTE MOTHBALLS
+# bugs:
+    # selecting a hero does not have any effect, as it will always select the first hero in the list.
+        # this isnt a bug because there will be no hero select function in the future, it will instead iterate thru the list.
+    # when selecting an enemy, it will ask you twice
+    # if you select an enemy on the first ask but input an invalid position on the second ask, all of the listed enemies will dissapear.
+        # you can still input a valid enemy position & it will select an enemy.
+    # after selecting a move, it will quickly flash the damage info before going to the next enemy select
+    # loop continues after all enemies / heroes r dead
+    # when an enemy is killed, all other enemies do not attack that turn
+
+# things to add:
+    # when targeting an enemy, show who you are attacking with
+
+# changes:
+    # when selecting an enemy, the hero you are attacking with is displayed.
