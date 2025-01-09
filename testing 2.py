@@ -1,5 +1,6 @@
 import os
-import json    
+import json
+import random
 
 class Hero: # class for your characters
     def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset, position):
@@ -20,17 +21,34 @@ class Hero: # class for your characters
         print(f"Moveset: {[move[0] for move in self.moveset]}")
 
 class Enemy: # a class for enemies you fight against
-    def __init__(self, name, currentHealth, maxHealth, moveset, position):
+    def __init__(self, name, currentHealth, maxHealth, strength, moveset, position):
         self.name = name
         self.currentHealth = currentHealth
         self.maxHealth = maxHealth
+        self.strength = strength
         self.moveset = moveset
         self.position = position
     
     def displayEnemyStats(self): # displays an enemy's stats
         print(f"Name: {self.name}")
-        print(f"Health: {self.health}")
+        print(f"Health: {self.currentHealth}")
         print(f"Moveset: {self.moveset}")
+
+    def takeTurn(self, heroes):
+        targetHero = random.choice(heroes)
+        selectedEnemyMove = random.choice(list(self.moveset))
+
+        if selectedEnemyMove:
+            print(f"{self.name} uses {selectedEnemyMove} on {targetHero.name}!")
+            damage = random.randint(2, 7) * (self.strength / 5)
+            targetHero.currentHealth -= damage
+            print(f"{self.name} dealt {damage} damage to {targetHero.name}!")
+
+            if targetHero.currentHealth <= 0:
+                targetHero.currentHealth = 0
+                print(f"{targetHero.name} has been defeated!")
+        else:
+            print(f"{self.name} has no valid moves to perform.")
 
 class Attack:
     def __init__(self, damage, energyCost, name = "Unnamed Attack"):
@@ -54,33 +72,44 @@ class Game:
             print(f"Health: {hero.currentHealth} / Energy: {hero.currentEnergy}")      
     
     def heroSelect(self):
-        while True: # used to create an infinite loop. while in this loop, you are repeatedly asked to select a hero. the loop is only broken when you select a valid position.
+        while True: 
             self.displayParty()
-            selectedPosition = input("Please select a character by entering a letter: ").strip().upper() # .strip() is used to get rid of whitespace / unnecessary spaces.
-            if not selectedPosition: # if an input is given no value to assign to a function, it defaults to None. this detects if selectedPosition has a value; if not, then it will assume you didn't enter a valid position and will prompt you to retry.
+            selectedPosition = input("Please select a character by entering a letter: ").strip().upper() 
+            if not selectedPosition: 
                 input("Invalid position selected. Press Enter to retry. ")
                 os.system("cls")
-                continue # allows the infinite loop to continue.
+                continue
             
-            for hero in self.heroes: # if any value is given to selectedPosition, it skips over the empty value check and comes here.
-                if selectedPosition == hero.position: # checks if selectedPosition is the same as ANY hero's position
+            for hero in self.heroes: 
+                if selectedPosition == hero.position:
+                    if hero.currentHealth <= 0:
+                        input(f"{hero.name} is defeated and cannot be selected. Press Enter to retry. ")
+                        os.system("cls")
+                        continue
                     os.system("cls")
-                    self.selectedHero = hero # sets the hero with the corresponding position to the value of selectedHero
-                    return # breaks the loop, allowing for the next game function to run
-            input("Invalid position selected. Press enter to retry. ") # if selectedPosition has a value but is NOT a valid position, it comes here. once input is given, the loop restarts itself.
-            os.system("cls") # this bit of code is outside fo the for loop because you only want this to show up after checking every hero.
+                    self.selectedHero = hero 
+                    return 
+            input("Invalid position selected. Press enter to retry. ") 
+            os.system("cls") 
   
     def displayEnemyParty(self):
         os.system("cls")
-        for enemy in self.enemies: # loop that iterates through list of enemies
+        aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
+        for enemy in aliveEnemies: # loop that iterates through list of enemies
             print(f"Name: {enemy.name} [{enemy.position}]")
             print(f"Health: {enemy.currentHealth}")
         print(" ")
         print(f"Selected Hero: {self.selectedHero.name}") # reminder that shows your selected hero
 
     def enemySelect(self):
+        os.system("cls")
+        print("Available enemies to target: ")
+        aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
+        for enemy in aliveEnemies:
+            print(f"Name: {enemy.name} [{enemy.position}]")
+            print(f"Health: {enemy.currentHealth}")
+        print("")
         while True:
-            self.displayEnemyParty()
             selectedEnemyPosition = input("Please target an enemy by entering a letter: ").strip().upper()
 
             if not selectedEnemyPosition: # same logic present in hero select
@@ -88,7 +117,7 @@ class Game:
                 os.system("cls")
                 continue
 
-            for enemy in self.enemies:
+            for enemy in aliveEnemies:
                 if selectedEnemyPosition == enemy.position:
                     os.system("cls")
                     self.selectedEnemy = enemy
@@ -112,26 +141,53 @@ class Game:
             selectedMovePosition = input("Please select a move by entering the letter: ").strip().upper()
 
             positions = [letter for _, letter, _ in self.selectedHero.moveset if letter]
-            # the reason why an underscore is where the name value would usually be is because it indicates that the name value is of no use in this situation.
             if selectedMovePosition in positions:
                 for move, letter, attack in self.selectedHero.moveset: 
                     if letter == selectedMovePosition and move:
-                        return attack # returns the value to where it was originially called to be stored in the selectedMove variable. also breaks out of the loop.
+                        return attack
             else:
                 input("Invalid move selection. Press Enter to retry. ")
                 os.system("cls")
 
     def combatTurn(self):
-        selectedMove = self.moveSelect()
-        os.system("cls")
-        print(f"{self.selectedHero.name} uses {selectedMove} on {self.selectedEnemy.name}!") # tells you who uses what move on what enemy.
-        damage = selectedMove.damage + (self.selectedHero.level * 2)
-        self.selectedEnemy.currentHealth -= damage
-        print(f"{self.selectedHero.name} dealt {damage} damage to {self.selectedEnemy.name}!")
-        if self.selectedEnemy.currentHealth <= 0:
-            self.selectedEnemy.currentHealth = 0
-            print(f"{self.selectedEnemy.name} has been vanquished...")
-            self.selectedEnemy = None
+        for hero in self.heroes:
+            if hero.currentHealth > 0:  
+                self.selectedHero = hero
+                print(f"{self.selectedHero.name}'s turn:")
+
+                self.enemySelect()  
+
+                if self.selectedEnemy:  
+                    selectedMove = self.moveSelect()  
+                    os.system("cls")
+                    print(f"{self.selectedHero.name} uses {selectedMove} on {self.selectedEnemy.name}!")
+
+                    damage = selectedMove.damage + (self.selectedHero.level * 2)
+                    self.selectedEnemy.currentHealth -= damage
+                    print(f"{self.selectedHero.name} dealt {damage} damage to {self.selectedEnemy.name}!")
+
+                    if self.selectedEnemy.currentHealth <= 0:
+                        self.selectedEnemy.currentHealth = 0
+                        print(f"{self.selectedEnemy.name} has been defeated!")
+                        self.selectedEnemy = None  
+
+                if all(enemy.currentHealth <= 0 for enemy in self.enemies):
+                    print("All enemies have been defeated!")
+                    break  
+
+        if self.selectedEnemy is not None:
+            print("\nEnemy's turn!")
+            alive_enemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
+
+            for enemy in alive_enemies:
+                enemy.takeTurn(self.heroes) 
+
+            # Check if all heroes are defeated
+            if all(hero.currentHealth == 0 for hero in self.heroes):
+                print("All heroes have been defeated! Game Over.")
+                input("Press Enter to exit.")
+                return
+
         print(" ")
         input("Press Enter to continue.")
 
@@ -153,9 +209,9 @@ Ceres = Hero("Ceres", 90, 90, 0, 50, 8, 1, [("Shoulder Bash", "A", shoulderBash)
 heroes = [Jade, Kelsey, Cashmere, Ceres]
 
 # enemies
-Slime = Enemy("Slime", 50, 50,{"Goo'd", "Acid Spit"}, "A")
-Goblin = Enemy("Goblin", 75, 75, {"Bash"}, "B")
-Skeleton = Enemy("Skeleton", 100, 100, {"Slice", "Shoot"}, "C")
+Slime = Enemy("Slime", 50, 50, 50, {"Goo'd", "Acid Spit"}, "A")
+Goblin = Enemy("Goblin", 75, 75, 5, {"Bash"}, "B")
+Skeleton = Enemy("Skeleton", 100, 100, 10, {"Slice", "Shoot"}, "C")
 enemies = [Slime, Goblin, Skeleton]
 
 game = Game(heroes, enemies)
@@ -173,6 +229,4 @@ while True:
             game.combatTurn()
             
 
-# common patterns in code:
-    # treating None values like False values
-    # creating infinite loops that are used for error handling
+# NOAH YOUR COMMENTS SUCK ABSOLUTE MOTHBALLS
