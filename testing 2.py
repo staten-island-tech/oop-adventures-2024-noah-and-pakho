@@ -181,9 +181,9 @@ class Game:
         if self.selectedEnemy is not None:
             os.system("cls")
             print("Enemy's turn!")
-            alive_enemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
+            aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
 
-            for enemy in alive_enemies:
+            for enemy in aliveEnemies:
                 enemy.takeTurn(self.heroes) # 
 
             # Check if all heroes are defeated
@@ -203,7 +203,7 @@ def masterLoop():
             if game.selectedEnemy:
                 game.combatTurn()
 
-                if not game.alive_enemies: # need to figure out how to access alive_enemies outside of the Game loop
+                if not game.aliveEnemies: # need to figure out how to access aliveEnemies outside of the Game loop
                     break
                 continue
 
@@ -227,7 +227,7 @@ Ceres = Hero("Ceres", 90, 90, 0, 50, 8, 1, [("Shoulder Bash", "A", shoulderBash)
 heroes = [Jade, Kelsey, Cashmere, Ceres]
 
 # enemies
-Slime = Enemy("Slime", 25, 25, 50, {"Goo'd", "Acid Spit"}, "A") # enemy movesets should also be stored in tuples
+Slime = Enemy("Slime", 25, 25, 35, {"Goo'd", "Acid Spit"}, "A") # enemy movesets should also be stored in tuples
 Goblin = Enemy("Goblin", 75, 75, 5, {"Bash"}, "B")
 Skeleton = Enemy("Skeleton", 100, 100, 10, {"Slice", "Shoot"}, "C")
 enemies = [Slime, Goblin, Skeleton]
