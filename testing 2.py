@@ -42,7 +42,7 @@ class Enemy: # a class for enemies you fight against
             print(f"{self.name} uses {selectedEnemyMove} on {targetHero.name}!")
             damage = random.randint(2, 7) * (self.strength / 4)
             targetHero.currentHealth -= damage
-            print(f"{self.name} dealt {damage} damage to {targetHero.name}!")
+            print(f"{self.name} dealt {damage} damage to {targetHero.name}! ({targetHero.currentHealth} / {targetHero.maxHealth})")
             input("Press Enter to continue. ")
 
             if targetHero.currentHealth <= 0:
@@ -70,7 +70,7 @@ class Game:
         os.system("cls")
         for hero in self.heroes: # loop that iterates through the list of heroes and displays each hero's stats
             print(f"Name: {hero.name} [{hero.position}]")
-            print(f"Health: {hero.currentHealth} / Energy: {hero.currentEnergy}")      
+            print(f"Health: {hero.currentHealth} / {hero.maxHealth} | Energy: {hero.currentEnergy} / {hero.maxEnergy}")      
     
     def heroSelect(self):
         while True: 
@@ -104,14 +104,14 @@ class Game:
 
     def enemySelect(self):
         os.system("cls")
-        print(f"{self.selectedHero.name} is attacking!")
-        print("Available enemies to target: ")
         aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
-        for enemy in aliveEnemies:
-            print(f"Name: {enemy.name} [{enemy.position}]")
-            print(f"Health: {enemy.currentHealth} / {enemy.maxHealth}")
-        print("")
         while True:
+            print(f"{self.selectedHero.name} is attacking!")
+            print("Available enemies to target: ")
+            for enemy in aliveEnemies:
+                print(f"Name: {enemy.name} [{enemy.position}]")
+                print(f"Health: {enemy.currentHealth} / {enemy.maxHealth}")
+            print("")
             selectedEnemyPosition = input("Please target an enemy by entering a letter: ").strip().upper()
 
             if not selectedEnemyPosition: # same logic present in hero select
@@ -124,7 +124,7 @@ class Game:
                     os.system("cls")
                     self.selectedEnemy = enemy
                     return
-            input("Invalid enemy position selected. Press enter to retry. ")
+            input("Invalid enemy position selected. Press enter to retry. ") # the reason why enemies arent printed when an invalid position is selected is here.
             os.system("cls")
     
     def displayMoveset(self):
@@ -152,7 +152,7 @@ class Game:
                 os.system("cls")
 
     def combatTurn(self):
-        for hero in self.heroes:
+        for hero in self.heroes: # ts is what creates the hero cycle
             if hero.currentHealth > 0:  
                 self.selectedHero = hero
                 print(f"{self.selectedHero.name}'s turn:")
@@ -166,7 +166,7 @@ class Game:
 
                     damage = selectedMove.damage + (self.selectedHero.level * 2)
                     self.selectedEnemy.currentHealth -= damage
-                    print(f"{self.selectedHero.name} dealt {damage} damage to {self.selectedEnemy.name}!")
+                    print(f"{self.selectedHero.name} dealt {damage} damage to {self.selectedEnemy.name}! ({self.selectedEnemy.currentHealth} / {self.selectedEnemy.maxHealth})")
                     input("Press Enter to continue. ")
 
                     if self.selectedEnemy.currentHealth <= 0:
@@ -179,26 +179,40 @@ class Game:
                     break  
 
         if self.selectedEnemy is not None:
-            print("\nEnemy's turn!")
+            os.system("cls")
+            print("Enemy's turn!")
             alive_enemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
 
             for enemy in alive_enemies:
-                enemy.takeTurn(self.heroes) 
+                enemy.takeTurn(self.heroes) # 
 
             # Check if all heroes are defeated
             if all(hero.currentHealth == 0 for hero in self.heroes):
                 print("All heroes have been defeated! Game Over.")
                 input("Press Enter to exit.")
-                return
+                return # the error of all heroes dying but the loop still continuing is right here. once all heroes (or enemies) are dead, the function to rule all other functions should break thru an if statement leading to a return / break
 
         print(" ")
         input("Press Enter to continue.")
+
+def masterLoop():
+    while True:
+        game.heroSelect()
+        if game.selectedHero:
+            game.enemySelect()
+            if game.selectedEnemy:
+                game.combatTurn()
+
+                if not game.alive_enemies: # need to figure out how to access alive_enemies outside of the Game loop
+                    break
+                continue
+
 
 # moves
 shoulderBash = Attack(damage = 17, energyCost = 15, name = "Shoulder Bash")
 uppercut = Attack(damage = 12, energyCost = 10, name = "Uppercut")
 toss = Attack(damage = 20, energyCost = 25, name = "Toss")
-jab = Attack(damage=8, energyCost = 8, name = "Jab")
+jab = Attack(damage = 8, energyCost = 8, name = "Jab")
 dropKick = Attack(damage = 13, energyCost = 13, name = "Drop Kick")
 whack = Attack(damage = 5, energyCost = 1, name = "Whack")
 cook = Attack(damage = 1, energyCost = 15, name = "Cook")
@@ -213,7 +227,7 @@ Ceres = Hero("Ceres", 90, 90, 0, 50, 8, 1, [("Shoulder Bash", "A", shoulderBash)
 heroes = [Jade, Kelsey, Cashmere, Ceres]
 
 # enemies
-Slime = Enemy("Slime", 25, 25, 50, {"Goo'd", "Acid Spit"}, "A")
+Slime = Enemy("Slime", 25, 25, 50, {"Goo'd", "Acid Spit"}, "A") # enemy movesets should also be stored in tuples
 Goblin = Enemy("Goblin", 75, 75, 5, {"Bash"}, "B")
 Skeleton = Enemy("Skeleton", 100, 100, 10, {"Slice", "Shoot"}, "C")
 enemies = [Slime, Goblin, Skeleton]
@@ -237,14 +251,22 @@ while True:
     # selecting a hero does not have any effect, as it will always select the first hero in the list.
         # this isnt a bug because there will be no hero select function in the future, it will instead iterate thru the list.
     # when selecting an enemy, it will ask you twice
-    # if you select an enemy on the first ask but input an invalid position on the second ask, all of the listed enemies will dissapear.
-        # you can still input a valid enemy position & it will select an enemy.
-    # after selecting a move, it will quickly flash the damage info before going to the next enemy select
+        # entering an invalid position on the second ask will cause error handling to kick in. entering in a valid position on the third ask will continue the game loop.
+        # your valid input on the first ask doesn't seem to be stored anywhere
+    # after all of the enemies deal damage, it will ask you to continue twice.
+        # could be related to the enemy select function?
     # loop continues after all enemies / heroes r dead
-    # when an enemy is killed, all other enemies do not attack that turn
-
-# things to add:
-    # when targeting an enemy, show who you are attacking with
 
 # changes:
     # when selecting an enemy, the hero you are attacking with is displayed.
+    # fixed bug where if an invalid enemy position is selected, enemy names / stats won't be printed again.
+    # made it so that hero health is displayed when enemies deal damage
+
+# idea:
+    # one of the characters will be able to generate energy past their max, meaning they have infinite energy.
+    # one of their moves will be a "wait" move that costs zero energy, but does not deal damage.
+    # another move will be a move that does damage based on all of your energy past a certain amount
+    # 0 + 1(energy past maxEnergy) * (strength / 5)
+
+# nerf slime he js killed kelsey in one shot 😭😭😭
+# also buff goblin cuz his weak ass did a whole 2.5 damage to cashmere. i was hoping he would KILL him
