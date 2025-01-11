@@ -59,10 +59,11 @@ class Enemy:  # a class for enemies you fight against
 
 
 class Attack:
-    def __init__(self, damage, energyCost, name="Unnamed Attack"):
+    def __init__(self, damage, energyCost, name="Unnamed Attack", isHealing = False):
         self.damage = damage
         self.energyCost = energyCost
         self.name = name
+        self.isHealing = isHealing
 
     def __str__(self):
         return self.name
@@ -153,7 +154,10 @@ class Game:
                     if letter == selectedMovePosition and move:
                         if self.selectedHero.currentEnergy >= attack.energyCost:  # Ensure the hero has enough energy
                             self.selectedHero.currentEnergy -= attack.energyCost
-                            return attack
+                            if attack.isHealing:
+                                return self.healAlly(attack)
+                            else:
+                                return attack
                         else:
                             input("Not enough energy for that attack. Press Enter to retry.")
                             os.system("cls")
@@ -215,6 +219,7 @@ class Game:
 
     def ultimateAttack(self):
         """Perform the ultimate attack, using all of the hero's energy."""
+        os.system("cls")
         print(f"{self.selectedHero.name} unleashes their Ultimate Attack!")
         # For simplicity, ultimate attack will deal a high amount of damage
         ultimateDamage = self.selectedHero.maxEnergy * 2
@@ -223,6 +228,39 @@ class Game:
             print(f"{self.selectedHero.name} dealt {ultimateDamage} damage to {self.selectedEnemy.name}! ({self.selectedEnemy.currentHealth} / {self.selectedEnemy.maxHealth})")
             self.selectedHero.currentEnergy = 0  # Use up all energy after ultimate attack
         input("Press Enter to continue.")
+    
+    def healAlly(self, attack):
+        # List of available allies (heroes) that can be healed
+        availableAllies = [hero for hero in self.heroes if hero != self.selectedHero and hero.currentHealth > 0]
+        
+        if availableAllies:
+            os.system("cls")
+            print(f"Select an ally to heal with {attack.name}:")
+            for ally in availableAllies:
+                print(f"{ally.name} [{ally.position}] - Health: {ally.currentHealth} / {ally.maxHealth}")
+            
+            allyPosition = input("Enter the position of the ally to heal: ").strip().upper()
+            
+            # Find the selected ally
+            for ally in availableAllies:
+                if ally.position == allyPosition:
+                    healPercentage = 0.30  # Heal by 30% of the ally's max health (this percentage can be adjusted)
+                    healAmount = ally.maxHealth * healPercentage  # Heal by a percentage of max health
+                    
+                    ally.currentHealth += healAmount
+                    if ally.currentHealth > ally.maxHealth:  # Ensure the ally's health doesn't exceed max health
+                        ally.currentHealth = ally.maxHealth
+                    
+                    os.system("cls")
+                    print(f"{self.selectedHero.name} heals {ally.name} for {healAmount:.2f} HP! ({ally.currentHealth} / {ally.maxHealth})")
+                    input("Press Enter to continue.")
+                    return None
+            
+            input("Invalid ally selection. Press Enter to retry.")
+            os.system("cls")
+        else:
+            input("No available allies to heal. Press Enter to continue.")
+            os.system("cls")
 
 
 def masterLoop():
@@ -240,16 +278,16 @@ def masterLoop():
 
 
 # moves
-shoulderBash = Attack(damage = 17, energyCost=15, name="Shoulder Bash")
-uppercut = Attack(damage=12, energyCost=10, name="Uppercut")
-toss = Attack(damage=20, energyCost=25, name="Toss")
-jab = Attack(damage=8, energyCost=8, name="Jab")
-dropKick = Attack(damage=13, energyCost=13, name="Drop Kick")
-whack = Attack(damage=5, energyCost=1, name="Whack")
-cook = Attack(damage=1, energyCost=15, name="Cook")
-study = Attack(damage=0, energyCost=10, name="Study")
-testmove = Attack(damage=999, energyCost=0, name="Test")
-basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack")
+shoulderBash = Attack(damage = 17, energyCost=15, name="Shoulder Bash", isHealing = False)
+uppercut = Attack(damage = 12, energyCost = 10, name="Uppercut", isHealing = False)
+toss = Attack(damage = 20, energyCost = 25, name="Toss", isHealing = False)
+jab = Attack(damage = 8, energyCost = 8, name="Jab", isHealing = False)
+dropKick = Attack(damage = 13, energyCost = 13, name="Drop Kick", isHealing = False)
+whack = Attack(damage = 5, energyCost = 1, name="Whack", isHealing = False)
+cook = Attack(damage = 30, energyCost = 15, name="Cook", isHealing = True)
+study = Attack(damage = 0, energyCost = 10, name="Study", isHealing = False)
+testmove = Attack(damage = 999, energyCost = 0, name="Test", isHealing = False)
+basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
 
 # characters/heroes
 Jade = Hero("Jade", 110, 110, 55, 110, 10, 1, [("Shoulder Bash", "A", shoulderBash), ("Uppercut", "B", uppercut), ("Toss", "C", toss), ("Basic Attack", "D", basicattack)], "A")
@@ -275,15 +313,17 @@ while True:
     if game.selectedHero:
         game.combatTurn()
 
-# bugs:
-    
-# changes:
-    # when selecting an enemy, the hero you are attacking with is displayed.
-    # fixed bug where if an invalid enemy position is selected, enemy names / stats won't be printed again.
-    # made it so that hero health is displayed when enemies deal damage
+""" 
+bugs:
+    my will to live
+changes:
+    when selecting an enemy, the hero you are attacking with is displayed.
+    fixed bug where if an invalid enemy position is selected, enemy names / stats won't be printed again.
+    made it so that hero health is displayed when enemies deal damage 
 
-# idea:
-    # one of the characters will be able to generate energy past their max, meaning they have infinite energy.
-    # one of their moves will be a "wait" move that costs zero energy, but does not deal damage.
-    # another move will be a move that does damage based on all of your energy past a certain amount
-    # 0 + 1(energy past maxEnergy) * (strength / 5)
+idea:
+    one of the characters will be able to generate energy past their max, meaning they have infinite energy.
+    one of their moves will be a "wait" move that costs zero energy, but does not deal damage.
+    another move will be a move that does damage based on all of your energy past a certain amount
+    0 + 1(energy past maxEnergy) * (strength / 5)
+"""
