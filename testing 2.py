@@ -154,20 +154,26 @@ class Game:
                     if letter == selectedMovePosition and move:
                         if self.selectedHero.currentEnergy >= attack.energyCost:  # Ensure the hero has enough energy
                             self.selectedHero.currentEnergy -= attack.energyCost
-                            if attack.isHealing:
-                                return self.healAlly(attack)
-                            else:
-                                return attack
+                            
+                            # Special handling for healing moves
+                            if attack.name == "Group Heal":
+                                self.healAllies(attack)  # Heal all allies (including Cashmere, for less)
+                                return None  # No need to continue the move selection for this turn
+                            elif attack.name == "Cook":
+                                self.healAlly(attack)  # Heal a single ally or Cashmere himself
+                                return None  # No need to continue the move selection for this turn
+                            
+                            return attack
                         else:
                             input("Not enough energy for that attack. Press Enter to retry.")
                             os.system("cls")
             elif selectedMovePosition == 'U' and self.selectedHero.currentEnergy == self.selectedHero.maxEnergy:
-                # If 'U' is pressed and energy is full, unleash ultimate attack
-                self.ultimateAttack()
-                return None  # Return None as we've already used the ultimate attack
+                    # If 'U' is pressed and energy is full, unleash ultimate attack
+                    self.ultimateAttack()
+                    return None  # Return None as we've already used the ultimate attack
             else:
-                input("Invalid move selection. Press Enter to retry. ")
-                os.system("cls")
+                    input("Invalid move selection. Press Enter to retry. ")
+                    os.system("cls")
 
     def combatTurn(self):
         for hero in self.heroes:  # This creates the hero cycle
@@ -218,10 +224,8 @@ class Game:
                 return
 
     def ultimateAttack(self):
-        """Perform the ultimate attack, using all of the hero's energy."""
         os.system("cls")
         print(f"{self.selectedHero.name} unleashes their Ultimate Attack!")
-        # For simplicity, ultimate attack will deal a high amount of damage
         ultimateDamage = self.selectedHero.maxEnergy * 2
         if self.selectedEnemy:
             self.selectedEnemy.currentHealth -= ultimateDamage
@@ -230,12 +234,11 @@ class Game:
         input("Press Enter to continue.")
     
     def healAlly(self, attack):
-        # List of available allies (heroes) that can be healed
-        availableAllies = [hero for hero in self.heroes if hero != self.selectedHero and hero.currentHealth > 0]
+        # Select an ally to heal
+        availableAllies = [hero for hero in self.heroes if hero.currentHealth > 0]
         
         if availableAllies:
             os.system("cls")
-            print(f"Select an ally to heal with {attack.name}:")
             for ally in availableAllies:
                 print(f"{ally.name} [{ally.position}] - Health: {ally.currentHealth} / {ally.maxHealth}")
             
@@ -244,16 +247,14 @@ class Game:
             # Find the selected ally
             for ally in availableAllies:
                 if ally.position == allyPosition:
-                    healPercentage = 0.30  # Heal by 30% of the ally's max health (this percentage can be adjusted)
-                    healAmount = ally.maxHealth * healPercentage  # Heal by a percentage of max health
-                    
+                    healAmount = ally.maxHealth * 0.50  # Heal by 50% of max health
                     ally.currentHealth += healAmount
-                    if ally.currentHealth > ally.maxHealth:  # Ensure the ally's health doesn't exceed max health
+                    if ally.currentHealth > ally.maxHealth:  # Ensure health doesn't exceed max health
                         ally.currentHealth = ally.maxHealth
                     
                     os.system("cls")
                     print(f"{self.selectedHero.name} heals {ally.name} for {healAmount:.2f} HP! ({ally.currentHealth} / {ally.maxHealth})")
-                    input("Press Enter to continue.")
+                    input("Press Enter to continue. ")
                     return None
             
             input("Invalid ally selection. Press Enter to retry.")
@@ -261,6 +262,28 @@ class Game:
         else:
             input("No available allies to heal. Press Enter to continue.")
             os.system("cls")
+
+    def healAllies(self, attack):
+        # Define heal percentages
+        healPercentageForAllies = 0.20  # 20% of max health for other allies
+        healPercentageForCashmere = 0.15  # 15% of max health for Cashmere (heals himself for less)
+
+        os.system("cls")
+        for ally in self.heroes:
+            if ally.currentHealth > 0:
+                if ally == self.selectedHero:  # Check if the ally is Cashmere
+                    healAmount = ally.maxHealth * healPercentageForCashmere  # Heal Cashmere for a smaller amount
+                else:
+                    healAmount = ally.maxHealth * healPercentageForAllies  # Heal other allies for the regular amount
+                
+                ally.currentHealth += healAmount
+                if ally.currentHealth > ally.maxHealth:  # Ensure health doesn't exceed max health
+                    ally.currentHealth = ally.maxHealth
+                
+                print(f"{self.selectedHero.name} heals {ally.name} for {healAmount:.2f} HP! ({ally.currentHealth} / {ally.maxHealth})")
+        
+        input("Press Enter to continue. ")
+        os.system("cls")
 
 
 def masterLoop():
@@ -288,11 +311,12 @@ cook = Attack(damage = 30, energyCost = 15, name="Cook", isHealing = True)
 study = Attack(damage = 0, energyCost = 10, name="Study", isHealing = False)
 testmove = Attack(damage = 999, energyCost = 0, name="Test", isHealing = False)
 basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
+groupheal = Attack(damage = 20, energyCost = 30, name = "Group Heal", isHealing = True)
 
 # characters/heroes
 Jade = Hero("Jade", 110, 110, 55, 110, 10, 1, [("Shoulder Bash", "A", shoulderBash), ("Uppercut", "B", uppercut), ("Toss", "C", toss), ("Basic Attack", "D", basicattack)], "A")
 Kelsey = Hero("Kelsey", 80, 80, 45, 90, 8, 1, [("Jab", "A", jab), ("Drop Kick", "B", dropKick), ("Basic Attack", "C", basicattack)], "B")
-Cashmere = Hero("Cashmere", 100, 100, 45, 90, 7, 1, [("Cook", "A", cook), ("Whack", "B", whack), ("Basic Attack", "C", basicattack)], "C")
+Cashmere = Hero("Cashmere", 100, 100, 45, 90, 7, 1, [("Cook", "A", cook), ("Whack", "B", whack), ("Group Heal", "C", groupheal),("Basic Attack", "D", basicattack)], "C")
 Ceres = Hero("Ceres", 90, 90, 50, 50, 8, 1, [("Shoulder Bash", "A", shoulderBash), ("Study", "B", study), ("Test", "C", testmove), ("Basic Attack", "D", basicattack)], "D")
 heroes = [Jade, Kelsey, Cashmere, Ceres]
 
@@ -316,6 +340,7 @@ while True:
 """ 
 bugs:
     my will to live
+
 changes:
     when selecting an enemy, the hero you are attacking with is displayed.
     fixed bug where if an invalid enemy position is selected, enemy names / stats won't be printed again.
