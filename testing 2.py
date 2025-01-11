@@ -1,5 +1,4 @@
 import os
-import json
 import random
 
 class Hero:  # class for your characters
@@ -241,7 +240,7 @@ def masterLoop():
 
 
 # moves
-shoulderBash = Attack(damage=17, energyCost=15, name="Shoulder Bash")
+shoulderBash = Attack(damage = 17, energyCost=15, name="Shoulder Bash")
 uppercut = Attack(damage=12, energyCost=10, name="Uppercut")
 toss = Attack(damage=20, energyCost=25, name="Toss")
 jab = Attack(damage=8, energyCost=8, name="Jab")
@@ -250,12 +249,13 @@ whack = Attack(damage=5, energyCost=1, name="Whack")
 cook = Attack(damage=1, energyCost=15, name="Cook")
 study = Attack(damage=0, energyCost=10, name="Study")
 testmove = Attack(damage=999, energyCost=0, name="Test")
+basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack")
 
 # characters/heroes
-Jade = Hero("Jade", 110, 110, 55, 110, 10, 1, [("Shoulder Bash", "A", shoulderBash), ("Uppercut", "B", uppercut), ("Toss", "C", toss)], "A")
-Kelsey = Hero("Kelsey", 80, 80, 45, 90, 8, 1, [("Jab", "A", jab), ("Drop Kick", "B", dropKick)], "B")
-Cashmere = Hero("Cashmere", 100, 100, 45, 90, 7, 1, [("Cook", "A", cook), ("Whack", "B", whack)], "C")
-Ceres = Hero("Ceres", 90, 90, 50, 50, 8, 1, [("Shoulder Bash", "A", shoulderBash), ("Study", "B", study), ("Test", "C", testmove)], "D")
+Jade = Hero("Jade", 110, 110, 55, 110, 10, 1, [("Shoulder Bash", "A", shoulderBash), ("Uppercut", "B", uppercut), ("Toss", "C", toss), ("Basic Attack", "D", basicattack)], "A")
+Kelsey = Hero("Kelsey", 80, 80, 45, 90, 8, 1, [("Jab", "A", jab), ("Drop Kick", "B", dropKick), ("Basic Attack", "C", basicattack)], "B")
+Cashmere = Hero("Cashmere", 100, 100, 45, 90, 7, 1, [("Cook", "A", cook), ("Whack", "B", whack), ("Basic Attack", "C", basicattack)], "C")
+Ceres = Hero("Ceres", 90, 90, 50, 50, 8, 1, [("Shoulder Bash", "A", shoulderBash), ("Study", "B", study), ("Test", "C", testmove), ("Basic Attack", "D", basicattack)], "D")
 heroes = [Jade, Kelsey, Cashmere, Ceres]
 
 # enemies
