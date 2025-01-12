@@ -142,7 +142,6 @@ loopLogic.delayPrint(2, "[???] You need to leave.")
 loopLogic.delayPrint(3, "[???] I'm getting tired. Please leave.")
 loopLogic.delayPrint(7, "[???] Alright that's it.")
 input("press enter to continue")
-"""
 basicattack = combat.Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
 sliceattack = combat.Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
 
@@ -158,4 +157,4 @@ while True:
     combat.game.heroSelect()
     if combat.game.selectedHero:
         combat.game.combatTurn()
-    """
+    
