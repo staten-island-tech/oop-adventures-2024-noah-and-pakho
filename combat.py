@@ -397,8 +397,34 @@ class loop:
 
                     if game.selectedHero:
                         game.combatTurn()
+    def delayPrint(delaySeconds, printString):
+        time.sleep(delaySeconds)
+        print(printString)
 
-loop.mainLoop()
+while True:
+    os.system("cls")
+    print("Welcome. Please select an option:")
+    print()
+    print("[A] - New Game")
+    print("[B] - Continue")
+    print()
+    startingOption = input("Input the letter of the option chosen: ").strip().lower()
+    if startingOption not in ["a", "b"]:
+        input("Invalid option selected. Press enter to try again. ")
+    elif startingOption == "a":
+        loop.initializeGame()
+        os.system("cls")
+        print("")
+        time.sleep(5)
+        loop.delayPrint(1.5, "[???] Hello there.")
+        loop.delayPrint(1.5, "[???] What are you doing here?")
+        loop.delayPrint(1.5, "What...?")
+        loop.delayPrint(2, "[???] Who are you? What are you doing here?")
+        loop.delayPrint(3, )
+        time.sleep(2)
+        print("Who are you?")
+        playerName = input("Who are you?").strip().lower()
+        break
 
 """ 
 bugs:
