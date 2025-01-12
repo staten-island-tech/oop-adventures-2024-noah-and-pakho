@@ -225,7 +225,7 @@ class Game:
             if all(hero.currentHealth == 0 for hero in self.heroes):
                 print("All heroes have been defeated! Game Over.")
                 input("Press Enter to exit.")
-                return
+                pass
 
     def ultimateAttack(self):
         os.system("cls")
@@ -292,30 +292,17 @@ class Game:
             os.system("cls")
 
 # moves
-shoulderBash = Attack(damage = 17, energyCost=15, name="Shoulder Bash", isHealing = False)
-uppercut = Attack(damage = 12, energyCost = 10, name="Uppercut", isHealing = False)
-toss = Attack(damage = 20, energyCost = 25, name="Toss", isHealing = False)
-jab = Attack(damage = 8, energyCost = 8, name="Jab", isHealing = False)
-dropKick = Attack(damage = 13, energyCost = 13, name="Drop Kick", isHealing = False)
-whack = Attack(damage = 5, energyCost = 1, name="Whack", isHealing = False)
-cook = Attack(damage = 30, energyCost = 15, name="Cook", isHealing = True)
-study = Attack(damage = 0, energyCost = 10, name="Study", isHealing = False)
-testmove = Attack(damage = 999, energyCost = 0, name="Test", isHealing = False)
 basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
-groupheal = Attack(damage = 20, energyCost = 30, name = "Group Heal", isHealing = True)
+sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
+
 
 # characters/heroes
-Jade = Hero("Jade", 110, 110, 55, 110, 10, currentLevel, [("Shoulder Bash", "A", shoulderBash), ("Uppercut", "B", uppercut), ("Toss", "C", toss), ("Basic Attack", "D", basicattack)], "A")
-Kelsey = Hero("Kelsey", 80, 80, 45, 90, 8, currentLevel, [("Jab", "A", jab), ("Drop Kick", "B", dropKick), ("Basic Attack", "C", basicattack)], "B")
-Cashmere = Hero("Cashmere", 100, 100, 45, 90, 7, currentLevel, [("Cook", "A", cook), ("Whack", "B", whack), ("Group Heal", "C", groupheal),("Basic Attack", "D", basicattack)], "C")
-Ceres = Hero("Ceres", 90, 90, 50, 50, 8, currentLevel, [("Shoulder Bash", "A", shoulderBash), ("Study", "B", study), ("Test", "C", testmove), ("Basic Attack", "D", basicattack)], "D")
-heroes = [Jade, Kelsey, Cashmere, Ceres]
+Ceres = Hero("", 90, 90, 25, 50, 8, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)], "A")
+heroes = [Ceres]
 
 # enemies
-Slime = Enemy("Slime", 25, 25, 35, {"Goo'd", "Acid Spit"}, "A")
-Goblin = Enemy("Goblin", 75, 75, 12, {"Bash"}, "B")
-Skeleton = Enemy("Skeleton", 100, 100, 12, {"Slice", "Shoot"}, "C")
-enemies = [Slime, Goblin, Skeleton]
+Zol = Enemy("???", 10000, 10000, 10000, {"Demolish"}, "A")
+enemies = [Zol]
 
 game = Game(heroes, enemies)
 
@@ -401,30 +388,7 @@ class loop:
         time.sleep(delaySeconds)
         print(printString)
 
-while True:
-    os.system("cls")
-    print("Welcome. Please select an option:")
-    print()
-    print("[A] - New Game")
-    print("[B] - Continue")
-    print()
-    startingOption = input("Input the letter of the option chosen: ").strip().lower()
-    if startingOption not in ["a", "b"]:
-        input("Invalid option selected. Press enter to try again. ")
-    elif startingOption == "a":
-        loop.initializeGame()
-        os.system("cls")
-        print("")
-        time.sleep(5)
-        loop.delayPrint(1.5, "[???] Hello there.")
-        loop.delayPrint(1.5, "[???] What are you doing here?")
-        loop.delayPrint(1.5, "What...?")
-        loop.delayPrint(2, "[???] Who are you? What are you doing here?")
-        loop.delayPrint(3, )
-        time.sleep(2)
-        print("Who are you?")
-        playerName = input("Who are you?").strip().lower()
-        break
+loop.mainLoop()
 
 """ 
 bugs:
