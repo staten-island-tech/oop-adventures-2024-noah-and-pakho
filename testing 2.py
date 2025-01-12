@@ -290,14 +290,6 @@ class Game:
             input("No available allies to heal. Press Enter to continue.")
             os.system("cls")
 
-def masterLoop():
-    while True:
-        game.heroSelect()
-
-        if game.selectedHero:
-            game.combatTurn()
-
-
 # moves
 shoulderBash = Attack(damage = 17, energyCost=15, name="Shoulder Bash", isHealing = False)
 uppercut = Attack(damage = 12, energyCost = 10, name="Uppercut", isHealing = False)
@@ -329,7 +321,11 @@ game = Game(heroes, enemies)
 os.system("cls")
 input("Press Enter to start the combat simulation. ")
 
-masterLoop()
+while True:
+    game.heroSelect()
+
+    if game.selectedHero:
+        game.combatTurn()
 
 """ 
 bugs:
