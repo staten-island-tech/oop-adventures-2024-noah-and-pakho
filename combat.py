@@ -364,11 +364,28 @@ class loop:
             print("[A] - New Game")
             print("[B] - Continue")
             print()
+            playerName = input("name? ")
             startingOption = input("Input the letter of the option chosen: ").strip().lower()
             if startingOption not in ["a", "b"]:
                 input("Invalid option selected. Press enter to try again. ")
             elif startingOption == "a":
                 loop.initializeGame()
+                loop.delayPrint(1, f"I am {playerName}.")
+                loop.delayPrint(3.5, "[???] Hm.")
+                loop.delayPrint(2, f"[???] {playerName}?")
+                loop.delayPrint(2, "[???] That's a horrible name.")
+                loop.delayPrint(1, "[???] Whatever... You seem lost. ")
+                loop.delayPrint(1.5, "[???] Confused, perhaps...?")
+                loop.delayPrint(2, f"[???] Let me explain: Your name is {playerName}, apparently, and you are in my temple.")
+                loop.delayPrint(4, "[???] I would be way more aggressive, but I'll give you the benefit of the doubt.")
+                loop.delayPrint(2.5, "[???] I'm pretty busy right now, so I'm going to kindly ask you to leave.")
+                loop.delayPrint(4, "...")
+                loop.delayPrint(1.5, "Huh?")
+                loop.delayPrint(4, "[???] What do you mean, 'huh' ??")
+                loop.delayPrint(2, "[???] You need to leave.")
+                loop.delayPrint(3, "[???] I'm getting tired. Please leave.")
+                loop.delayPrint(7, "[???] Alright that's it.")
+                time.sleep(2)
 
                 while True:
                     game.heroSelect()
