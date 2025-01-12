@@ -81,6 +81,9 @@ class loop:
 
                     if combat.game.selectedHero:
                         combat.game.combatTurn()
+    def delayPrint(delaySeconds, printString):
+        time.sleep(delaySeconds)
+        print(printString)
 
 def combatLoop():
     while True:
@@ -101,10 +104,14 @@ while True:
     elif startingOption == "a":
         loop.initializeGame()
         os.system("cls")
-        print("[???] Hello!")
-        time.sleep(1.5)
-        print("[???] You certainly look very strange. Who are you?")
+        print("")
+        time.sleep(5)
+        loop.delayPrint(1.5, "[???] Hello there.")
+        loop.delayPrint(1.5, "[???] What are you doing here?")
+        loop.delayPrint(1.5, "What...?")
+        loop.delayPrint(2, "[???] Who are you? What are you doing here?")
+        loop.delayPrint(3, )
         time.sleep(2)
         print("Who are you?")
-        playerName = input().strip().lower()
+        playerName = input("Who are you?").strip().lower()
         break

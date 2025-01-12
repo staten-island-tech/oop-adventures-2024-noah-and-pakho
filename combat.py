@@ -398,7 +398,27 @@ class loop:
                     if game.selectedHero:
                         game.combatTurn()
 
-loop.mainLoop()
+while True:
+    os.system("cls")
+    print("Welcome. Please select an option:")
+    print()
+    print("[A] - New Game")
+    print("[B] - Continue")
+    print()
+    startingOption = input("Input the letter of the option chosen: ").strip().lower()
+    input(startingOption)
+    if startingOption not in ["a", "b"]:
+        input("Invalid option selected. Press enter to try again. ")
+    elif startingOption == "a":
+        loop.initializeGame()
+        os.system("cls")
+        print("[???] Hello!")
+        time.sleep(1.5)
+        print("[???] You certainly look very strange. Who are you?")
+        time.sleep(2)
+        print("Who are you?")
+        playerName = input().strip().lower()
+        break
 
 """ 
 bugs:
