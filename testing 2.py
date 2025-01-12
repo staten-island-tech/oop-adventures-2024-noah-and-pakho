@@ -1,7 +1,7 @@
 import os
 import random
 
-class Hero:  # class for your characters
+class Hero: 
     def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset, position):
         self.name = name
         self.currentHealth = currentHealth
@@ -13,7 +13,7 @@ class Hero:  # class for your characters
         self.moveset = moveset
         self.position = position
     
-    def displayStats(self):  # displays a character's stats
+    def displayStats(self):
         print(f"Name: {self.name}")
         print(f"Health: {self.currentHealth} / {self.maxHealth}")
         print(f"Energy: {self.currentEnergy} / {self.maxEnergy}")
@@ -26,7 +26,7 @@ class Hero:  # class for your characters
             self.currentEnergy = self.maxEnergy
 
 
-class Enemy:  # a class for enemies you fight against
+class Enemy: 
     def __init__(self, name, currentHealth, maxHealth, strength, moveset, position):
         self.name = name
         self.currentHealth = currentHealth
@@ -35,7 +35,7 @@ class Enemy:  # a class for enemies you fight against
         self.moveset = moveset
         self.position = position
     
-    def displayEnemyStats(self):  # displays an enemy's stats
+    def displayEnemyStats(self):
         print(f"Name: {self.name}")
         print(f"Health: {self.currentHealth}")
         print(f"Moveset: {self.moveset}")
@@ -70,15 +70,15 @@ class Attack:
 
 
 class Game:
-    def __init__(self, heroes, enemies):  # every instance of game will already have the list of heroes & enemies.
+    def __init__(self, heroes, enemies):
         self.heroes = heroes
         self.enemies = enemies
         self.selectedHero = None
-        self.selectedEnemy = None  # this & the above lines are used for functions below.
+        self.selectedEnemy = None 
 
     def displayParty(self):
         os.system("cls")
-        for hero in self.heroes:  # loop that iterates through the list of heroes and displays each hero's stats
+        for hero in self.heroes:  
             print(f"Name: {hero.name} [{hero.position}]")
             print(f"Health: {hero.currentHealth} / {hero.maxHealth} | Energy: {hero.currentEnergy} / {hero.maxEnergy}")
 
@@ -96,11 +96,11 @@ class Game:
     def displayEnemyParty(self):
         os.system("cls")
         aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
-        for enemy in aliveEnemies:  # loop that iterates through list of enemies
+        for enemy in aliveEnemies:
             print(f"Name: {enemy.name} [{enemy.position}]")
             print(f"Health: {enemy.currentHealth}")
         print(" ")
-        print(f"Selected Hero: {self.selectedHero.name}")  # reminder that shows your selected hero
+        print(f"Selected Hero: {self.selectedHero.name}") 
 
     def enemySelect(self):
         os.system("cls")
@@ -114,7 +114,7 @@ class Game:
             print("")
             selectedEnemyPosition = input("Please target an enemy by entering a letter: ").strip().upper()
 
-            if not selectedEnemyPosition:  # same logic present in hero select
+            if not selectedEnemyPosition:  
                 input("Invalid position selected. Press enter to retry. ")
                 os.system("cls")
                 continue
@@ -124,19 +124,26 @@ class Game:
                     os.system("cls")
                     self.selectedEnemy = enemy
                     return
-            input("Invalid enemy position selected. Press enter to retry. ")  # the reason why enemies arent printed when an invalid position is selected is here.
+            input("Invalid enemy position selected. Press enter to retry. ") 
             os.system("cls")
 
     def displayMoveset(self):
         os.system("cls")
-        print(f"{self.selectedHero.name} is attacking {self.selectedEnemy.name}!")  # tells you which hero is attacking which enemy
+        print(f"{self.selectedHero.name} is attacking {self.selectedEnemy.name}!") 
         print(" ")
-        print(f"{self.selectedHero.name}'s Moveset:")  # reminder of who's moveset you're looking at
+        print(f"{self.selectedHero.name}'s Moveset:")  
         for move, letter, attack in self.selectedHero.moveset:
             if move:
-                print(f"{move} [{letter}] (Cost: {attack.energyCost} Energy, Damage: {attack.damage})")
+                if attack.isHealing:
+                    if attack.name == "Cook":
+                        healingPercentage = 50
+                        print(f"{move} [{letter}] (Cost: {attack.energyCost} Energy, Heals: {healingPercentage}% HP)")
+                    elif attack.name == "Group Heal":
+                        healingPercentage = 20
+                        print(f"{move} [{letter}] (Cost: {attack.energyCost} Energy, Heals: {healingPercentage}% of each ally's max HP, and heals slightly less for Cashmere)")
+                else:
+                    print(f"{move} [{letter}] (Cost: {attack.energyCost} Energy, Damage: {attack.damage})")
         
-        # If the hero has full energy, give the option to use the ultimate attack
         if self.selectedHero.currentEnergy == self.selectedHero.maxEnergy:
             print(f"Ultimate Attack [U] - {self.selectedHero.name} unleashes an Ultimate Attack! (Uses all energy)")
 
@@ -152,72 +159,68 @@ class Game:
             if selectedMovePosition in positions:
                 for move, letter, attack in self.selectedHero.moveset:
                     if letter == selectedMovePosition and move:
-                        if self.selectedHero.currentEnergy >= attack.energyCost:  # Ensure the hero has enough energy
+                        if self.selectedHero.currentEnergy >= attack.energyCost: 
                             self.selectedHero.currentEnergy -= attack.energyCost
                             
-                            # Special handling for healing moves
-                            if attack.name == "Group Heal":
-                                self.healAllies(attack)  # Heal all allies (including Cashmere, for less)
-                                return None  # No need to continue the move selection for this turn
-                            elif attack.name == "Cook":
-                                self.healAlly(attack)  # Heal a single ally or Cashmere himself
-                                return None  # No need to continue the move selection for this turn
-                            
+                            if attack.isHealing:
+                                if attack.name == "Group Heal" or attack.name == "Cook":
+                                    self.healAlly(attack)
                             return attack
                         else:
                             input("Not enough energy for that attack. Press Enter to retry.")
                             os.system("cls")
             elif selectedMovePosition == 'U' and self.selectedHero.currentEnergy == self.selectedHero.maxEnergy:
-                    # If 'U' is pressed and energy is full, unleash ultimate attack
                     self.ultimateAttack()
-                    return None  # Return None as we've already used the ultimate attack
+                    return None 
             else:
                     input("Invalid move selection. Press Enter to retry. ")
                     os.system("cls")
 
     def combatTurn(self):
-        for hero in self.heroes:  # This creates the hero cycle
+        for hero in self.heroes:
             if hero.currentHealth > 0:
                 self.selectedHero = hero
                 print(f"{self.selectedHero.name}'s turn:")
 
-                # Regenerate energy before the turn
                 self.selectedHero.regenerateEnergy()
 
-                # Select the enemy for the hero to target
-                self.enemySelect()  # Only one call here
+                self.enemySelect()  
 
-                if self.selectedEnemy:  # Proceed if an enemy was selected
-                    selectedMove = self.moveSelect()
-                    if selectedMove is None:  # If ultimate attack was used, skip the rest of this hero's turn
+                if self.selectedEnemy:  
+                    selectedMove = self.moveSelect() 
+
+                    if selectedMove is None:
                         continue
 
                     os.system("cls")
-                    print(f"{self.selectedHero.name} uses {selectedMove} on {self.selectedEnemy.name}!")
+                    print(f"{self.selectedHero.name} uses {selectedMove}!")
 
-                    damage = selectedMove.damage + (self.selectedHero.level * 2)
-                    self.selectedEnemy.currentHealth -= damage
-                    print(f"{self.selectedHero.name} dealt {damage} damage to {self.selectedEnemy.name}! ({self.selectedEnemy.currentHealth} / {self.selectedEnemy.maxHealth})")
-                    input("Press Enter to continue. ")
+                    if selectedMove.isHealing:
+                        if selectedMove.name == "Group Heal" or selectedMove.name == "Cook":
+                            continue  
 
-                    if self.selectedEnemy.currentHealth <= 0:
-                        self.selectedEnemy.currentHealth = 0
-                        print(f"{self.selectedEnemy.name} has been defeated!")
-                        self.selectedEnemy = None  # Make sure this is None when defeated
+                    else:
+                        damage = selectedMove.damage + (self.selectedHero.level * 2)
+                        self.selectedEnemy.currentHealth -= damage
+                        print(f"{self.selectedHero.name} dealt {damage} damage to {self.selectedEnemy.name}! ({self.selectedEnemy.currentHealth} / {self.selectedEnemy.maxHealth})")
+                        input("Press Enter to continue. ")
+
+                        if self.selectedEnemy.currentHealth <= 0:
+                            self.selectedEnemy.currentHealth = 0
+                            print(f"{self.selectedEnemy.name} has been defeated!")
+                            self.selectedEnemy = None 
 
                 if all(enemy.currentHealth <= 0 for enemy in self.enemies):
                     print("All enemies have been defeated!")
-                    break  # End the turn if all enemies are dead
+                    break 
 
-        # At this point, we need to ensure that enemies who are still alive take their turns
-        if any(enemy.currentHealth > 0 for enemy in self.enemies):  # Check if there are still alive enemies
+        if any(enemy.currentHealth > 0 for enemy in self.enemies):  
             os.system("cls")
             print("Enemy's turn!")
             aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
             for enemy in aliveEnemies:
-                enemy.takeTurn(self.heroes)  # Let enemies take their turn
+                enemy.takeTurn(self.heroes)  
 
-            # Check if all heroes are defeated
             if all(hero.currentHealth == 0 for hero in self.heroes):
                 print("All heroes have been defeated! Game Over.")
                 input("Press Enter to exit.")
@@ -230,74 +233,69 @@ class Game:
         if self.selectedEnemy:
             self.selectedEnemy.currentHealth -= ultimateDamage
             print(f"{self.selectedHero.name} dealt {ultimateDamage} damage to {self.selectedEnemy.name}! ({self.selectedEnemy.currentHealth} / {self.selectedEnemy.maxHealth})")
-            self.selectedHero.currentEnergy = 0  # Use up all energy after ultimate attack
+            self.selectedHero.currentEnergy = 0 
         input("Press Enter to continue.")
     
     def healAlly(self, attack):
-        # Select an ally to heal
         availableAllies = [hero for hero in self.heroes if hero.currentHealth > 0]
-        
+
         if availableAllies:
-            os.system("cls")
-            for ally in availableAllies:
-                print(f"{ally.name} [{ally.position}] - Health: {ally.currentHealth} / {ally.maxHealth}")
-            
-            allyPosition = input("Enter the position of the ally to heal: ").strip().upper()
-            
-            # Find the selected ally
-            for ally in availableAllies:
-                if ally.position == allyPosition:
-                    healAmount = ally.maxHealth * 0.50  # Heal by 50% of max health
-                    ally.currentHealth += healAmount
-                    if ally.currentHealth > ally.maxHealth:  # Ensure health doesn't exceed max health
-                        ally.currentHealth = ally.maxHealth
-                    
+            if attack.name == "Cook":
+                os.system("cls")
+                for ally in availableAllies:
+                    print(f"{ally.name} [{ally.position}] - Health: {ally.currentHealth} / {ally.maxHealth}")
+
+                allyPosition = input("Enter the position of the ally to heal: ").strip().upper()
+
+                validSelection = False
+                for ally in availableAllies:
+                    if ally.position == allyPosition:
+                        validSelection = True
+                        break
+                
+                if not validSelection:
+                    input("Invalid ally position selected. Press Enter to retry.")
                     os.system("cls")
-                    print(f"{self.selectedHero.name} heals {ally.name} for {healAmount:.2f} HP! ({ally.currentHealth} / {ally.maxHealth})")
-                    input("Press Enter to continue. ")
-                    return None
-            
-            input("Invalid ally selection. Press Enter to retry.")
-            os.system("cls")
+                    return
+
+                for ally in availableAllies:
+                    if ally.position == allyPosition:
+                        healAmount = ally.maxHealth * 0.50
+                        ally.currentHealth += healAmount
+                        if ally.currentHealth > ally.maxHealth:  
+                            ally.currentHealth = ally.maxHealth
+                        os.system("cls")
+                        print(f"{self.selectedHero.name} heals {ally.name} for {healAmount:.2f} HP! ({ally.currentHealth} / {ally.maxHealth})")
+                        input("Press Enter to continue.")
+                        return None
+            elif attack.name == "Group Heal":
+                os.system("cls")
+                for ally in self.heroes:
+                    if ally != self.selectedHero:  
+                        healAmount = ally.maxHealth * 0.20 
+                        ally.currentHealth += healAmount
+                        if ally.currentHealth > ally.maxHealth:
+                            ally.currentHealth = ally.maxHealth
+                        print(f"{self.selectedHero.name} heals {ally.name} for {healAmount:.2f} HP! ({ally.currentHealth} / {ally.maxHealth})")
+
+                if self.selectedHero.name == "Cashmere":
+                    healAmount = self.selectedHero.maxHealth * 0.15
+                    self.selectedHero.currentHealth += healAmount
+                    if self.selectedHero.currentHealth > self.selectedHero.maxHealth:
+                        self.selectedHero.currentHealth = self.selectedHero.maxHealth
+                    print(f"{self.selectedHero.name} heals himself for {healAmount:.2f} HP! ({self.selectedHero.currentHealth} / {self.selectedHero.maxHealth})")
+                input("Press Enter to continue. ")
+                return None
         else:
             input("No available allies to heal. Press Enter to continue.")
             os.system("cls")
-
-    def healAllies(self, attack):
-        # Define heal percentages
-        healPercentageForAllies = 0.20  # 20% of max health for other allies
-        healPercentageForCashmere = 0.15  # 15% of max health for Cashmere (heals himself for less)
-
-        os.system("cls")
-        for ally in self.heroes:
-            if ally.currentHealth > 0:
-                if ally == self.selectedHero:  # Check if the ally is Cashmere
-                    healAmount = ally.maxHealth * healPercentageForCashmere  # Heal Cashmere for a smaller amount
-                else:
-                    healAmount = ally.maxHealth * healPercentageForAllies  # Heal other allies for the regular amount
-                
-                ally.currentHealth += healAmount
-                if ally.currentHealth > ally.maxHealth:  # Ensure health doesn't exceed max health
-                    ally.currentHealth = ally.maxHealth
-                
-                print(f"{self.selectedHero.name} heals {ally.name} for {healAmount:.2f} HP! ({ally.currentHealth} / {ally.maxHealth})")
-        
-        input("Press Enter to continue. ")
-        os.system("cls")
-
 
 def masterLoop():
     while True:
         game.heroSelect()
 
         if game.selectedHero:
-            game.enemySelect()
-            if game.selectedEnemy:
-                game.combatTurn()
-
-                if not game.aliveEnemies:
-                    break
-                continue
+            game.combatTurn()
 
 
 # moves
@@ -331,11 +329,7 @@ game = Game(heroes, enemies)
 os.system("cls")
 input("Press Enter to start the combat simulation. ")
 
-while True:
-    game.heroSelect()
-
-    if game.selectedHero:
-        game.combatTurn()
+masterLoop()
 
 """ 
 bugs:
@@ -351,4 +345,5 @@ idea:
     one of their moves will be a "wait" move that costs zero energy, but does not deal damage.
     another move will be a move that does damage based on all of your energy past a certain amount
     0 + 1(energy past maxEnergy) * (strength / 5)
+    remove all these dumbass comments
 """
