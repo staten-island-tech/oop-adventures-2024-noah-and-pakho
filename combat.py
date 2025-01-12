@@ -1,5 +1,7 @@
 import os
 import random
+import time
+currentLevel = 1
 
 class Hero: 
     def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset, position):
@@ -20,7 +22,6 @@ class Hero:
         print(f"Moveset: {[move[0] for move in self.moveset]}")
 
     def regenerateEnergy(self):
-        """Regenerate energy at the start of each turn, capped at maxEnergy."""
         self.currentEnergy += self.energyRegen
         if self.currentEnergy > self.maxEnergy:
             self.currentEnergy = self.maxEnergy
@@ -304,31 +305,100 @@ basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHe
 groupheal = Attack(damage = 20, energyCost = 30, name = "Group Heal", isHealing = True)
 
 # characters/heroes
-Jade = Hero("Jade", 110, 110, 55, 110, 10, 1, [("Shoulder Bash", "A", shoulderBash), ("Uppercut", "B", uppercut), ("Toss", "C", toss), ("Basic Attack", "D", basicattack)], "A")
-Kelsey = Hero("Kelsey", 80, 80, 45, 90, 8, 1, [("Jab", "A", jab), ("Drop Kick", "B", dropKick), ("Basic Attack", "C", basicattack)], "B")
-Cashmere = Hero("Cashmere", 100, 100, 45, 90, 7, 1, [("Cook", "A", cook), ("Whack", "B", whack), ("Group Heal", "C", groupheal),("Basic Attack", "D", basicattack)], "C")
-Ceres = Hero("Ceres", 90, 90, 50, 50, 8, 1, [("Shoulder Bash", "A", shoulderBash), ("Study", "B", study), ("Test", "C", testmove), ("Basic Attack", "D", basicattack)], "D")
+Jade = Hero("Jade", 110, 110, 55, 110, 10, currentLevel, [("Shoulder Bash", "A", shoulderBash), ("Uppercut", "B", uppercut), ("Toss", "C", toss), ("Basic Attack", "D", basicattack)], "A")
+Kelsey = Hero("Kelsey", 80, 80, 45, 90, 8, currentLevel, [("Jab", "A", jab), ("Drop Kick", "B", dropKick), ("Basic Attack", "C", basicattack)], "B")
+Cashmere = Hero("Cashmere", 100, 100, 45, 90, 7, currentLevel, [("Cook", "A", cook), ("Whack", "B", whack), ("Group Heal", "C", groupheal),("Basic Attack", "D", basicattack)], "C")
+Ceres = Hero("Ceres", 90, 90, 50, 50, 8, currentLevel, [("Shoulder Bash", "A", shoulderBash), ("Study", "B", study), ("Test", "C", testmove), ("Basic Attack", "D", basicattack)], "D")
 heroes = [Jade, Kelsey, Cashmere, Ceres]
 
 # enemies
 Slime = Enemy("Slime", 25, 25, 35, {"Goo'd", "Acid Spit"}, "A")
-Goblin = Enemy("Goblin", 75, 75, 5, {"Bash"}, "B")
-Skeleton = Enemy("Skeleton", 100, 100, 10, {"Slice", "Shoot"}, "C")
+Goblin = Enemy("Goblin", 75, 75, 12, {"Bash"}, "B")
+Skeleton = Enemy("Skeleton", 100, 100, 12, {"Slice", "Shoot"}, "C")
 enemies = [Slime, Goblin, Skeleton]
 
 game = Game(heroes, enemies)
 
-def mainLoop():
-    os.system("cls")
-    input("Press Enter to start the combat simulation. ")
+randomTip = random.randint(1, 5)
+class loop:
+    def tips():
+        if randomTip == 1:
+            displayedTip = "Tip: Your computer is spying on you. Your government is spying on you. No one is safe."
+        elif randomTip == 2:
+            displayedTip = "Tip: You are never alone. I am in your washing machine every day from 1 AM to 5 AM."
+        elif randomTip == 3:
+            displayedTip = "Tip: The 'dry' part in the word 'drywall' is a lie. They were not dry."
+        elif randomTip == 4:
+            displayedTip = "Tip: Every 60 seconds in Africa, a minute goes by everywhere else. This is true!"
+        elif randomTip == 5:
+            displayedTip = "Tip: Yo'ure mother"
+        print(displayedTip)
+    def initializeGame():
+        os.system("cls")
+        print("Loading")
+        loop.tips()
+        time.sleep(1.5)
+        os.system("cls")
+        print("Loading .")
+        loop.tips()
+        time.sleep(1.5)
+        os.system("cls")
+        print("Loading . .")
+        loop.tips()
+        time.sleep(1.5)
+        os.system("cls")
+        print("Loading . . .")
+        loop.tips()
+        time.sleep(1.5)
+        os.system("cls")
+        print("Loading . . . .")
+        loop.tips()
+        time.sleep(1.5)
+        os.system("cls")
+        print("Loading . . .")
+        loop.tips()
+        time.sleep(1.5)
+        os.system("cls")
+        print("Loading . .")
+        loop.tips()
+        time.sleep(1.5)
+        os.system("cls")
+        print("Loading .")
+        loop.tips()
+        time.sleep(1.5)
+        os.system("cls")
+        input("Done! Press Enter to continue. ")
 
-    while True:
-        game.heroSelect()
+    def mainLoop():
+        while True:
+            os.system("cls")
+            print("Welcome. Please select an option:")
+            print()
+            print("[A] - New Game")
+            print("[B] - Continue")
+            print()
+            startingOption = input("Input the letter of the option chosen: ").strip().lower()
+            if startingOption not in ["a", "b"]:
+                input("Invalid option selected. Press enter to try again. ")
+            elif startingOption == "a":
+                loop.initializeGame()
 
-        if game.selectedHero:
-            game.combatTurn()
+                while True:
+                    game.heroSelect()
 
-mainLoop()
+                    if game.selectedHero:
+                        game.combatTurn()
+            elif startingOption == "b":
+                os.system("cls")
+                input("Press Enter to start the combat simulation. ")
+
+                while True:
+                    game.heroSelect()
+
+                    if game.selectedHero:
+                        game.combatTurn()
+
+loop.mainLoop()
 
 """ 
 bugs:
@@ -338,6 +408,7 @@ changes:
     when selecting an enemy, the hero you are attacking with is displayed.
     fixed bug where if an invalid enemy position is selected, enemy names / stats won't be printed again.
     made it so that hero health is displayed when enemies deal damage 
+    added an onboarding menu
 
 idea:
     one of the characters will be able to generate energy past their max, meaning they have infinite energy.
