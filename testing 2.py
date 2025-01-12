@@ -318,14 +318,17 @@ enemies = [Slime, Goblin, Skeleton]
 
 game = Game(heroes, enemies)
 
-os.system("cls")
-input("Press Enter to start the combat simulation. ")
+def mainLoop():
+    os.system("cls")
+    input("Press Enter to start the combat simulation. ")
 
-while True:
-    game.heroSelect()
+    while True:
+        game.heroSelect()
 
-    if game.selectedHero:
-        game.combatTurn()
+        if game.selectedHero:
+            game.combatTurn()
+
+mainLoop()
 
 """ 
 bugs:
