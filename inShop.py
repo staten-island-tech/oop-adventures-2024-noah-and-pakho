@@ -1,5 +1,6 @@
 import os
-import test
+global 屌你老母
+屌你老母 = 1
 
 class Item:
     def __init__(self, name, price, quantity):
