@@ -2,6 +2,7 @@ import os
 import random
 import time
 currentLevel = 1
+currentLevelUltimateModifier = 0.75
 playerName = ""
 class Hero: 
     def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset, position):
@@ -28,14 +29,13 @@ class Hero:
 
 
 class Enemy: 
-    def __init__(self, name, currentHealth, maxHealth, strength, moveset, position, aoe = False):
+    def __init__(self, name, currentHealth, maxHealth, strength, moveset, position):
         self.name = name
         self.currentHealth = currentHealth
         self.maxHealth = maxHealth
         self.strength = strength
         self.moveset = moveset
         self.position = position
-        self.aoe = aoe
     
     def displayEnemyStats(self):
         print(f"Name: {self.name}")
@@ -48,6 +48,8 @@ class Enemy:
 
         if selectedEnemyMove == "Roll Over":
             self.rollOverAttack(heroes)
+        elif selectedEnemyMove == "String Shot":
+            self.stringShotAttack(heroes)
         else:
             if selectedEnemyMove:
                 print(f"{self.name} uses {selectedEnemyMove} on {targetHero.name}!")
@@ -70,8 +72,17 @@ class Enemy:
                 hero.currentHealth -= totalDmg
                 if hero.currentHealth < 0:
                     hero.currentHealth = 0
-                print(f"{self.name} dealth {totalDmg} damage to {hero.name}! ({hero.name} now has {hero.currentHealth} health!)")
+                print(f"{self.name} dealt {totalDmg} damage to {hero.name}! ({hero.name} now has {hero.currentHealth} health!)")
         input("Press Enter to continue. ")
+    def stringShotAttack(self, heroes):
+        print(f"{self.name} uses String Shot! ")
+        totalDmg = 15
+        for hero in heroes:
+            if hero.currentHealth > 0:
+                hero.currentHealth -= totalDmg
+                if hero.currentHealth < 0:
+                    hero.currentHealth = 0
+                print(f"{self.name} dealt {totalDmg} damage to {hero.name}! ({hero.name} now has {hero.currentHealth} health!)")
 
 class Attack:
     def __init__(self, damage, energyCost, name="Unnamed Attack", isHealing = False):
@@ -262,7 +273,8 @@ class Game:
     def ultimateAttack(self):
         os.system("cls")
         print(f"{self.selectedHero.name} unleashes their Ultimate Attack!")
-        ultimateDamage = self.selectedHero.maxEnergy * 3
+        global currentLevelUltimateModifier
+        ultimateDamage = self.selectedHero.maxEnergy * currentLevelUltimateModifier
         if self.selectedEnemy:
             self.selectedEnemy.currentHealth -= ultimateDamage
             print(f"{self.selectedHero.name} dealt {ultimateDamage} damage to {self.selectedEnemy.name}! ({self.selectedEnemy.currentHealth} / {self.selectedEnemy.maxHealth})")
@@ -454,8 +466,8 @@ class loop:
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(3.5, "You see two individuals struggling with a particularly large foe...")
-        loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")"""
-        os.system("cls")
+        loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")
+        os.system("cls")"""
         
         headbutt = Attack(15, 10, "Headbutt", isHealing = False)
         slam = Attack(10, 5, "Slam", isHealing = False)
@@ -465,7 +477,7 @@ class loop:
         Ceres.currentEnergy = 45
         Jade = Hero("Jade", 120, 120, 50, 100, 2.5, currentLevel, [("Basic Attack", "A", basicattack), ("Headbutt", "B", headbutt)], "B")
         Kelsey = Hero("Kelsey", 75, 75, 55, 110, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam)], "C")
-        Cashmere = Hero("Cashmere", 110, 110, 75, 150, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook)], "D")
+        Cashmere = Hero("Cashmere", 140, 140, 75, 150, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook)], "D")
         heroes.append(Jade)
         heroes.append(Kelsey)
         heroes.append(Cashmere)
@@ -482,11 +494,154 @@ class loop:
                     break
             else:
                 break
-        
+        """
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(3.5, "[???] Damn, that guy was way tougher than usual...")
-        loop.delayPrint(2.5, "[???] Exactly! Usually all we face are some ")
+        loop.delayPrint(2.5, "[???] Exactly! Usually all we face are some little enemies, but this guy was really big!")
+        loop.delayPrint(3.75, "[Jade] I'm glad you guys are all okay.")
+        loop.delayPrint(2.5, f"{playerName}, this is Kelsey and Cashmere. Kelsey and Cashmere, {playerName}.")
+        loop.delayPrint(3, "[Jade] I found this guy near our campsite looking horribly disheveled, and I wanted to see if you guys could do anything about it.")
+        loop.delayPrint(2.5, "[Cashmere] Oh my... Of course!")
+        loop.delayPrint(6.5, "Cashmere tends to your wounds. You haven't bothered to look down the entire time, apparently, because you didn't even notice you had wounds on you.")
+        loop.delayPrint(2, "[Kelsey] That's only a temporary fix, though. We should probably head back to the campsite if we want to actually do something.")
+        loop.delayPrint(1.5, f"[Jade] Yeah, we also have to decide what to do with {playerName}. ")
+        loop.delayPrint(2, f"[Kelsey] Oh yeahhh! Where did you even come from, {playerName}?")
+        loop.delayPrint(2.5, "Where did I come from? That's obvious! I came from")
+        loop.delayPrint(2, "Uhhhhhh")
+        loop.delayPrint(5, "...")
+        loop.delayPrint(3.5, "I don't... remember...")
+        loop.delayPrint(4, "[Cashmere] Uhh???? Alright then?? I guess we can take care of you for now...")
+        loop.delayPrint(2.5, "[Jade] That's really strange... ")
+        loop.delayPrint(2.5, "[Kelsey] When Cashmere was tending to your wounds, I noticed a strange mark on your forearm. Do any of you know what that is?")
+        loop.delayPrint(3, "You look down, and lo and behold, there it is. A particularly strange mark is imbedded into your forearm, and there seems to be a strange pulsing emanating from it.")
+        loop.delayPrint(2, "[Jade] Yikes.... We probably shouldn't touch that. What if it's dangerous?")
+        loop.delayPrint(3.5, f"[Cashmere] Good point. Let's go. We'll figure out what to do with {playerName} eventually.")
+        loop.delayPrint(1.5, "[Kelsey] I guess that settles it then? We just have another person now...?")
+        loop.delayPrint(2.5, "[Jade] You say that as if we don't need the manpower...")
+        loop.delayPrint(3.5, "[Cashmere] Come on, you guys, let's head back for now.")
+        loop.delayPrint(4.5, "Now with a newfound group, you head to a campsite on the edge of the forest.")
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(4, "[Kelsey] I can't WAIT for you to meet our campsite! It's got so much cool stuff and there's so much nature stuff and like there's - ")
+        loop.delayPrint(1.5, "[Jade] Shut up, Kel. You're ruining the surprise.")
+        loop.delayPrint(2.5, "[Kelsey] ??? Sorry I guess??? Excuse me for being excited about an accomplishment...")
+        loop.delayPrint(2, f"[Jade] I'm not trying to play down our accomplishment, I'm just saying that MAYBE {playerName} might want to find out for themself...")
+        loop.delayPrint(2.5, "[Kelsey] Well SORRY for slightly disrupting your routine, perfectionist...")
+        loop.delayPrint(1.5, "[Jade] Are you actually serious right now")
+        loop.delayPrint(4.5, "[Cashmere] Errrh... Guys, you might want to check this out...")
+        loop.delayPrint(1.5, "[Kelsey] WHAT DO YOU MEAN 'are you actually serious right now' ?????")
+        loop.delayPrint(2, "[Jade] WHAT I MEAN IS THAT MAYBE YOU DON'T HAVE TO BE SO IMPULSIVE ALL THE TIME????")
+        loop.delayPrint(2.5, "[Cashmere] Guys -")
+        loop.delayPrint(2.25, "[Kelsey] THERE IS NO WAY WE'RE GETTING INTO THIS RIGHT NOW IN FRONT OF THE NEW GUY")
+        loop.delayPrint(2, "[Jade] OH YOU WANNA BRING THEM INTO THIS???")
+        loop.delayPrint(1, "[Cashmere] THE CAMPSITE IS GONE YOU IDIOTS")
+        time.sleep(0.25)
+        print("[Jade] WHAT")
+        print("[Kelsey] WHAT")
+        loop.delayPrint(0.5, "WHAT???")
+        loop.delayPrint(2, "Damn. Cashmere is right. The group's so-called 'campsite' seems to be nothing but a bunch of blankets and cloths now...")
+        loop.delayPrint(1, "There's also some seemingly foreign markings in the ground. ")
+        loop.delayPrint(2, "[Jade] Oh god oh god oh god oh god oh god")
+        loop.delayPrint(2, "[Kelsey] Yall where is Clove?")
+        loop.delayPrint(1.5, "Clove...? Must be another one of their troupe.")
+        loop.delayPrint(2, "[Cashmere] Shoot, you're right... Clove is missing!")
+        loop.delayPrint(3, "[Cashmere] I can't seem to find any sign of him anywhere... Maybe he's just wandered off?")
+        loop.delayPrint(1, "[Jade] Clove wouldn't do that... It's not like them!")
+        loop.delayPrint(1.5, "[Kelsey] OUSI;GH;AISDHG;ASDIGHAS;DLKHG well isn't this just the best day ever")
+        loop.delayPrint(2.5, "[Cashmere] Calm down, you guys. We'll find him...")
+        loop.delayPrint(1, "[Jade] How do you even know for sure???")
+        loop.delayPrint(1.5, "[Cashmere] What, are we just going to give up on searching for him?")
+        loop.delayPrint(1, "[Kelsey] He brings up a good point....")
+        loop.delayPrint(2.5, "[Jade] I do NOT want to hear this from you right now Kelsey")
+        loop.delayPrint(1.5, "[Cashmere] Calm down, everyone. Do you all remember the caves we discovered a while back near here?")
+        loop.delayPrint(1, f"[Kelsey] {playerName} definitely wouldn't...")
+        loop.delayPrint(1, "[Jade] NOT HIS POINT RIGHT NOW KEL")
+        loop.delayPrint(1.5, "[Cashmere] What I was trying to say was that maybe we could start searching there?")
+        loop.delayPrint(2.5, "[Kelsey] Alright, but it's going to be quite dangerous there...")
+        loop.delayPrint(1, "[Cashmere] Clove could also be in danger.")
+        loop.delayPrint(1.5, "[Jade] Come on, let's go already....")
+        loop.delayPrint(2, "I guess we're going to the caves now?")
+        loop.delayPrint(1, "None of them really asked about my opinion on this, but... whatever... it sounds important to them.")
+        loop.delayprint(1, "I still have yet to figure out what the hell I'm doing here, though.")
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(1.5, "The group has dragged you along with them for the second or third time today, and this time, you're going along with them to what's supposed to be a super dangerous cave. ")
+        loop.delayPrint(1, "[Cashmere] This should be it up ahead.")
+        loop.delayPrint(1.5, "[Jade] Yikes... This place is still so creepy...")
+        loop.delayPrint(1, "[Kelsey] I guess we just head in?")
+        loop.delayPrint(2, "[Cashmere] Not so fast there. We need to make sure everything is ready and that we're all healthy.")
+        loop.delayPrint(1.5, "[Cashmere] It wouldn't be wise to just head in face-first, as we could really suffer consequences.")
+        loop.delayPrint(2.5, "[Cashmere] There are a bunch of monsters lurking in here, and it would be really easy to get surrounded if we don't plan this strategically.")
+        loop.delayPrint(1, "[Cashmere] I propose we draft a plan of attack before we go in. Kelsey?")
+        loop.delayPrint(2, "[Cashmere] Kelsey?")
+        loop.delayPrint(0.5, "[Jade] Kelsey's already ran in a while ago.")
+        loop.delayPrint(1, "[Cashmere] God damn it.")
+        loop.delayPrint(2, "[Cashmere] I guess we just follow him in then...")
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(1, "[Cashmere] KELSEY! ARE YOU THERE?")
+        loop.delayPrint(2.5, "[Jade] KEL??")
+        loop.delayPrint(5.5, "[Kelsey] CHECK OUT THIS SHINY ROCK!!")
+        loop.delayPrint(3.5, "Out of what seems to be nowhere, Kelsey runs towards the three of you, holding a particularly lustrous rock.")
+        loop.delayPrint(1, "[Kelsey] Isn't this so cool??")
+        loop.delayPrint(2.5, "[Cashmere] ... Kelsey, you shouldn't be picking up random things in the wilderness...")
+        loop.delayPrint(1, "[Kelsey] But it's... so shiny...")
+        loop.delayPrint(1.5, "[Kelsey] And when you rub it... it makes such a cool sound!! Look!")
+        loop.delayPrint(1, "Before anyone can object, Kelsey starts rubbing the rock in his hand, and it starts resonating...")
+        loop.delayPrint(3.5, "[Jade] You're really stupid, you know that?")
+        loop.delayPrint(1.5, "[Kelsey] What, so I can't have cool things anymore??")
+        loop.delayPrint(2, "[Cashmere] Not if we don't know what those cool things are... or what they could do... ")
+        loop.delayPrint(1.5, "[Kelsey] YEAH RIGHT... Like anything bad could ever happen from such a cool rock...")
+        loop.delayPrint(3, "Kelsey throws the rock at a cavern wall, and suddenly, monsters materialize out of thin air...")
+        loop.delayPrint(2.5, "[Jade] What do you define as 'anything bad', exactly?")
+        loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight...")"""
+        
+        Ceres.currentHealth = 90
+        Ceres.currentEnergy = 45
+        Jade.currentHealth = 120
+        Jade.currentEnergy = 50
+        Kelsey.currentHealth = 75
+        Kelsey.currentEnergy = 55
+        Cashmere.currentHealth = 140
+        Cashmere.currentEnergy = 75
+
+        enemies.clear()
+        voraciousSpider = Enemy("Voracious Spider", 80, 80, 20, {"String Shot", "Venom Shot", "Lunge"}, "A")
+        undeadMiner = Enemy("Undead Miner", 110, 110, 15, {"Shovel Whack", "Shovel Smack"}, "B")
+        bat = Enemy("Bat", 30, 30, 40, {"Nibble"}, "C")
+        enemies.append(voraciousSpider)
+        enemies.append(undeadMiner)
+        enemies.append(bat)
+        
+        while True:
+            game.heroSelect()
+            if game.selectedHero:
+                combatActive = game.combatTurn()
+                if not combatActive:
+                    break
+            else:
+                break
+        
+        loop.loadingScreen()
+        os.system("cls")
+
+        currentLevel = 2
+        currentLevelUltimateModifier = 1
+
+        stab = Attack(30, 20, "Stab", isHealing = False)
+        powerhit = Attack(25, 20, "Power Hit", isHealing = False)
+        whittle = Attack(5, 1, "Whittle", isHealing = False)
+        whack = Attack(10, 10, "Whack", isHealing = False)
+
+        Ceres = Hero(playerName, 105, 105, 50, 100, 7.5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack), ("Stab", "C", stab)], "A")
+        Jade = Hero("Jade", 130, 130, 60, 120, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Headbutt", "B", headbutt), ("Power Hit", "C", powerhit)], "B")
+        Kelsey = Hero("Kelsey", 80, 80, 65, 130, 15, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam), ("Whittle", "C", whittle)], "C")
+        Cashmere = Hero("Cashmere", 150, 150, 85, 170, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook), ("Whack", "C", whack)], "D")
+
+        loop.delayPrint(1.5, "[Jade] Kel, I really hope you're done being an idiot.")
+        loop.delayPrint(1.5, "[Kelsey] Sorry, I didn't know...")
+        loop.delayPrint(2, "[Cashmere] Kelsey, you really should know better than this...")
 
     def delayPrint(delaySeconds, printString):
         time.sleep(delaySeconds)
