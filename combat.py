@@ -372,6 +372,7 @@ class loop:
             else:
                 break
         
+        """
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(1.5, "[???] Hello there.")
@@ -381,7 +382,7 @@ class loop:
         loop.delayPrint(3, "[???] Are you there?")
         time.sleep(2)
         print("Good question... Who am I?")
-        time.sleep(5)
+        time.sleep(5)"""
         global playerName
         yes = True
         while yes:
@@ -392,7 +393,7 @@ class loop:
             else:
                 loop.delayPrint(1, f"I am {playerName}.")
                 yes = False
-        
+        """
         loop.delayPrint(3.5, "[???] Hm.")
         loop.delayPrint(2, f"[???] {playerName}?")
         loop.delayPrint(2, "[???] That's a horrible name.")
@@ -407,7 +408,7 @@ class loop:
         loop.delayPrint(2, "[???] You need to leave.")
         loop.delayPrint(3, "[???] I'm getting tired. Please leave.")
         loop.delayPrint(7, "[???] Alright, that's it.")
-        time.sleep(2)
+        time.sleep(2)"""
         # moves
         basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
         sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
@@ -431,7 +432,7 @@ class loop:
             else:
                 break
 
-
+        """
         os.system("cls")
         
         loop.delayPrint(4, "[???] You have been defeated.")
@@ -466,7 +467,7 @@ class loop:
         os.system("cls")
         loop.delayPrint(3.5, "You see two individuals struggling with a particularly large foe...")
         loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")
-        os.system("cls")
+        os.system("cls")"""
         
         headbutt = Attack(15, 10, "Headbutt", isHealing = False)
         slam = Attack(10, 5, "Slam", isHealing = False)
@@ -769,11 +770,14 @@ class loop:
                         break
                     elif continueyesorno in ["y", "yes"]:
                         continue
-
-
+                    break
+                break
             elif useItemsInInventory in ["n", "no"]:
                 loop.delayPrint(1, "Very well. Closing inventory...")
             break
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(1, "And within a fraction of a second, Jash disappears...")
       
 
     def delayPrint(delaySeconds, printString):
