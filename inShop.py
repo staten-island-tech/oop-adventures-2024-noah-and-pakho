@@ -111,6 +111,3 @@ class Game:
                 print("Sorry, I couldn't get that. Try again.")
 
 """and then here theres gonna be a function to lead into the other after you exit the shop"""
-
-Game.inShop()
-os.system('cls')

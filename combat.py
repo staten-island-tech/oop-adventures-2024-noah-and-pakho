@@ -3,6 +3,7 @@ import random
 import time
 import inShop
 
+global currentLevel
 currentLevel = 1
 currentLevelUltimateModifier = 0.75
 playerName = ""
@@ -414,6 +415,7 @@ class loop:
         sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
 
         # characters/heroes
+        global currentLevel
         Ceres = Hero(playerName, 90, 90, 45, 90, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)], "A")
         heroes = [Ceres]
 
@@ -494,7 +496,7 @@ class loop:
                     break
             else:
                 break
-        
+        """
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(3.5, "[???] Damn, that guy was way tougher than usual...")
@@ -595,7 +597,7 @@ class loop:
         loop.delayPrint(1.5, "[Kelsey] YEAH RIGHT... Like anything bad could ever happen from such a cool rock...")
         loop.delayPrint(3, "Kelsey throws the rock at a cavern wall, and suddenly, monsters materialize out of thin air...")
         loop.delayPrint(2.5, "[Jade] What do you define as 'anything bad', exactly?")
-        loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight...")
+        loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight...")"""
         
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
@@ -638,7 +640,7 @@ class loop:
         Jade = Hero("Jade", 130, 130, 60, 120, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Headbutt", "B", headbutt), ("Power Hit", "C", powerhit)], "B")
         Kelsey = Hero("Kelsey", 80, 80, 65, 130, 15, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam), ("Whittle", "C", whittle)], "C")
         Cashmere = Hero("Cashmere", 150, 150, 85, 170, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook), ("Whack", "C", whack)], "D")
-
+        """
         loop.delayPrint(1.5, "[Jade] Kel, I really hope you're done being an idiot.")
         loop.delayPrint(1.5, "[Kelsey] Sorry, I didn't know...")
         loop.delayPrint(2, "[Cashmere] Kelsey, you really should know better than this...")
@@ -667,7 +669,7 @@ class loop:
         loop.delayPrint(1.5, "[Cashmere] Is it... money...?")
         loop.delayPrint(1, "[Jash] That is correct.")
         loop.delayPrint(1.5, "[Jade] Could've just said that...")
-        loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")
+        loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")"""
         while True:
             shopOrNo = input("Buy items at Jash's store? Y/N ").strip().lower()        
             if shopOrNo not in ["y", "n", "yes", "no"]:
