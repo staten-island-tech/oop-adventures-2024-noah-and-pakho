@@ -373,7 +373,6 @@ class loop:
             else:
                 break
         
-        """
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(1.5, "[???] Hello there.")
@@ -383,7 +382,7 @@ class loop:
         loop.delayPrint(3, "[???] Are you there?")
         time.sleep(2)
         print("Good question... Who am I?")
-        time.sleep(5)"""
+        time.sleep(5)
         global playerName
         yes = True
         while yes:
@@ -433,8 +432,6 @@ class loop:
                     break
             else:
                 break
-
-        """
         os.system("cls")
         
         loop.delayPrint(4, "[???] You have been defeated.")
@@ -446,8 +443,10 @@ class loop:
         loop.delayPrint(2.5, "[???] Oh my, are you okay??")
         loop.delayPrint(2, "[???] Damn, you seem really bruised...")
         loop.delayPrint(2.5, "[???] Follow me, I'll get you some help!")
+        time.sleep(3)
         os.system("cls")
         loop.delayPrint(3, "The unknown person drags you to a campsite . . .")
+        time.sleep(3)
         os.system("cls")
         loop.delayPrint(5, "[???] What happened to you? You're in really bad shape...")
         loop.delayPrint(2, "[???] Don't worry, I know a guy who can help for things like this.")
@@ -465,11 +464,13 @@ class loop:
         loop.delayPrint(5, "Just then, the two of you hear a faint noise.")
         loop.delayPrint(3.5, "[Jade] Sounds like commotion. I wonder what's happening?")
         loop.delayPrint(2.5, "The two of you venture closer to the source of the noise...")
+        time.sleep(1.5)
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(3.5, "You see two individuals struggling with a particularly large foe...")
         loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")
-        os.system("cls")"""
+        time.sleep(3)
+        os.system("cls")
         
         headbutt = Attack(15, 10, "Headbutt", isHealing = False)
         slam = Attack(10, 5, "Slam", isHealing = False)
@@ -496,13 +497,13 @@ class loop:
                     break
             else:
                 break
-        """
         loop.loadingScreen()
         os.system("cls")
+        """
         loop.delayPrint(3.5, "[???] Damn, that guy was way tougher than usual...")
         loop.delayPrint(2.5, "[???] Exactly! Usually all we face are some little enemies, but this guy was really big!")
         loop.delayPrint(3.75, "[Jade] I'm glad you guys are all okay.")
-        loop.delayPrint(2.5, f"{playerName}, this is Kelsey and Cashmere. Kelsey and Cashmere, {playerName}.")
+        loop.delayPrint(2.5, f"[Jade] {playerName}, this is Kelsey and Cashmere. Kelsey and Cashmere, {playerName}.")
         loop.delayPrint(3, "[Jade] I found this guy near our campsite looking horribly disheveled, and I wanted to see if you guys could do anything about it.")
         loop.delayPrint(2.5, "[Cashmere] Oh my... Of course!")
         loop.delayPrint(6.5, "Cashmere tends to your wounds. You haven't bothered to look down the entire time, apparently, because you didn't even notice you had wounds on you.")
@@ -523,6 +524,7 @@ class loop:
         loop.delayPrint(2.5, "[Jade] You say that as if we don't need the manpower...")
         loop.delayPrint(3.5, "[Cashmere] Come on, you guys, let's head back for now.")
         loop.delayPrint(4.5, "Now with a newfound group, you head to a campsite on the edge of the forest.")
+        time.sleep(1.5)
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(4, "[Kelsey] I can't WAIT for you to meet our campsite! It's got so much cool stuff and there's so much nature stuff and like there's - ")
@@ -565,7 +567,7 @@ class loop:
         loop.delayPrint(1.5, "[Jade] Come on, let's go already....")
         loop.delayPrint(2, "I guess we're going to the caves now?")
         loop.delayPrint(1, "None of them really asked about my opinion on this, but... whatever... it sounds important to them.")
-        loop.delayprint(1, "I still have yet to figure out what the hell I'm doing here, though.")
+        loop.delayPrint(1, "I still have yet to figure out what the hell I'm doing here, though.")
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(1.5, "The group has dragged you along with them for the second or third time today, and this time, you're going along with them to what's supposed to be a super dangerous cave. ")
@@ -640,7 +642,7 @@ class loop:
         Jade = Hero("Jade", 130, 130, 60, 120, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Headbutt", "B", headbutt), ("Power Hit", "C", powerhit)], "B")
         Kelsey = Hero("Kelsey", 80, 80, 65, 130, 15, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam), ("Whittle", "C", whittle)], "C")
         Cashmere = Hero("Cashmere", 150, 150, 85, 170, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook), ("Whack", "C", whack)], "D")
-        """
+        
         loop.delayPrint(1.5, "[Jade] Kel, I really hope you're done being an idiot.")
         loop.delayPrint(1.5, "[Kelsey] Sorry, I didn't know...")
         loop.delayPrint(2, "[Cashmere] Kelsey, you really should know better than this...")
@@ -669,7 +671,7 @@ class loop:
         loop.delayPrint(1.5, "[Cashmere] Is it... money...?")
         loop.delayPrint(1, "[Jash] That is correct.")
         loop.delayPrint(1.5, "[Jade] Could've just said that...")
-        loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")"""
+        loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")
         while True:
             shopOrNo = input("Buy items at Jash's store? Y/N ").strip().lower()        
             if shopOrNo not in ["y", "n", "yes", "no"]:
@@ -691,6 +693,7 @@ class loop:
 
         os.system("cls")
         merchant.list_items()
+        屌你老母 = 1
         while 屌你老母 == 1:
             boughtItem = input("Which item would you like to buy? ").strip()
             os.system('cls')
@@ -725,9 +728,9 @@ class loop:
                 loop.delayPrint(2.5, "Invalid input. Try again. ")
             elif useItemsInInventory in ["y", "yes"]:
                 os.system("cls")
-                time.sleep(1, player)
+                loop.delayPrint(1, player)
                 while True: 
-                    usedItem = input("What would you like to use? (Case Sensitive)").strip()
+                    usedItem = input("What would you like to use? (Case Sensitive) ").strip()
                     if usedItem not in ["Strength Modifier", "Moveset Consumable 00"]:
                         time.sleep(1)
                         input("Invalid selection. Press Enter to try again.")

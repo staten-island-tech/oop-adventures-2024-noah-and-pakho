@@ -1,6 +1,4 @@
 import os
-global 屌你老母
-屌你老母 = 1
 
 class Item:
     def __init__(self, name, price, quantity):
@@ -78,7 +76,8 @@ class Player:
 class Game:
     def inShop():
         os.system('cls')
-        屌你老母 = 1
+        global 屌你老母
+        屌你老母 = True
         # create player
         player = Player("Test", 500)
         # items 
@@ -90,7 +89,7 @@ class Game:
         merchant.add_item(moveitem)
 
         merchant.list_items()
-        while 屌你老母 == 1:
+        while 屌你老母:
             boughtItem = input("Which item would you like to buy? ").strip()
             os.system('cls')
             boughtItemAmt = int(input("How many would you like to buy? "))
@@ -103,7 +102,7 @@ class Game:
             while True:
                 屌你老母 = input("Continue? Y/N ").strip().lower()
                 if 屌你老母 == "y":
-                    屌你老母 = 1
+                    屌你老母 = True
                     os.system('cls')
                     merchant.list_items()
                     break
