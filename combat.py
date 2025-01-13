@@ -372,7 +372,7 @@ class loop:
                 input("Invalid option selected. Press enter to try again. ")
             else:
                 break
-        """
+        
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(1.5, "[???] Hello there.")
@@ -382,7 +382,7 @@ class loop:
         loop.delayPrint(3, "[???] Are you there?")
         time.sleep(2)
         print("Good question... Who am I?")
-        time.sleep(5)"""
+        time.sleep(5)
         global playerName
         yes = True
         while yes:
@@ -393,7 +393,7 @@ class loop:
             else:
                 loop.delayPrint(1, f"I am {playerName}.")
                 yes = False
-        """
+        
         loop.delayPrint(3.5, "[???] Hm.")
         loop.delayPrint(2, f"[???] {playerName}?")
         loop.delayPrint(2, "[???] That's a horrible name.")
@@ -407,7 +407,7 @@ class loop:
         loop.delayPrint(4, "[???] What do you mean, 'huh' ??")
         loop.delayPrint(2, "[???] You need to leave.")
         loop.delayPrint(3, "[???] I'm getting tired. Please leave.")
-        loop.delayPrint(7, "[???] Alright, that's it.")"""
+        loop.delayPrint(7, "[???] Alright, that's it.")
         time.sleep(2)
         # moves
         basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
@@ -434,7 +434,7 @@ class loop:
 
 
         os.system("cls")
-        """
+        
         loop.delayPrint(4, "[???] You have been defeated.")
         loop.delayPrint(1.5, "[???] Now leave.")
         time.sleep(2.5)
@@ -467,7 +467,7 @@ class loop:
         os.system("cls")
         loop.delayPrint(3.5, "You see two individuals struggling with a particularly large foe...")
         loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")
-        os.system("cls")"""
+        os.system("cls")
         
         headbutt = Attack(15, 10, "Headbutt", isHealing = False)
         slam = Attack(10, 5, "Slam", isHealing = False)
@@ -494,7 +494,7 @@ class loop:
                     break
             else:
                 break
-        """
+        
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(3.5, "[???] Damn, that guy was way tougher than usual...")
@@ -595,7 +595,7 @@ class loop:
         loop.delayPrint(1.5, "[Kelsey] YEAH RIGHT... Like anything bad could ever happen from such a cool rock...")
         loop.delayPrint(3, "Kelsey throws the rock at a cavern wall, and suddenly, monsters materialize out of thin air...")
         loop.delayPrint(2.5, "[Jade] What do you define as 'anything bad', exactly?")
-        loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight...")"""
+        loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight...")
         
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
