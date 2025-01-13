@@ -2,7 +2,6 @@ import os
 import random
 import time
 currentLevel = 1
-yes = True
 playerName = ""
 class Hero: 
     def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset, position):
@@ -81,7 +80,9 @@ class Game:
 
     def displayParty(self):
         os.system("cls")
-        for hero in self.heroes:  
+        for hero in self.heroes:
+            if hero.currentEnergy > hero.maxEnergy:
+                hero.currentEnergy = hero.maxEnergy
             print(f"Name: {hero.name} [{hero.position}]")
             print(f"Health: {hero.currentHealth} / {hero.maxHealth} | Energy: {hero.currentEnergy} / {hero.maxEnergy}")
 
@@ -181,27 +182,34 @@ class Game:
 
     def combatTurn(self):
         for hero in self.heroes:
-            if hero.currentHealth > 0:
+            if hero.currentHealth > 0: 
                 self.selectedHero = hero
                 print(f"{self.selectedHero.name}'s turn:")
 
+                # Hero regenerates energy
                 self.selectedHero.regenerateEnergy()
 
-                self.enemySelect()
+                # Check if there are still enemies left to fight
+                aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
+                if not aliveEnemies:
+                    print("All enemies have been defeated!")
+                    return False  # End the combat and return False
 
-                if self.selectedEnemy:
+                # Select enemy for combat
+                self.enemySelect()  # This will now only run if there are alive enemies
+
+                if self.selectedEnemy:  # Make sure a valid enemy is selected
                     selectedMove = self.moveSelect()
 
                     if selectedMove is None:
-                        continue
+                        continue  # Continue the loop if no valid move was selected
 
                     os.system("cls")
                     print(f"{self.selectedHero.name} uses {selectedMove}!")
 
                     if selectedMove.isHealing:
                         if selectedMove.name == "Group Heal" or selectedMove.name == "Cook":
-                            continue
-
+                            continue  # Skip damage dealing logic for healing moves
                     else:
                         damage = selectedMove.damage + (self.selectedHero.level * 2)
                         self.selectedEnemy.currentHealth -= damage
@@ -211,12 +219,14 @@ class Game:
                         if self.selectedEnemy.currentHealth <= 0:
                             self.selectedEnemy.currentHealth = 0
                             print(f"{self.selectedEnemy.name} has been defeated!")
-                            self.selectedEnemy = None
+                            self.selectedEnemy = None  # Remove defeated enemy from the selection
 
-                if all(enemy.currentHealth <= 0 for enemy in self.enemies):
-                    print("All enemies have been defeated!")
-                    break
+                    # Check if all enemies are defeated after hero's turn
+                    if all(enemy.currentHealth <= 0 for enemy in self.enemies):
+                        print("All enemies have been defeated!")
+                        return False  # End the combat and return False
 
+        # If we are here, then some enemies are still alive.
         if any(enemy.currentHealth > 0 for enemy in self.enemies):
             os.system("cls")
             print("Enemy's turn!")
@@ -224,10 +234,12 @@ class Game:
             for enemy in aliveEnemies:
                 enemy.takeTurn(self.heroes)
 
+            # After enemy's turn, check if all heroes are defeated
             if all(hero.currentHealth == 0 for hero in self.heroes):
                 print("All heroes have been defeated! Game Over.")
                 input("Press Enter to exit.")
-                yes = False
+                return False  # End the game if all heroes are defeated
+        return True  # Continue if there are still heroes or enemies left
                 
 
     def ultimateAttack(self):
@@ -294,8 +306,6 @@ class Game:
             input("No available allies to heal. Press Enter to continue.")
             os.system("cls")
 
-
-
 randomTip = random.randint(1, 6)
 class loop:
     def tips():
@@ -333,11 +343,8 @@ class loop:
                 input("Invalid option selected. Press enter to try again. ")
             else:
                 break
-            break
-        os.system("cls")
+        
         loop.loadingScreen()
-        os.system("cls")
-        print("")
         os.system("cls")
         """
         loop.delayPrint(1.5, "[???] Hello there.")
@@ -349,8 +356,17 @@ class loop:
         print("Good question... Who am I?")
         time.sleep(5)"""
         global playerName
-        playerName = input("Who are you? ").strip()
-        loop.delayPrint(1, f"I am {playerName}.")
+        yes = True
+        while yes:
+            playerName = input("Who are you? ").strip()
+            if playerName == "":
+                input("[???] Sorry, I didn't get that. Come again? ")
+                os.system("cls")
+            else:
+                os.system("cls")
+                loop.delayPrint(1, f"I am {playerName}.")
+                yes = False
+        
         loop.delayPrint(3.5, "[???] Hm.")
         loop.delayPrint(2, f"[???] {playerName}?")
         loop.delayPrint(2, "[???] That's a horrible name.")
@@ -384,8 +400,11 @@ class loop:
             game.heroSelect()
 
             if game.selectedHero:
-                game.combatTurn()
-            break
+                combatActive = game.combatTurn()
+                if not combatActive:
+                    break
+            else:
+                break
 
 
         os.system("cls")
@@ -393,6 +412,7 @@ class loop:
         loop.delayPrint(1.5, "[???] Now leave.")
         time.sleep(2.5)
         loop.loadingScreen()
+        os.system("cls")
         loop.delayPrint(3, "Placeholder - character discovers YOU")
         loop.delayPrint(2.5, "placeholder are you ok")
         loop.delayPrint(2, "placeholder, follow me, you seem hurt, i'll get you some help")
