@@ -3,6 +3,7 @@ import random
 import time
 currentLevel = 1
 yes = True
+playerName = ""
 class Hero: 
     def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset, position):
         self.name = name
@@ -94,7 +95,6 @@ class Game:
                 return
 
         input("No available heroes. Press Enter to exit.")
-        yes = False
 
     def displayEnemyParty(self):
         os.system("cls")
@@ -227,7 +227,6 @@ class Game:
             if all(hero.currentHealth == 0 for hero in self.heroes):
                 print("All heroes have been defeated! Game Over.")
                 input("Press Enter to exit.")
-                global yes  # Add this line to set `yes` to False
                 yes = False
                 
 
@@ -295,22 +294,9 @@ class Game:
             input("No available allies to heal. Press Enter to continue.")
             os.system("cls")
 
-# moves
-basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
-sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
 
 
-# characters/heroes
-Ceres = Hero("", 90, 90, 25, 50, 8, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)], "A")
-heroes = [Ceres]
-
-# enemies
-Zol = Enemy("???", 10000000, 10000000, 10000, {"Demolish"}, "A")
-enemies = [Zol]
-
-game = Game(heroes, enemies)
-
-randomTip = random.randint(1, 5)
+randomTip = random.randint(1, 6)
 class loop:
     def tips():
         if randomTip == 1:
@@ -323,6 +309,8 @@ class loop:
             displayedTip = "Tip: Every 60 seconds in Africa, a minute goes by everywhere else. This is true!"
         elif randomTip == 5:
             displayedTip = "Tip: Yo'ure mother"
+        elif randomTip == 6:
+            displayedTip = "Tip: There is a secret code that activates easy mode!"
         print(displayedTip)
     def loadingScreen():
         os.system("cls")
@@ -347,11 +335,11 @@ class loop:
                 break
             break
         os.system("cls")
-        playerName = input("What is your name? ")
         loop.loadingScreen()
         os.system("cls")
         print("")
         os.system("cls")
+        """
         loop.delayPrint(1.5, "[???] Hello there.")
         loop.delayPrint(2, "[???] What are you doing here?")
         loop.delayPrint(3, "What...?")
@@ -359,8 +347,9 @@ class loop:
         loop.delayPrint(3, "[???] Are you there?")
         time.sleep(2)
         print("Good question... Who am I?")
-        time.sleep(5)
-        input("Who are you? ").strip()
+        time.sleep(5)"""
+        global playerName
+        playerName = input("Who are you? ").strip()
         loop.delayPrint(1, f"I am {playerName}.")
         loop.delayPrint(3.5, "[???] Hm.")
         loop.delayPrint(2, f"[???] {playerName}?")
@@ -377,20 +366,39 @@ class loop:
         loop.delayPrint(3, "[???] I'm getting tired. Please leave.")
         loop.delayPrint(7, "[???] Alright, that's it.")
         time.sleep(2)
+        # moves
+        basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
+        sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
 
-        while yes:
+        # characters/heroes
+        Ceres = Hero(playerName, 90, 90, 25, 50, 8, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)], "A")
+        heroes = [Ceres]
+
+        # enemies
+        Zol = Enemy("???", 100, 100, 1, {"Demolish"}, "A")
+        Test = Enemy("Enemy", 100, 100, 1, {"Test"}, "B")
+        enemies = [Zol, Test]
+
+        game = Game(heroes, enemies)
+        while True:
             game.heroSelect()
 
-            if game.selectedHero and yes:
+            if game.selectedHero:
                 game.combatTurn()
-            else:
-                break
             break
 
+
         os.system("cls")
-        loop.delayPrint(4, "You have been defeated.")
-        loop.delayPrint(1.5, "Now leave.")
-        
+        loop.delayPrint(4, "[???] You have been defeated.")
+        loop.delayPrint(1.5, "[???] Now leave.")
+        time.sleep(2.5)
+        loop.loadingScreen()
+        loop.delayPrint(3, "Placeholder - character discovers YOU")
+        loop.delayPrint(2.5, "placeholder are you ok")
+        loop.delayPrint(2, "placeholder, follow me, you seem hurt, i'll get you some help")
+        loop.delayPrint(3, "placeholder random ass mf drags you to campsite")
+        loop.delayPrint(5, "introduce to other 2 guys")
+
 
     def delayPrint(delaySeconds, printString):
         time.sleep(delaySeconds)
