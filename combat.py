@@ -210,32 +210,29 @@ class Game:
                 self.selectedHero = hero
                 print(f"{self.selectedHero.name}'s turn:")
 
-                # Hero regenerates energy
                 self.selectedHero.regenerateEnergy()
 
-                # Check if there are still enemies left to fight
                 aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
                 if not aliveEnemies:
                     os.system("cls")
                     print("All enemies have been defeated!")
                     input("Press Enter to continue. ")
-                    return False  # End the combat and return False
+                    return False  
 
-                # Select enemy for combat
-                self.enemySelect()  # This will now only run if there are alive enemies
+                self.enemySelect()  
 
-                if self.selectedEnemy:  # Make sure a valid enemy is selected
+                if self.selectedEnemy:  
                     selectedMove = self.moveSelect()
 
                     if selectedMove is None:
-                        continue  # Continue the loop if no valid move was selected
+                        continue 
 
                     os.system("cls")
                     print(f"{self.selectedHero.name} uses {selectedMove}!")
 
                     if selectedMove.isHealing:
                         if selectedMove.name == "Group Heal" or selectedMove.name == "Cook":
-                            continue  # Skip damage dealing logic for healing moves
+                            continue 
                     else:
                         damage = selectedMove.damage + (self.selectedHero.level * 2)
                         self.selectedEnemy.currentHealth -= damage
@@ -245,16 +242,16 @@ class Game:
                         if self.selectedEnemy.currentHealth <= 0:
                             self.selectedEnemy.currentHealth = 0
                             print(f"{self.selectedEnemy.name} has been defeated!")
-                            self.selectedEnemy = None  # Remove defeated enemy from the selection
+                            self.selectedEnemy = None  
 
-                    # Check if all enemies are defeated after hero's turn
+                   
                     if all(enemy.currentHealth <= 0 for enemy in self.enemies):
                         os.system("cls")
                         print("All enemies have been defeated!")
                         input("Press Enter to continue. ")
-                        return False  # End the combat and return False
+                        return False  
 
-        # If we are here, then some enemies are still alive.
+        
         if any(enemy.currentHealth > 0 for enemy in self.enemies):
             os.system("cls")
             print("Enemy's turn!")
@@ -262,12 +259,12 @@ class Game:
             for enemy in aliveEnemies:
                 enemy.takeTurn(self.heroes)
 
-            # After enemy's turn, check if all heroes are defeated
+            
             if all(hero.currentHealth == 0 for hero in self.heroes):
                 print("All heroes have been defeated! Game Over.")
                 input("Press Enter to exit.")
-                return False  # End the game if all heroes are defeated
-        return True  # Continue if there are still heroes or enemies left
+                return False 
+        return True 
                 
 
     def ultimateAttack(self):
