@@ -192,7 +192,9 @@ class Game:
                 # Check if there are still enemies left to fight
                 aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
                 if not aliveEnemies:
+                    os.system("cls")
                     print("All enemies have been defeated!")
+                    input("Press Enter to continue. ")
                     return False  # End the combat and return False
 
                 # Select enemy for combat
@@ -223,7 +225,9 @@ class Game:
 
                     # Check if all enemies are defeated after hero's turn
                     if all(enemy.currentHealth <= 0 for enemy in self.enemies):
+                        os.system("cls")
                         print("All enemies have been defeated!")
+                        input("Press Enter to continue. ")
                         return False  # End the combat and return False
 
         # If we are here, then some enemies are still alive.
@@ -245,7 +249,7 @@ class Game:
     def ultimateAttack(self):
         os.system("cls")
         print(f"{self.selectedHero.name} unleashes their Ultimate Attack!")
-        ultimateDamage = self.selectedHero.maxEnergy * 2
+        ultimateDamage = self.selectedHero.maxEnergy * 3
         if self.selectedEnemy:
             self.selectedEnemy.currentHealth -= ultimateDamage
             print(f"{self.selectedHero.name} dealt {ultimateDamage} damage to {self.selectedEnemy.name}! ({self.selectedEnemy.currentHealth} / {self.selectedEnemy.maxHealth})")
@@ -363,7 +367,6 @@ class loop:
                 input("[???] Sorry, I didn't get that. Come again? ")
                 os.system("cls")
             else:
-                os.system("cls")
                 loop.delayPrint(1, f"I am {playerName}.")
                 yes = False
         
@@ -391,9 +394,8 @@ class loop:
         heroes = [Ceres]
 
         # enemies
-        Zol = Enemy("???", 100, 100, 1, {"Demolish"}, "A")
-        Test = Enemy("Enemy", 100, 100, 1, {"Test"}, "B")
-        enemies = [Zol, Test]
+        Zol = Enemy("???", 100000000, 100000000, 100000000, {"Demolish"}, "A")
+        enemies = [Zol]
 
         game = Game(heroes, enemies)
         while True:
