@@ -28,13 +28,14 @@ class Hero:
 
 
 class Enemy: 
-    def __init__(self, name, currentHealth, maxHealth, strength, moveset, position):
+    def __init__(self, name, currentHealth, maxHealth, strength, moveset, position, aoe = False):
         self.name = name
         self.currentHealth = currentHealth
         self.maxHealth = maxHealth
         self.strength = strength
         self.moveset = moveset
         self.position = position
+        self.aoe = aoe
     
     def displayEnemyStats(self):
         print(f"Name: {self.name}")
@@ -45,20 +46,32 @@ class Enemy:
         targetHero = random.choice(heroes)
         selectedEnemyMove = random.choice(list(self.moveset))
 
-        if selectedEnemyMove:
-            print(f"{self.name} uses {selectedEnemyMove} on {targetHero.name}!")
-            damage = random.randint(2, 7) * (self.strength / 4)
-            targetHero.currentHealth -= damage
-            print(f"{self.name} dealt {damage} damage to {targetHero.name}! ({targetHero.currentHealth} / {targetHero.maxHealth})")
-            input("Press Enter to continue. ")
-
-            if targetHero.currentHealth <= 0:
-                targetHero.currentHealth = 0
-                os.system("cls")
-                print(f"{targetHero.name} has been defeated!")
+        if selectedEnemyMove == "Roll Over":
+            self.rollOverAttack(heroes)
         else:
-            print(f"{self.name} has no valid moves to perform.")
+            if selectedEnemyMove:
+                print(f"{self.name} uses {selectedEnemyMove} on {targetHero.name}!")
+                damage = random.randint(2, 7) * (self.strength / 4)
+                targetHero.currentHealth -= damage
+                print(f"{self.name} dealt {damage} damage to {targetHero.name}! ({targetHero.currentHealth} / {targetHero.maxHealth})")
+                input("Press Enter to continue. ")
 
+                if targetHero.currentHealth <= 0:
+                    targetHero.currentHealth = 0
+                    os.system("cls")
+                    print(f"{targetHero.name} has been defeated!")
+            else:
+                print(f"{self.name} has no valid moves to perform.")
+    def rollOverAttack(self, heroes):
+        print(f"{self.name} uses Roll Over! ")
+        totalDmg = 30
+        for hero in heroes:
+            if hero.currentHealth > 0:
+                hero.currentHealth -= totalDmg
+                if hero.currentHealth < 0:
+                    hero.currentHealth = 0
+                print(f"{self.name} dealth {totalDmg} damage to {hero.name}! ({hero.name} now has {hero.currentHealth} health!)")
+        input("Press Enter to continue. ")
 
 class Attack:
     def __init__(self, damage, energyCost, name="Unnamed Attack", isHealing = False):
@@ -347,10 +360,9 @@ class loop:
                 input("Invalid option selected. Press enter to try again. ")
             else:
                 break
-        
+        """
         loop.loadingScreen()
         os.system("cls")
-        """
         loop.delayPrint(1.5, "[???] Hello there.")
         loop.delayPrint(2, "[???] What are you doing here?")
         loop.delayPrint(3, "What...?")
@@ -369,7 +381,7 @@ class loop:
             else:
                 loop.delayPrint(1, f"I am {playerName}.")
                 yes = False
-        
+        """
         loop.delayPrint(3.5, "[???] Hm.")
         loop.delayPrint(2, f"[???] {playerName}?")
         loop.delayPrint(2, "[???] That's a horrible name.")
@@ -383,14 +395,14 @@ class loop:
         loop.delayPrint(4, "[???] What do you mean, 'huh' ??")
         loop.delayPrint(2, "[???] You need to leave.")
         loop.delayPrint(3, "[???] I'm getting tired. Please leave.")
-        loop.delayPrint(7, "[???] Alright, that's it.")
+        loop.delayPrint(7, "[???] Alright, that's it.")"""
         time.sleep(2)
         # moves
         basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
         sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
 
         # characters/heroes
-        Ceres = Hero(playerName, 90, 90, 25, 50, 8, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)], "A")
+        Ceres = Hero(playerName, 90, 90, 45, 90, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)], "A")
         heroes = [Ceres]
 
         # enemies
@@ -410,37 +422,74 @@ class loop:
 
 
         os.system("cls")
+        """
         loop.delayPrint(4, "[???] You have been defeated.")
         loop.delayPrint(1.5, "[???] Now leave.")
         time.sleep(2.5)
         loop.loadingScreen()
         os.system("cls")
-        loop.delayPrint(3, "Placeholder - character discovers YOU")
-        loop.delayPrint(2.5, "placeholder are you ok")
-        loop.delayPrint(2, "placeholder, follow me, you seem hurt, i'll get you some help")
-        loop.delayPrint(3, "placeholder random ass mf drags you to campsite")
-        loop.delayPrint(5, "introduce to other 2 guys")
+        loop.delayPrint(3, "[???] Hello?")
+        loop.delayPrint(2.5, "[???] Oh my, are you okay??")
+        loop.delayPrint(2, "[???] Damn, you seem really bruised...")
+        loop.delayPrint(2.5, "[???] Follow me, I'll get you some help!")
+        os.system("cls")
+        loop.delayPrint(3, "The unknown person drags you to a campsite . . .")
+        os.system("cls")
+        loop.delayPrint(5, "[???] What happened to you? You're in really bad shape...")
+        loop.delayPrint(2, "[???] Don't worry, I know a guy who can help for things like this.")
+        loop.delayPrint(3, "")
+        loop.delayPrint(2.5, "[???] Oh! By the way, I'm Jade. Who might you be? ")
+        loop.delayPrint(3, f"I'm {playerName}.")
+        loop.delayPrint(2.5, "[Jade] I see. Strange name, but then again, you don't look like an normal, average guy.")
+        loop.delayPrint(2.5, "[Jade] The others should be arriving soon... You never know though.")
+        loop.delayPrint(3.5, "[Jade] The forest surrounding the area is filled with monsters, so they might be caught up with dealing with some of them.")
+        loop.delayPrint(5, "...")
+        loop.delayPrint(2.5, "[Jade] Now that I think about it, it has been a while since they've went out. I might have to look for them...")
+        loop.delayPrint(4, "[Jade] Don't worry, though. You'll be in good hands sooner or later.")
+        loop.delayPrint(2, "[Jade] Follow me. I'll go look for them.")
+        loop.delayPrint(4.5, "Jade leads the way as she tries searching for her party.")
+        loop.delayPrint(5, "Just then, the two of you hear a faint noise.")
+        loop.delayPrint(3.5, "[Jade] Sounds like commotion. I wonder what's happening?")
+        loop.delayPrint(2.5, "The two of you venture closer to the source of the noise...")
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(3.5, "You see two individuals struggling with a particularly large foe...")
+        loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")"""
+        os.system("cls")
+        
+        headbutt = Attack(15, 10, "Headbutt", isHealing = False)
+        slam = Attack(10, 5, "Slam", isHealing = False)
+        cook = Attack(50, 17.5, "Cook", isHealing = True)
 
+        Ceres.currentHealth = 90
+        Ceres.currentEnergy = 45
+        Jade = Hero("Jade", 120, 120, 50, 100, 2.5, currentLevel, [("Basic Attack", "A", basicattack), ("Headbutt", "B", headbutt)], "B")
+        Kelsey = Hero("Kelsey", 75, 75, 55, 110, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam)], "C")
+        Cashmere = Hero("Cashmere", 110, 110, 75, 150, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook)], "D")
+        heroes.append(Jade)
+        heroes.append(Kelsey)
+        heroes.append(Cashmere)
+
+        enemies.clear()
+        yeOldeGnome = Enemy("Ye Olde Gnome", 200, 200, 30, {"Shrubbage", "Roll Over", "Stomp"}, "A")
+        enemies.append(yeOldeGnome)
+        
+        while True:
+            game.heroSelect()
+            if game.selectedHero:
+                combatActive = game.combatTurn()
+                if not combatActive:
+                    break
+            else:
+                break
+        
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(3.5, "[???] Damn, that guy was way tougher than usual...")
+        loop.delayPrint(2.5, "[???] Exactly! Usually all we face are some ")
 
     def delayPrint(delaySeconds, printString):
         time.sleep(delaySeconds)
         print(printString)
 
 loop.mainLoop()
-
-""" 
-bugs:
-    my will to live
-
-changes:
-    when selecting an enemy, the hero you are attacking with is displayed.
-    fixed bug where if an invalid enemy position is selected, enemy names / stats won't be printed again.
-    made it so that hero health is displayed when enemies deal damage 
-    added an onboarding menu
-
-idea:
-    one of the characters will be able to generate energy past their max, meaning they have infinite energy.
-    one of their moves will be a "wait" move that costs zero energy, but does not deal damage.
-    another move will be a move that does damage based on all of your energy past a certain amount
-    0 + 1(energy past maxEnergy) * (strength / 5)
-"""
