@@ -2,7 +2,7 @@ import os
 import random
 import time
 currentLevel = 1
-
+yes = True
 class Hero: 
     def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset, position):
         self.name = name
@@ -54,6 +54,7 @@ class Enemy:
 
             if targetHero.currentHealth <= 0:
                 targetHero.currentHealth = 0
+                os.system("cls")
                 print(f"{targetHero.name} has been defeated!")
         else:
             print(f"{self.name} has no valid moves to perform.")
@@ -93,6 +94,7 @@ class Game:
                 return
 
         input("No available heroes. Press Enter to exit.")
+        yes = False
 
     def displayEnemyParty(self):
         os.system("cls")
@@ -185,10 +187,10 @@ class Game:
 
                 self.selectedHero.regenerateEnergy()
 
-                self.enemySelect()  
+                self.enemySelect()
 
-                if self.selectedEnemy:  
-                    selectedMove = self.moveSelect() 
+                if self.selectedEnemy:
+                    selectedMove = self.moveSelect()
 
                     if selectedMove is None:
                         continue
@@ -198,34 +200,36 @@ class Game:
 
                     if selectedMove.isHealing:
                         if selectedMove.name == "Group Heal" or selectedMove.name == "Cook":
-                            continue  
+                            continue
 
                     else:
                         damage = selectedMove.damage + (self.selectedHero.level * 2)
                         self.selectedEnemy.currentHealth -= damage
                         print(f"{self.selectedHero.name} dealt {damage} damage to {self.selectedEnemy.name}! ({self.selectedEnemy.currentHealth} / {self.selectedEnemy.maxHealth})")
-                        input("Press Enter to continue. ")
+                        input("Press Enter to continue.")
 
                         if self.selectedEnemy.currentHealth <= 0:
                             self.selectedEnemy.currentHealth = 0
                             print(f"{self.selectedEnemy.name} has been defeated!")
-                            self.selectedEnemy = None 
+                            self.selectedEnemy = None
 
                 if all(enemy.currentHealth <= 0 for enemy in self.enemies):
                     print("All enemies have been defeated!")
-                    break 
+                    break
 
-        if any(enemy.currentHealth > 0 for enemy in self.enemies):  
+        if any(enemy.currentHealth > 0 for enemy in self.enemies):
             os.system("cls")
             print("Enemy's turn!")
             aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
             for enemy in aliveEnemies:
-                enemy.takeTurn(self.heroes)  
+                enemy.takeTurn(self.heroes)
 
             if all(hero.currentHealth == 0 for hero in self.heroes):
                 print("All heroes have been defeated! Game Over.")
                 input("Press Enter to exit.")
-                pass
+                global yes  # Add this line to set `yes` to False
+                yes = False
+                
 
     def ultimateAttack(self):
         os.system("cls")
@@ -301,7 +305,7 @@ Ceres = Hero("", 90, 90, 25, 50, 8, currentLevel, [("Basic Attack", "A", basicat
 heroes = [Ceres]
 
 # enemies
-Zol = Enemy("???", 10000, 10000, 10000, {"Demolish"}, "A")
+Zol = Enemy("???", 10000000, 10000000, 10000, {"Demolish"}, "A")
 enemies = [Zol]
 
 game = Game(heroes, enemies)
@@ -320,39 +324,11 @@ class loop:
         elif randomTip == 5:
             displayedTip = "Tip: Yo'ure mother"
         print(displayedTip)
-    def initializeGame():
+    def loadingScreen():
         os.system("cls")
-        print("Loading")
+        print("Loading . . . ")
         loop.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading .")
-        loop.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading . .")
-        loop.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading . . .")
-        loop.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading . . . .")
-        loop.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading . . .")
-        loop.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading . .")
-        loop.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading .")
-        loop.tips()
-        time.sleep(1.5)
+        time.sleep(2)
         os.system("cls")
         input("Done! Press Enter to continue. ")
 
@@ -364,43 +340,58 @@ class loop:
             print("[A] - New Game")
             print("[B] - Continue")
             print()
-            playerName = input("name? ")
             startingOption = input("Input the letter of the option chosen: ").strip().lower()
             if startingOption not in ["a", "b"]:
                 input("Invalid option selected. Press enter to try again. ")
-            elif startingOption == "a":
-                loop.initializeGame()
-                loop.delayPrint(1, f"I am {playerName}.")
-                loop.delayPrint(3.5, "[???] Hm.")
-                loop.delayPrint(2, f"[???] {playerName}?")
-                loop.delayPrint(2, "[???] That's a horrible name.")
-                loop.delayPrint(1, "[???] Whatever... You seem lost. ")
-                loop.delayPrint(1.5, "[???] Confused, perhaps...?")
-                loop.delayPrint(2, f"[???] Let me explain: Your name is {playerName}, apparently, and you are in my temple.")
-                loop.delayPrint(4, "[???] I would be way more aggressive, but I'll give you the benefit of the doubt.")
-                loop.delayPrint(2.5, "[???] I'm pretty busy right now, so I'm going to kindly ask you to leave.")
-                loop.delayPrint(4, "...")
-                loop.delayPrint(1.5, "Huh?")
-                loop.delayPrint(4, "[???] What do you mean, 'huh' ??")
-                loop.delayPrint(2, "[???] You need to leave.")
-                loop.delayPrint(3, "[???] I'm getting tired. Please leave.")
-                loop.delayPrint(7, "[???] Alright that's it.")
-                time.sleep(2)
+            else:
+                break
+            break
+        os.system("cls")
+        playerName = input("What is your name? ")
+        loop.loadingScreen()
+        os.system("cls")
+        print("")
+        os.system("cls")
+        loop.delayPrint(1.5, "[???] Hello there.")
+        loop.delayPrint(2, "[???] What are you doing here?")
+        loop.delayPrint(3, "What...?")
+        loop.delayPrint(2, "[???] Who are you? What are you doing here?")
+        loop.delayPrint(3, "[???] Are you there?")
+        time.sleep(2)
+        print("Good question... Who am I?")
+        time.sleep(5)
+        input("Who are you? ").strip()
+        loop.delayPrint(1, f"I am {playerName}.")
+        loop.delayPrint(3.5, "[???] Hm.")
+        loop.delayPrint(2, f"[???] {playerName}?")
+        loop.delayPrint(2, "[???] That's a horrible name.")
+        loop.delayPrint(1, "[???] Whatever... You seem lost. ")
+        loop.delayPrint(1.5, "[???] Confused, perhaps...?")
+        loop.delayPrint(2, f"[???] Let me explain: Your name is {playerName}, apparently, and you are in my temple.")
+        loop.delayPrint(4, "[???] I would be way more aggressive, but I'll give you the benefit of the doubt.")
+        loop.delayPrint(2.5, "[???] I'm pretty busy right now, so I'm going to kindly ask you to leave.")
+        loop.delayPrint(4, "...")
+        loop.delayPrint(1.5, "Huh?")
+        loop.delayPrint(4, "[???] What do you mean, 'huh' ??")
+        loop.delayPrint(2, "[???] You need to leave.")
+        loop.delayPrint(3, "[???] I'm getting tired. Please leave.")
+        loop.delayPrint(7, "[???] Alright, that's it.")
+        time.sleep(2)
 
-                while True:
-                    game.heroSelect()
+        while yes:
+            game.heroSelect()
 
-                    if game.selectedHero:
-                        game.combatTurn()
-            elif startingOption == "b":
-                os.system("cls")
-                input("Press Enter to start the combat simulation. ")
+            if game.selectedHero and yes:
+                game.combatTurn()
+            else:
+                break
+            break
 
-                while True:
-                    game.heroSelect()
+        os.system("cls")
+        loop.delayPrint(4, "You have been defeated.")
+        loop.delayPrint(1.5, "Now leave.")
+        
 
-                    if game.selectedHero:
-                        game.combatTurn()
     def delayPrint(delaySeconds, printString):
         time.sleep(delaySeconds)
         print(printString)
@@ -422,5 +413,4 @@ idea:
     one of their moves will be a "wait" move that costs zero energy, but does not deal damage.
     another move will be a move that does damage based on all of your energy past a certain amount
     0 + 1(energy past maxEnergy) * (strength / 5)
-    remove all these dumbass comments
 """

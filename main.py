@@ -20,37 +20,9 @@ class loopLogic:
         print(displayedTip)
     def initializeGame():
         os.system("cls")
-        print("Loading")
+        print("Loading . . . ")
         loopLogic.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading .")
-        loopLogic.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading . .")
-        loopLogic.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading . . .")
-        loopLogic.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading . . . .")
-        loopLogic.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading . . .")
-        loopLogic.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading . .")
-        loopLogic.tips()
-        time.sleep(1.5)
-        os.system("cls")
-        print("Loading .")
-        loopLogic.tips()
-        time.sleep(1.5)
+        time.sleep(2)
         os.system("cls")
         input("Done! Press Enter to continue. ")
 
@@ -94,7 +66,7 @@ class loopLogic:
         print(printString)
 
 def combatloopLogic():
-    while True:
+    while combat.yes:
         combat.game.heroSelect()
         if combat.game.selectedHero:
             combat.game.combatTurn()
@@ -153,8 +125,8 @@ enemies = [Zol]
 
 game = combat.Game(heroes, enemies)
 
-while True:
+while combat.yes:
     combat.game.heroSelect()
-    if combat.game.selectedHero:
+    if combat.game.selectedHero and combat.yes:
         combat.game.combatTurn()
     
