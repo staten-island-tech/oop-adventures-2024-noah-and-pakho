@@ -1,6 +1,8 @@
 import os
 import random
 import time
+import inShop
+
 currentLevel = 1
 currentLevelUltimateModifier = 0.75
 playerName = ""
@@ -639,6 +641,140 @@ class loop:
         loop.delayPrint(1.5, "[Jade] Kel, I really hope you're done being an idiot.")
         loop.delayPrint(1.5, "[Kelsey] Sorry, I didn't know...")
         loop.delayPrint(2, "[Cashmere] Kelsey, you really should know better than this...")
+        loop.delayPrint(0.5, "[Kelsey] I didn't know!! How is any of this my fault?")
+        loop.delayPrint(1.5, "[Cashmere] Err...")
+        loop.delayPrint(2.5, "[Jade] Considering how the rock YOU threw summoned those monsters, I'd say the entirety of this is your fault...")
+        loop.delayPrint(1, "[Kelsey] Whatever, let's keep going forward. ")
+        loop.delayPrint(1.5, "[Kelsey] Maybe we'll find something.")
+        loop.delayPrint(2, "[Jade] Uhguidhgjfdghdfhgkjg...")
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(1.5, "The crew ventures further into the cave, and a while later, Kelsey stumbles upon an opening in one of the walls. ")
+        loop.delayPrint(2, "[Kelsey] Yo guys! Check this out!!")
+        loop.delayPrint(2.5, "[Jade] What now...?")
+        loop.delayPrint(2, "[Kelsey] I swear it's not anything bad this time! Look! There's a little hole here!")
+        loop.delayPrint(3.5, "You lean in to investigate... Suddenly, a strange little figure pokes its head out of the hole...")
+        loop.delayPrint(2.5, "[???] Hello, young travelers.")
+        loop.delayPrint(3, "[Jade] EW EW EW WHAT IS THAT GET IT AWAY FROM ME IT'S SO UGLY")
+        loop.delayPrint(1.5, "[Cashmere] Calm down. It seems to be a... person?")
+        loop.delayPrint(1.5, "[???] Fear not, young adventurers. I am not here to hurt, but to help. You may call me JASH.")
+        loop.delayPrint(2, "[Jade] Jash is a horrible name...")
+        loop.delayPrint(1, "[Jash] I'm aware.")
+        loop.delayPrint(1.5, "[Jash] Anyhow, I would like to lend my assistance... for a price.")
+        loop.delayPrint(3, "A price...?")
+        loop.delayPrint(2, "[Jash] This price... it is a mythical currency. It may be quite common, but do not let its rarity fool you. This commodity is quite valuable, when handled by the right person...")
+        loop.delayPrint(1.5, "[Cashmere] Is it... money...?")
+        loop.delayPrint(1, "[Jash] That is correct.")
+        loop.delayPrint(1.5, "[Jade] Could've just said that...")
+        loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")
+        while True:
+            shopOrNo = input("Buy items at Jash's store? Y/N ").strip().lower()        
+            if shopOrNo not in ["y", "n", "yes", "no"]:
+                loop.delayPrint(2.5, "[Jash] What? I didn't hear you... Try again, perhaps?")
+            elif shopOrNo in ["y", "yes"]:
+                loop.delayPrint(1.5, "[Jash] Excellent... excellent, excellent, excellent...")
+                break
+            elif shopOrNo in ["n", "no"]:
+                loop.delayPrint(1, "[Jash] Oh... but I really want to sell stuff...")
+            break
+
+        player = inShop.Player(playerName, 500)
+        strengthItem = inShop.Item("Strength Modifier", 40, 5)
+        movesetConsumable00 = inShop.Item("Moveset Consumable 00", 350, 1)
+
+        merchant = inShop.Merchant("Jash")
+        merchant.add_item(strengthItem)
+        merchant.add_item(movesetConsumable00)
+
+        os.system("cls")
+        merchant.list_items()
+        while 屌你老母 == 1:
+            boughtItem = input("Which item would you like to buy? ").strip()
+            os.system('cls')
+            boughtItemAmt = int(input("How many would you like to buy? "))
+            os.system('cls')
+            merchant.sell_item(player, boughtItem, boughtItemAmt)
+
+            print(player)
+            print(merchant)
+            
+            while True:
+                屌你老母 = input("Continue? Y/N ").strip().lower()
+                if 屌你老母 == "y":
+                    屌你老母 = 1
+                    os.system('cls')
+                    merchant.list_items()
+                    break
+                elif 屌你老母 == "n":
+                    break
+                print("Sorry, I couldn't get that. Try again.")
+                break
+
+            break
+
+        loop.delayPrint(1.5, "[Jash] Hehe... pleasure doing business...")
+        time.sleep(1.5)
+        input("Press Enter to open the inventory. ")
+        loop.delayPrint(3, player)
+        while True:
+            useItemsInInventory = input("Would you like to use anything in the inventory? Y/N ").strip().lower()        
+            if useItemsInInventory not in ["y", "n", "yes", "no"]:
+                loop.delayPrint(2.5, "Invalid input. Try again. ")
+            elif useItemsInInventory in ["y", "yes"]:
+                os.system("cls")
+                time.sleep(1, player)
+                while True: 
+                    usedItem = input("What would you like to use? (Case Sensitive)").strip()
+                    if usedItem not in ["Strength Modifier", "Moveset Consumable 00"]:
+                        time.sleep(1)
+                        input("Invalid selection. Press Enter to try again.")
+                    elif usedItem == "Strength Modifier":
+                        loop.delayPrint(1.5, f"Strength Modifier - Buffs all heroes' stats for the next battle.")
+                        while True:
+                            useOrNo = input("Use item? Y/N ").strip().lower()
+                            if useOrNo not in ["y", "yes", "n", "no"]:
+                                time.sleep(1)
+                                input("Invalid selection. Press Enter to try again. ")
+                            elif useOrNo in ["y", "yes"]:
+                                loop.delayPrint(1.5, "Successfully applied the Strength Modifier. ")
+                                currentLevel = 3
+                                break
+                            elif useOrNo in ["n", "no"]:
+                                input("Press Enter to go back. ")
+                                break
+                            break
+                    elif usedItem == "Moveset Consumable 00":
+                        loop.delayPrint(1.5, f"Moveset Consumable 00 - Appends a new item to {playerName}'s moveset. ")
+                        while True:
+                            useOrNo = input("Use item? Y/N ").strip().lower()
+                            if useOrNo not in ["y", "yes", "n", "no"]:
+                                time.sleep(1)
+                                input("Invalid selection. Press Enter to try again. ")
+                            elif useOrNo in ["y", "yes"]:
+                                loop.delayPrint(1.5, "Successfully applied the Moveset Consumable 00. ")
+                                trick = Attack(50, 50, "Trick", isHealing = False)
+                                Ceres = Hero(playerName, 105, 105, 50, 100, 7.5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack), ("Stab", "C", stab), ("Trick", "D", trick)], "A")
+                                break
+                            elif useOrNo in ["n", "no"]:
+                                input("Press Enter to go back. ")
+                                break
+                            break
+                    continueyesorno = input("Continue? Y/N ").strip().lower()
+                    if continueyesorno not in ["y", "yes", "n", "no"]:
+                        time.sleep(1)
+                        input("Invalid Selection. Try again.")
+                        continue
+                    elif continueyesorno in ["n", "no"]:
+                        loop.delayPrint(1.5, "Exiting . . . ")
+                        break
+                    elif continueyesorno in ["y", "yes"]:
+                        continue
+
+
+            elif useItemsInInventory in ["n", "no"]:
+                loop.delayPrint(1, "Very well. Closing inventory...")
+            break
+      
 
     def delayPrint(delaySeconds, printString):
         time.sleep(delaySeconds)

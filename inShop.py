@@ -84,22 +84,18 @@ class Game:
         heals = Item("Test Healing Item", 50, 1)
         moveitem = Item("Test Moveset Consumable", 200, 1)
 
-        # Create merchant add to inventory
         merchant = Merchant("Shopkeep")
         merchant.add_item(heals)
         merchant.add_item(moveitem)
 
-        # List available items for sale
         merchant.list_items()
         while 屌你老母 == 1:
-            # Player buys some items from the merchant
             boughtItem = input("Which item would you like to buy? ").strip()
             os.system('cls')
             boughtItemAmt = int(input("How many would you like to buy? "))
             os.system('cls')
             merchant.sell_item(player, boughtItem, boughtItemAmt)
 
-            # Show updated player and merchant status
             print(player)
             print(merchant)
             
