@@ -29,7 +29,9 @@ class Hero:
         self.currentEnergy += self.energyRegen
         if self.currentEnergy > self.maxEnergy:
             self.currentEnergy = self.maxEnergy
-
+    
+    def __str__(self):
+        return f"{self.name}"
 
 class Enemy: 
     def __init__(self, name, currentHealth, maxHealth, strength, moveset, position):
@@ -51,8 +53,13 @@ class Enemy:
 
         if selectedEnemyMove == "Roll Over":
             self.rollOverAttack(heroes)
+            input("Press Enter to continue. ")
         elif selectedEnemyMove == "String Shot":
             self.stringShotAttack(heroes)
+            input("Press Enter to continue. ")
+        elif selectedEnemyMove == "Blood Ichor":
+            self.bloodIchor(heroes)
+            input("Press Enter to continue. ")
         else:
             if selectedEnemyMove:
                 print(f"{self.name} uses {selectedEnemyMove} on {targetHero.name}!")
@@ -86,6 +93,17 @@ class Enemy:
                 if hero.currentHealth < 0:
                     hero.currentHealth = 0
                 print(f"{self.name} dealt {totalDmg} damage to {hero.name}! ({hero.name} now has {hero.currentHealth} health!)")
+    def bloodIchor(self, heroes):
+        targetHero = random.choice(heroes)
+        print(f"{self.name} uses Blood Ichor!")
+        totalDmg = 5
+        if targetHero.currentHealth > 0:
+            targetHero.currentHealth -= totalDmg
+            self.currentHealth += 10
+            if targetHero.currentHealth < 0:
+                targetHero.currentHealth = 0
+            print(f"{self.name} dealt {totalDmg} damage to {targetHero}! {self.name} healed 10 health! ({targetHero.name} now has {targetHero.currentHealth} health!)")
+        input("Press Enter to continue. ")
 
 class Attack:
     def __init__(self, damage, energyCost, name="Unnamed Attack", isHealing = False):
@@ -96,8 +114,6 @@ class Attack:
 
     def __str__(self):
         return self.name
-
-
 class Game:
     def __init__(self, heroes, enemies):
         self.heroes = heroes
@@ -138,7 +154,7 @@ class Game:
         aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
         while True:
             print(f"{self.selectedHero.name} is attacking!")
-            print(f"{self.selectedHero.name} - {self.selectedHero.currentHealth} Health, {self.selectedHero.currentEnergy} Energy")
+            print(f"{self.selectedHero.name} ({self.selectedHero.currentHealth} / {self.selectedHero.maxHealth} Health, {self.selectedHero.currentEnergy} / {self.selectedHero.maxEnergy} Energy)")
             print("Available enemies to target: ")
             for enemy in aliveEnemies:
                 print(f"Name: {enemy.name} [{enemy.position}]")
@@ -162,6 +178,7 @@ class Game:
     def displayMoveset(self):
         os.system("cls")
         print(f"{self.selectedHero.name} is attacking {self.selectedEnemy.name}!") 
+        print(f"{self.selectedHero.name}: ({self.selectedHero.currentHealth} / {self.selectedHero.maxHealth} Health, {self.selectedHero.currentEnergy} / {self.selectedHero.maxEnergy})")
         print(" ")
         print(f"{self.selectedHero.name}'s Moveset:")  
         for move, letter, attack in self.selectedHero.moveset:
@@ -402,6 +419,7 @@ class loop:
                     break
                 elif confirm in ["n", "no"]:
                     yes = True
+        """
         loop.delayPrint(3.5, "[???] Hm.")
         loop.delayPrint(2, f"[???] {playerName}?")
         loop.delayPrint(2, "[???] That's a horrible name.")
@@ -415,7 +433,7 @@ class loop:
         loop.delayPrint(4, "[???] What do you mean, 'huh' ??")
         loop.delayPrint(2, "[???] You need to leave.")
         loop.delayPrint(3, "[???] I'm getting tired. Please leave.")
-        loop.delayPrint(7, "[???] Alright, that's it.")
+        loop.delayPrint(7, "[???] Alright, that's it.")"""
         time.sleep(2)
         # moves
         basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
@@ -441,6 +459,7 @@ class loop:
             else:
                 break
         os.system("cls")
+        """
         loop.delayPrint(4, "[???] You have been defeated.")
         loop.delayPrint(1.5, "[???] Now leave.")
         time.sleep(2.5)
@@ -476,7 +495,7 @@ class loop:
         os.system("cls")
         loop.delayPrint(3.5, "You see two individuals struggling with a particularly large foe...")
         loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")
-        time.sleep(3)
+        time.sleep(3)"""
         loop.loadingScreen()
         os.system("cls")
         
@@ -507,6 +526,7 @@ class loop:
                 break
         loop.loadingScreen()
         os.system("cls")
+        """
         loop.delayPrint(3.5, "[???] Damn, that guy was way tougher than usual...")
         loop.delayPrint(2.5, "[???] Exactly! Usually all we face are some little enemies, but this guy was really big!")
         loop.delayPrint(3.75, "[Jade] I'm glad you guys are all okay.")
@@ -605,8 +625,9 @@ class loop:
         loop.delayPrint(2, "[Cashmere] Not if we don't know what those cool things are... or what they could do... ")
         loop.delayPrint(1.5, "[Kelsey] YEAH RIGHT... Like anything bad could ever happen from such a cool rock...")
         loop.delayPrint(3, "Kelsey throws the rock at a cavern wall, and suddenly, monsters materialize out of thin air...")
-        loop.delayPrint(2.5, "[Jade] What do you define as 'anything bad', exactly?")
+        loop.delayPrint(2.5, "[Jade] What do you define as 'anything bad', exactly?")"""
         loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight...")
+        input("Press Enter to proceed. ")
         
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
@@ -620,7 +641,7 @@ class loop:
         enemies.clear()
         voraciousSpider = Enemy("Voracious Spider", 80, 80, 20, {"String Shot", "Venom Shot", "Lunge"}, "A")
         undeadMiner = Enemy("Undead Miner", 110, 110, 15, {"Shovel Whack", "Shovel Smack"}, "B")
-        bat = Enemy("Bat", 20, 20, 40, {"Nibble"}, "C")
+        bat = Enemy("Bat", 20, 20, 20, {"Nibble", "Blood Ichor"}, "C")
         enemies.append(voraciousSpider)
         enemies.append(undeadMiner)
         enemies.append(bat)
@@ -773,7 +794,9 @@ class loop:
                                     loop.delayPrint(1.5, "Successfully applied the Strength Modifier. ")
                                     player.use_item("Strength Modifier")
                                     for hero in heroes:
-                                        hero.level += 3
+                                        global temporaryLevel
+                                        temporaryLevel = 3
+                                        hero.level = temporaryLevel
                                     break
                                 elif useOrNo in ["n", "no"]:
                                     input("Press Enter to go back. ")
@@ -790,7 +813,7 @@ class loop:
                                     loop.delayPrint(1.5, "Successfully applied the Moveset Consumable 00. ")
                                     player.use_item("Moveset Consumable 00")
                                     trick = Attack(50, 65, "Trick", isHealing = False)
-                                    Ceres.moveset.append(("Trick", "D", trick))
+                                    Ceres.moveset.append(("Trick", "00", trick))
                                     break
                                 elif useOrNo in ["n", "no"]:
                                     input("Press Enter to go back. ")
@@ -816,6 +839,7 @@ class loop:
         os.system("cls")
         loop.delayPrint(1, "And within a fraction of a second, Jash disappears...")
         loop.delayPrint(2, "[Jade] What a strange little guy...")
+        loop.delayPrint()
 
     def delayPrint(delaySeconds, printString):
         time.sleep(delaySeconds)
