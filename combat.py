@@ -138,6 +138,7 @@ class Game:
         aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
         while True:
             print(f"{self.selectedHero.name} is attacking!")
+            print(f"{self.selectedHero.name} - {self.selectedHero.currentHealth} Health, {self.selectedHero.currentEnergy} Energy")
             print("Available enemies to target: ")
             for enemy in aliveEnemies:
                 print(f"Name: {enemy.name} [{enemy.position}]")
@@ -470,6 +471,7 @@ class loop:
         loop.delayPrint(3.5, "You see two individuals struggling with a particularly large foe...")
         loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")
         time.sleep(3)
+        loop.loadingScreen()
         os.system("cls")
         
         headbutt = Attack(15, 10, "Headbutt", isHealing = False)
@@ -672,16 +674,8 @@ class loop:
         loop.delayPrint(1, "[Jash] That is correct.")
         loop.delayPrint(1.5, "[Jade] Could've just said that...")
         loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")
-        while True:
-            shopOrNo = input("Buy items at Jash's store? Y/N ").strip().lower()        
-            if shopOrNo not in ["y", "n", "yes", "no"]:
-                loop.delayPrint(2.5, "[Jash] What? I didn't hear you... Try again, perhaps?")
-            elif shopOrNo in ["y", "yes"]:
-                loop.delayPrint(1.5, "[Jash] Excellent... excellent, excellent, excellent...")
-                break
-            elif shopOrNo in ["n", "no"]:
-                loop.delayPrint(1, "[Jash] Oh... but I really want to sell stuff...")
-            break
+        
+        input("Entering Jash's shop. Press Enter to proceed. ")
 
         player = inShop.Player(playerName, 500)
         strengthItem = inShop.Item("Strength Modifier", 40, 5)
@@ -710,10 +704,9 @@ class loop:
                     屌你老母 = 1
                     os.system('cls')
                     merchant.list_items()
-                    break
                 elif 屌你老母 == "n":
                     break
-                print("Sorry, I couldn't get that. Try again.")
+                input("Sorry, I couldn't get that. Press enter to retry. ")
                 break
 
             break
