@@ -122,7 +122,7 @@ class Game:
                 os.system("cls")
                 return
 
-        input("No available heroes. Press Enter to exit.")
+        input("No available heroes. Press Enter to exit. ")
 
     def displayEnemyParty(self):
         os.system("cls")
@@ -266,7 +266,7 @@ class Game:
             
             if all(hero.currentHealth == 0 for hero in self.heroes):
                 print("All heroes have been defeated! Game Over.")
-                input("Press Enter to exit.")
+                input("Press Enter to exit. ")
                 return False 
         return True 
                 
@@ -336,21 +336,24 @@ class Game:
             input("No available allies to heal. Press Enter to continue.")
             os.system("cls")
 
-randomTip = random.randint(1, 6)
 class loop:
     def tips():
-        if randomTip == 1:
+        randomTip = random.randint(1, 13)
+        if randomTip == 1 or randomTip == 2:
             displayedTip = "Tip: Your computer is spying on you. Your government is spying on you. No one is safe."
-        elif randomTip == 2:
+        elif randomTip == 3 or randomTip == 4:
             displayedTip = "Tip: You are never alone. I am in your washing machine every day from 1 AM to 5 AM."
-        elif randomTip == 3:
-            displayedTip = "Tip: The 'dry' part in the word 'drywall' is a lie. They were not dry."
-        elif randomTip == 4:
+        elif randomTip == 5 or randomTip == 6:
+            displayedTip = "Tip: The 'dry' part in the word 'drywall' is a lie. It was not dry."
+        elif randomTip == 7 or randomTip == 8:
             displayedTip = "Tip: Every 60 seconds in Africa, a minute goes by everywhere else. This is true!"
-        elif randomTip == 5:
+        elif randomTip == 9 or randomTip == 10:
             displayedTip = "Tip: Yo'ure mother"
-        elif randomTip == 6:
+        elif randomTip == 11 or randomTip == 12:
             displayedTip = "Tip: There is a secret code that activates easy mode!"
+        elif randomTip == 13:
+            displayedTip = "Tip: This project is brought to you by a poorly designed garble of spaghetti code. Please do not test its limits or it will cry."
+        
         print(displayedTip)
     def loadingScreen():
         os.system("cls")
@@ -394,7 +397,13 @@ class loop:
             else:
                 loop.delayPrint(1, f"I am {playerName}.")
                 yes = False
-        """
+                confirm = input(f"Your name is {playerName}? Y/N ")
+                if confirm not in ["y", "yes", "n", "no"]:
+                    input("Invalid input. Try again. ")
+                elif confirm in ["y", "yes"]:
+                    break
+                elif confirm in ["n", "no"]:
+                    yes = True
         loop.delayPrint(3.5, "[???] Hm.")
         loop.delayPrint(2, f"[???] {playerName}?")
         loop.delayPrint(2, "[???] That's a horrible name.")
@@ -409,7 +418,7 @@ class loop:
         loop.delayPrint(2, "[???] You need to leave.")
         loop.delayPrint(3, "[???] I'm getting tired. Please leave.")
         loop.delayPrint(7, "[???] Alright, that's it.")
-        time.sleep(2)"""
+        time.sleep(2)
         # moves
         basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
         sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
@@ -434,7 +443,6 @@ class loop:
             else:
                 break
         os.system("cls")
-        """
         loop.delayPrint(4, "[???] You have been defeated.")
         loop.delayPrint(1.5, "[???] Now leave.")
         time.sleep(2.5)
@@ -469,7 +477,7 @@ class loop:
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(3.5, "You see two individuals struggling with a particularly large foe...")
-        loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")"""
+        loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")
         time.sleep(3)
         loop.loadingScreen()
         os.system("cls")
@@ -501,7 +509,6 @@ class loop:
                 break
         loop.loadingScreen()
         os.system("cls")
-        """
         loop.delayPrint(3.5, "[???] Damn, that guy was way tougher than usual...")
         loop.delayPrint(2.5, "[???] Exactly! Usually all we face are some little enemies, but this guy was really big!")
         loop.delayPrint(3.75, "[Jade] I'm glad you guys are all okay.")
@@ -601,7 +608,7 @@ class loop:
         loop.delayPrint(1.5, "[Kelsey] YEAH RIGHT... Like anything bad could ever happen from such a cool rock...")
         loop.delayPrint(3, "Kelsey throws the rock at a cavern wall, and suddenly, monsters materialize out of thin air...")
         loop.delayPrint(2.5, "[Jade] What do you define as 'anything bad', exactly?")
-        loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight...")"""
+        loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight...")
         
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
@@ -646,7 +653,6 @@ class loop:
         Cashmere = Hero("Cashmere", 150, 150, 85, 170, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook), ("Whack", "C", whack)], "D")
         
         loop.delayPrint(1.5, "[Jade] Kel, I really hope you're done being an idiot.")
-        """
         loop.delayPrint(1.5, "[Kelsey] Sorry, I didn't know...")
         loop.delayPrint(2, "[Cashmere] Kelsey, you really should know better than this...")
         loop.delayPrint(0.5, "[Kelsey] I didn't know!! How is any of this my fault?")
@@ -673,7 +679,7 @@ class loop:
         loop.delayPrint(2, "[Jash] This price... it is a mythical currency. It may be quite common, but do not let its rarity fool you. This commodity is quite valuable, when handled by the right person...")
         loop.delayPrint(1.5, "[Cashmere] Is it... money...?")
         loop.delayPrint(1, "[Jash] That is correct.")
-        loop.delayPrint(1.5, "[Jade] Could've just said that...")"""
+        loop.delayPrint(1.5, "[Jade] Could've just said that...")
         loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")
         
         input("Entering Jash's shop. Press Enter to proceed. ")
@@ -768,6 +774,8 @@ class loop:
                                 elif useOrNo in ["y", "yes"]:
                                     loop.delayPrint(1.5, "Successfully applied the Strength Modifier. ")
                                     player.use_item("Strength Modifier")
+                                    for hero in heroes:
+                                        hero.level += 3
                                     break
                                 elif useOrNo in ["n", "no"]:
                                     input("Press Enter to go back. ")
