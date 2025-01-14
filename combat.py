@@ -368,13 +368,12 @@ class loop:
             displayedTip = "Tip: There is a secret code that activates easy mode!"
         elif randomTip == 11:
             displayedTip = "Tip: This project is brought to you by a poorly designed garble of spaghetti code. Please do not test its limits or it will cry."
-        
         print(displayedTip)
     def loadingScreen():
         os.system("cls")
         print("Loading . . . ")
         loop.tips()
-        time.sleep(2)
+        time.sleep(3.5)
         os.system("cls")
         input("Done! Press Enter to continue. ")
 
@@ -389,8 +388,10 @@ class loop:
             startingOption = input("Input the letter of the option chosen: ").strip().lower()
             if startingOption not in ["a", "b"]:
                 input("Invalid option selected. Press enter to try again. ")
-            else:
+            elif startingOption == "a":
                 break
+            elif startingOption == "b":
+                pass
         
         loop.loadingScreen()
         os.system("cls")
@@ -839,7 +840,7 @@ class loop:
         os.system("cls")
         loop.delayPrint(1, "And within a fraction of a second, Jash disappears...")
         loop.delayPrint(2, "[Jade] What a strange little guy...")
-        loop.delayPrint()
+        loop.delayPrint(1.5, "[Kelsey] Weren't ")
 
     def delayPrint(delaySeconds, printString):
         time.sleep(delaySeconds)
