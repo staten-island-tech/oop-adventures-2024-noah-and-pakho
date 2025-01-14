@@ -43,11 +43,7 @@ class loop:
         
         loop.loadingScreen()
         os.system("cls")
-        loop.delayPrint(1.5, "[???] Hello there.")
-        loop.delayPrint(2, "[???] What are you doing here?")
-        loop.delayPrint(3, "What...?")
-        loop.delayPrint(2, "[???] Who are you? What are you doing here?")
-        loop.delayPrint(3, "[???] Are you there?")
+        
         time.sleep(2)
         print("Good question... Who am I?")
         time.sleep(5)
@@ -70,7 +66,7 @@ class loop:
         input("Entering Jash's shop. Press Enter to proceed. ")
 
         player = inShop.Player(playerName, 500)
-        strengthItem = inShop.Item("Strength Modifier", 40, 5)
+        strengthItem = inShop.Item("Strength Modifier", 40, 1)
         movesetConsumable00 = inShop.Item("Moveset Consumable 00", 350, 1)
 
         merchant = inShop.Merchant("Jash")
@@ -81,7 +77,6 @@ class loop:
         merchant.list_items()
         while True:
             boughtItem = input("Which item would you like to buy? ").strip()
-            os.system('cls')
 
             if boughtItem not in [item.name for item in merchant.inventory.values()]:
                 input("Invalid input. Press enter to try again. ")
@@ -107,20 +102,32 @@ class loop:
             while True:
                 continueChoice = input("Continue? Y/N ").strip().lower()
                 if continueChoice in ["y", "yes"]:
-                    merchant.list_items()
-                    break
+                    if merchant.inventory:
+                        os.system("cls")
+                        merchant.list_items()
+                        break
+                    else:
+                        os.system("cls")
+                        input("Invalid selection. Press Enter to retry. ")
                 elif continueChoice in ["n", "no"]:
                     break
                 else:
                     input("Invalid input. Press Enter to try again.")
             if continueChoice in ["n", "no"]:
                 break               
-
+        
+        os.system("cls")
         loop.delayPrint(1.5, "[Jash] Hehe... pleasure doing business...")
         time.sleep(1.5)
         input("Press Enter to open the inventory. ")
-        loop.delayPrint(3, player)
+        time.sleep(3)
+        os.system("cls")
+        print(player)
         while True:
+            if not player.inventory:
+                loop.delayPrint(1.5, "Your inventory is empty. Nothing to use. ")
+                input("Press Enter to continue. ")
+                break
             useItemsInInventory = input("Would you like to use anything in the inventory? Y/N ").strip().lower()        
             if useItemsInInventory not in ["y", "n", "yes", "no"]:
                 loop.delayPrint(2.5, "Invalid input. Try again. ")
@@ -128,50 +135,57 @@ class loop:
                 os.system("cls")
                 loop.delayPrint(1, player)
                 while True: 
-                    usedItem = input("What would you like to use? (Case Sensitive) ").strip()
-                    if usedItem not in ["Strength Modifier", "Moveset Consumable 00"]:
-                        time.sleep(1)
-                        input("Invalid selection. Press Enter to try again.")
-                        continue
-                    elif usedItem == "Strength Modifier":
-                        loop.delayPrint(1.5, f"Strength Modifier - Buffs all heroes' stats for the next battle.")
-                        while True:
-                            useOrNo = input("Use item? Y/N ").strip().lower()
-                            if useOrNo not in ["y", "yes", "n", "no"]:
-                                time.sleep(1)
-                                input("Invalid selection. Press Enter to try again. ")
-                            elif useOrNo in ["y", "yes"]:
-                                loop.delayPrint(1.5, "Successfully applied the Strength Modifier. ")
-                                break
-                            elif useOrNo in ["n", "no"]:
-                                input("Press Enter to go back. ")
-                                break
-                            break
-                    elif usedItem == "Moveset Consumable 00":
-                        loop.delayPrint(1.5, f"Moveset Consumable 00 - Appends a new item to {playerName}'s moveset. ")
-                        while True:
-                            useOrNo = input("Use item? Y/N ").strip().lower()
-                            if useOrNo not in ["y", "yes", "n", "no"]:
-                                time.sleep(1)
-                                input("Invalid selection. Press Enter to try again. ")
-                            elif useOrNo in ["y", "yes"]:
-                                loop.delayPrint(1.5, "Successfully applied the Moveset Consumable 00. ")
-                                # placeholder logic for now
-                                break
-                            elif useOrNo in ["n", "no"]:
-                                input("Press Enter to go back. ")
-                                break
-                            break
-                    continueyesorno = input("Continue? Y/N ").strip().lower()
-                    if continueyesorno not in ["y", "yes", "n", "no"]:
-                        time.sleep(1)
-                        input("Invalid Selection. Try again.")
-                        continue
-                    elif continueyesorno in ["n", "no"]:
-                        loop.delayPrint(1.5, "Exiting . . . ")
+                    os.system("cls")
+                    print(player)
+                    if not player.inventory:
                         break
-                    elif continueyesorno in ["y", "yes"]:
-                        continue
+                    else:
+                        usedItem = input("What would you like to use? (Case Sensitive) ").strip()
+                        if usedItem not in player.inventory:
+                            time.sleep(1)
+                            input("Invalid selection. Press Enter to try again.")
+                            continue
+                        elif usedItem == "Strength Modifier":
+                            loop.delayPrint(1.5, f"Strength Modifier - Buffs all heroes' stats for the next battle.")
+                            while True:
+                                useOrNo = input("Use item? Y/N ").strip().lower()
+                                if useOrNo not in ["y", "yes", "n", "no"]:
+                                    time.sleep(1)
+                                    input("Invalid selection. Press Enter to try again. ")
+                                elif useOrNo in ["y", "yes"]:
+                                    loop.delayPrint(1.5, "Successfully applied the Strength Modifier. ")
+                                    player.use_item("Strength Modifier")
+                                    break
+                                elif useOrNo in ["n", "no"]:
+                                    input("Press Enter to go back. ")
+                                    break
+                                break
+                        elif usedItem == "Moveset Consumable 00":
+                            loop.delayPrint(1.5, f"Moveset Consumable 00 - Appends a new item to {playerName}'s moveset. ")
+                            while True:
+                                useOrNo = input("Use item? Y/N ").strip().lower()
+                                if useOrNo not in ["y", "yes", "n", "no"]:
+                                    time.sleep(1)
+                                    input("Invalid selection. Press Enter to try again. ")
+                                elif useOrNo in ["y", "yes"]:
+                                    loop.delayPrint(1.5, "Successfully applied the Moveset Consumable 00. ")
+                                    player.use_item("Moveset Consumable 00")
+                                    break
+                                elif useOrNo in ["n", "no"]:
+                                    input("Press Enter to go back. ")
+                                    break
+                                break
+                        continueyesorno = input("Continue? Y/N ").strip().lower()
+                        if continueyesorno not in ["y", "yes", "n", "no"]:
+                            time.sleep(1)
+                            input("Invalid Selection. Try again.")
+                            continue
+                        elif continueyesorno in ["n", "no"]:
+                            loop.delayPrint(1.5, "Exiting . . . ")
+                            break
+                        elif continueyesorno in ["y", "yes"]:
+                            os.system("cls")
+                            continue
                     break
                 break
             elif useItemsInInventory in ["n", "no"]:

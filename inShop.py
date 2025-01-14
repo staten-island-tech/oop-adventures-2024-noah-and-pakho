@@ -72,6 +72,18 @@ class Player:
             self.inventory[item.name].quantity += item.quantity
         else:
             self.inventory[item.name] = item
+    
+    def use_item(self, item_name):
+        if item_name in self.inventory:
+            item = self.inventory[item_name]
+            item.quantity -= 1
+            if item.quantity <= 0:
+                del self.inventory[item_name]
+            print(f"{self.name} used {item_name}.")
+            return True
+        else:
+            print(f"{item_name} is not in your inventory.")
+            return False
 
 class Game:
     def inShop():
