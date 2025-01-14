@@ -338,7 +338,7 @@ class Game:
 
 class loop:
     def tips():
-        randomTip = random.randint(1, 13)
+        randomTip = random.randint(1, 11)
         if randomTip == 1 or randomTip == 2:
             displayedTip = "Tip: Your computer is spying on you. Your government is spying on you. No one is safe."
         elif randomTip == 3 or randomTip == 4:
@@ -348,10 +348,8 @@ class loop:
         elif randomTip == 7 or randomTip == 8:
             displayedTip = "Tip: Every 60 seconds in Africa, a minute goes by everywhere else. This is true!"
         elif randomTip == 9 or randomTip == 10:
-            displayedTip = "Tip: Yo'ure mother"
-        elif randomTip == 11 or randomTip == 12:
             displayedTip = "Tip: There is a secret code that activates easy mode!"
-        elif randomTip == 13:
+        elif randomTip == 11:
             displayedTip = "Tip: This project is brought to you by a poorly designed garble of spaghetti code. Please do not test its limits or it will cry."
         
         print(displayedTip)
@@ -817,7 +815,7 @@ class loop:
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(1, "And within a fraction of a second, Jash disappears...")
-      
+        loop.delayPrint(2, "[Jade] What a strange little guy...")
 
     def delayPrint(delaySeconds, printString):
         time.sleep(delaySeconds)
