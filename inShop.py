@@ -1,16 +1,16 @@
 import os
 
 class Item:
-    def __init__(self, name, price, quantity):
+    def __init__(self, name, price, quantity, position):
         self.name = name
         self.price = price
         self.quantity = quantity
+        self.position = position
 
     def __str__(self):
         return f"{self.name} (Price: {self.price}, Quantity: {self.quantity})"
 
     def is_available(self):
-        # check if available for purchase
         return self.quantity > 0
 
 
@@ -28,7 +28,7 @@ class Merchant:
     def list_items(self):
         print(f"Items for sale by {self.name}:")
         for item in self.inventory.values():
-            print(item)
+            print(f"{item} [{item.position}]")
 
     def sell_item(self, player, itemName, quantity=1):
         if itemName not in self.inventory:
@@ -46,7 +46,7 @@ class Merchant:
             return False
 
         player.gold -= totalCost
-        player.add_item(Item(itemName, item.price, quantity))
+        player.add_item(Item(itemName, item.price, quantity, item.position))
         item.quantity -= quantity
         if item.quantity <= 0:
             del self.inventory[itemName]
