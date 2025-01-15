@@ -443,7 +443,7 @@ class loop:
         
         loop.loadingScreen()
         os.system("cls")
-        
+        """
         loop.delayPrint(1.5, "[???] Hello there.")
         loop.delayPrint(2, "[???] What are you doing here?")
         loop.delayPrint(3, "What...?")
@@ -451,7 +451,7 @@ class loop:
         loop.delayPrint(3, "[???] Are you there?")
         time.sleep(2)
         print("Good question... Who am I?")
-        time.sleep(5)
+        time.sleep(5)"""
         global playerName
         yes = True
         while yes:
@@ -469,7 +469,7 @@ class loop:
                     break
                 elif confirm in ["n", "no"]:
                     yes = True
-        
+        """
         loop.delayPrint(3.5, "[???] Hm.")
         loop.delayPrint(2, f"[???] {playerName}?")
         loop.delayPrint(2, "[???] That's a horrible name.")
@@ -484,7 +484,7 @@ class loop:
         loop.delayPrint(2, "[???] You need to leave.")
         loop.delayPrint(3, "[???] I'm getting tired. Please leave.")
         loop.delayPrint(7, "[???] Alright, that's it.")
-        time.sleep(2)
+        time.sleep(2)"""
         # moves
         basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
         sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
@@ -508,6 +508,7 @@ class loop:
                     break
             else:
                 break
+        """
         os.system("cls")
         loop.delayPrint(4, "[???] You have been defeated.")
         loop.delayPrint(1.5, "[???] Now leave.")
@@ -546,7 +547,7 @@ class loop:
         loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")
         time.sleep(3)
         loop.loadingScreen()
-        os.system("cls")
+        os.system("cls")"""
         
         headbutt = Attack(15, 10, "Headbutt", isHealing = False)
         slam = Attack(10, 5, "Slam", isHealing = False)
@@ -572,7 +573,7 @@ class loop:
                     break
             else:
                 break
-        
+        """
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(3.5, "[???] Damn, that guy was way tougher than usual...")
@@ -675,7 +676,7 @@ class loop:
         loop.delayPrint(3, "Kelsey throws the rock at a cavern wall, and suddenly, monsters materialize out of thin air...")
         loop.delayPrint(2.5, "[Jade] What do you define as 'anything bad', exactly?")
         loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight...")
-        input("Press Enter to proceed. ")
+        input("Press Enter to proceed. ")"""
         
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
@@ -739,7 +740,7 @@ class loop:
         Cashmere.energyRegen = 10
         Cashmere.moveset.append(("Whack", "C", whack))
         loop.delayPrint(1.5, "[Jade] Kel, I really hope you're done being an idiot.")
-        
+        """
         loop.delayPrint(1.5, "[Kelsey] Sorry, I didn't know...")
         loop.delayPrint(2, "[Cashmere] Kelsey, you really should know better than this...")
         loop.delayPrint(0.5, "[Kelsey] I didn't know!! How is any of this my fault?")
@@ -766,7 +767,7 @@ class loop:
         loop.delayPrint(2, "[Jash] This price... it is a mythical currency. It may be quite common, but do not let its rarity fool you. This commodity is quite valuable, when handled by the right person...")
         loop.delayPrint(1.5, "[Cashmere] Is it... money...?")
         loop.delayPrint(1, "[Jash] That is correct.")
-        loop.delayPrint(1.5, "[Jade] Could've just said that...")
+        loop.delayPrint(1.5, "[Jade] Could've just said that...")"""
         loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")
         
         input("Entering Jash's shop. Press Enter to proceed. ")
@@ -888,7 +889,7 @@ class loop:
                 break
         loop.loadingScreen()
         os.system("cls")
-        
+        """
         loop.delayPrint(1, "And within a fraction of a second, Jash disappears...")
         loop.delayPrint(2, "[Jade] What a strange little guy...")
         loop.delayPrint(1.5, "[Kelsey] Weren't you literally screaming at it to go away just now?")
@@ -936,16 +937,16 @@ class loop:
         loop.delayPrint(1.5, "A monster jumps from the walls and ambushes the group!")
         loop.delayPrint(2, "[Cashmere] Shoot. Get ready, everyone!")
         input("Press Enter to proceed. ")
-        loop.loadingScreen()
+        loop.loadingScreen()"""
         os.system("cls")
 
         enemies.clear()
         
-        bat = Enemy("Bat", 20, 20, 20, {"Nibble", "Blood Ichor"}, "A")
-        voraciousSpider = Enemy("Voracious Spider", 80, 80, 15, {"String Shot", "Venom Shot", "Lunge"}, "B")
+        bat = Enemy("Bat", 20, 20, 15, {"Nibble", "Blood Ichor"}, "A")
+        voraciousSpider = Enemy("Voracious Spider", 80, 80, 10, {"String Shot", "Venom Shot", "Lunge"}, "B")
         arachne = Enemy("Arachne", 300, 300, 25, {"Noxious Shot", "Blood Harvest", "Bite"}, "C")
-        voraciousSpider2 = Enemy("Voracious Spider", 80, 80, 15, {"String Shot", "Venom Shot", "Lunge"}, "D")
-        bat2 = Enemy("Bat", 20, 20, 20, {"Nibble", "Blood Ichor"}, "E")
+        voraciousSpider2 = Enemy("Voracious Spider", 80, 80, 10, {"String Shot", "Venom Shot", "Lunge"}, "D")
+        bat2 = Enemy("Bat", 20, 20, 15, {"Nibble", "Blood Ichor"}, "E")
         
         enemies.append(bat)
         enemies.append(voraciousSpider)
@@ -971,7 +972,7 @@ class loop:
         currentLevel = 3
         currentLevelUltimateModifier = 1.25
 
-        curveball = Attack(random.randint(Kelsey.strength - 5, Kelsey.strength + 20), random.randint(Kelsey.maxEnergy / 8, Kelsey.maxEnergy / 6), "Curveball", isHealing = False)
+        curveball = Attack(random.randint(Kelsey.level * 2 - 5, Kelsey.level * 2 + 20), random.randint(Kelsey.maxEnergy / 8, Kelsey.maxEnergy / 6), "Curveball", isHealing = False)
         groupHeal = Attack(20, 25, "Group Heal", isHealing = True)
         strike = Attack(40, 25, "Strike", isHealing = False)
         energySupport = Attack(0, 15, "Energy Support", isHealing = True)
