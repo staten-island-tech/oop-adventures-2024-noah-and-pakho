@@ -975,7 +975,7 @@ class loop:
         currentLevel = 3
         currentLevelUltimateModifier = 1.25
 
-        curveball = Attack(random.randint(Kelsey.level * 2 - 5, Kelsey.level * 2 + 20), random.randint(round(Kelsey.maxEnergy / 8), round(Kelsey.maxEnergy / 6)), "Curveball", isHealing = False)
+        curveball = Attack(random.randint(Kelsey.level * 2 - 5, Kelsey.level * 3 + 20), random.randint(round(Kelsey.maxEnergy / 8), round(Kelsey.maxEnergy / 6)), "Curveball", isHealing = False)
         groupHeal = Attack(20, 25, "Group Heal", isHealing = True)
         strike = Attack(40, 25, "Strike", isHealing = False)
         energySupport = Attack(0, 15, "Energy Support", isHealing = True)
@@ -1044,9 +1044,11 @@ class loop:
         os.system("cls")
         
         loop.delayPrint(1, "test")
+        loop.delayPrint(2.5, "another test")
 
     def delayPrint(delaySeconds, printString):
         time.sleep(delaySeconds)
         print(printString)
 
+# check commit history
 loop.mainLoop()
