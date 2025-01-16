@@ -791,16 +791,12 @@ class loop:
 
 
 
-## attacks
+## starting attacks
 basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
 sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
 headbutt = Attack(15, 10, "Headbutt", isHealing = False)
 slam = Attack(10, 5, "Slam", isHealing = False)
 cook = Attack(50, 17.5, "Cook", isHealing = True)
-stab = Attack(30, 20, "Stab", isHealing = False)
-powerhit = Attack(25, 20, "Power Hit", isHealing = False)
-rebound = Attack(round(Game.selectedEnemy.currentHealth * 0.15), round(Kelsey.maxEnergy / 5), "Rebound", isHealing = False)
-whack = Attack(10, 10, "Whack", isHealing = False)
 
 ## heroes
 Ceres = Hero(playerName, 90, 90, 45, 90, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)], "A")
@@ -808,6 +804,12 @@ Jade = Hero("Jade", 120, 120, 50, 100, 2.5, currentLevel, [("Basic Attack", "A",
 Kelsey = Hero("Kelsey", 75, 75, 55, 110, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam)], "C")
 Cashmere = Hero("Cashmere", 140, 140, 75, 150, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook)], "D")
 heroes = [Ceres]
+
+## unlocked attacks
+stab = Attack(30, 20, "Stab", isHealing = False)
+powerhit = Attack(25, 20, "Power Hit", isHealing = False)
+whack = Attack(10, 10, "Whack", isHealing = False)
+rebound = Attack(round(Game.selectedEnemy.currentHealth * 0.15), round(Kelsey.maxEnergy / 5), "Rebound", isHealing = False) 
 
 ## enemies
 Zol = Enemy("???", 100000000, 100000000, 100000000, {"Demolish"}, "A")
