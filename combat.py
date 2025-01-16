@@ -427,7 +427,7 @@ class loop:
         os.system("cls")
         print("Loading . . . ")
         loop.tips()
-        time.sleep(3.5)
+        time.sleep(1)
         input("Done! Press Enter to continue. ")
 
     def mainLoop():
@@ -445,23 +445,38 @@ class loop:
         
         loop.loadingScreen()
         os.system("cls")
-        loop.delayPrint(1.5, "[???] Hello there.")
+        loop.delayPrint(2.5, "Your eyes creep open as you slowly pick yourself up from the ground.") # new
+        loop.delayPrint(3, "Brilliant white pillars of marble rise from the ground, stretching into the sky above.") # new
+        loop.delayPrint(3, "In front of you, a being of massive proportions sits upon a throne of marble. He raises his voice to speak.") # new
+        loop.delayPrint(4, "[???] Hello there.")
         loop.delayPrint(2, "[???] What are you doing here?")
-        loop.delayPrint(3, "What...?")
-        loop.delayPrint(2, "[???] Who are you? What are you doing here?")
-        loop.delayPrint(3, "[???] Are you there?")
+        loop.delayPrint(2, "[You] ...what?") # "[Nameless] What...?"
+        loop.delayPrint(2, "[???] Why are you here? Who are you?") # "[???] Who are you? Why are you here?
         time.sleep(2)
-        print("Good question... Who am I?")
-        time.sleep(5)
+        print("[You] I don't know. Who am I?") # [Nameless] Good question... Who am I?
+        time.sleep(2)
         global playerName
         yes = True
         while yes:
             playerName = input("Who are you? ").strip()
-            if playerName == "":
-                input("[???] Sorry, I didn't get that. Come again? ")
+            if not playerName:
+                input("[???] Speak up. (Press Enter to retry.) ")
                 os.system("cls")
+            elif playerName == "Queenie":
+                loop.delayPrint(0.5, "[Noah] Hi Mr. Whalen.")
+                time.sleep(1)
+                yes = False
+                confirm = input(f"[Noah] The name 'Queenie' stinks. Are you absolutely sure you want to go through with this? (Y/N) ")
+                if confirm not in ["y", "yes", "n", "no"]:
+                    input("Invalid input. Try again. ")
+                elif confirm in ["y", "yes"]:
+                    print("[Noah] Alright, your loss.")
+                    time.sleep(2)
+                    break
+                elif confirm in ["n", "no"]: # optimize the checking system. .upper() or something and remove the lists
+                    yes = True
             else:
-                loop.delayPrint(1, f"I am {playerName}.")
+                loop.delayPrint(1, f"My name is {playerName}.")
                 yes = False
                 confirm = input(f"Your name is {playerName}? Y/N ")
                 if confirm not in ["y", "yes", "n", "no"]:
@@ -470,21 +485,27 @@ class loop:
                     break
                 elif confirm in ["n", "no"]:
                     yes = True
-        loop.delayPrint(3.5, "[???] Hm.")
-        loop.delayPrint(2, f"[???] {playerName}?")
+        os.system("cls")
+        loop.delayPrint(3, "[???] Ah.") # "[???] Hm."
+        loop.delayPrint(2, f"[???] '{playerName}'.") # "[???] {playerName}?"
         loop.delayPrint(2, "[???] That's a horrible name.")
-        loop.delayPrint(1, "[???] Whatever... You seem lost. ")
-        loop.delayPrint(1.5, "[???] Confused, perhaps...?")
-        loop.delayPrint(2, f"[???] Let me explain: Your name is {playerName}, apparently, and you are in my temple.")
-        loop.delayPrint(4, "[???] I would be way more aggressive, but I'll give you the benefit of the doubt.")
-        loop.delayPrint(2.5, "[???] I'm pretty busy right now, so I'm going to kindly ask you to leave.")
-        loop.delayPrint(4, "...")
-        loop.delayPrint(1.5, "Huh?")
-        loop.delayPrint(4, "[???] What do you mean, 'huh' ??")
-        loop.delayPrint(2, "[???] You need to leave.")
-        loop.delayPrint(3, "[???] I'm getting tired. Please leave.")
-        loop.delayPrint(7, "[???] Alright, that's it.")
+        loop.delayPrint(2, "[???] You seem lost. ") # "[???] Whatever... You seem lost. "
+        loop.delayPrint(1.4, "[???] Confused, perhaps.") # "[???] Confused, perhaps...?"
+        loop.delayPrint(2.5, f"[{playerName}] Yes, very confused. Where am I?") # new
+        loop.delayPrint(2, f"[???] You are currently in my temple. Isn't it so beautiful?") # "[???] Let me explain: Your name is {playerName}, apparently, and you are in my temple."
+        loop.delayPrint(3.5, "'No,' you think to yourself.") # new
+        loop.delayPrint(2, "[???] Well, I must ask you to leave now. I have more important matters to focus on right now.") # "[???] I'm pretty busy right now, so I'm going to kindly ask you to leave."
+        loop.delayPrint(3.5, "No, I won't leave until you give me answers.") # "..."
+        loop.delayPrint(2, "Who are you, where am I, and how did I get here?") # new
+        loop.delayPrint(2, "The figure sighs.") # new
+        loop.delayPrint(2.5, "My identity is of no concern to you. Also, I already answered the second question. You're in my tem-") # new
+        loop.delayPrint(4, "'WHO ARE YOU?!' you yell. He stops speaking.") # new
+        loop.delayPrint(3, "[???] You dare cut off a God while he speaks?") # new
+        loop.delayPrint(3, f"[{playerName}] I don't care if you're a god! I want answers!") # new
+        loop.delayPrint(2.5, "The figure sighs before standing up from his throne. A staff materializes in his hand, and he points it at you.") # new
+        loop.delayPrint(5.5, f"[???] Prepare yourself, {playerName}. Your name will be forgotten by my hands.") # new
         time.sleep(2)
+        # delayPrint first waits then prints.
         # moves
         basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
         sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
@@ -510,40 +531,41 @@ class loop:
                 break
         os.system("cls")
         loop.delayPrint(4, "[???] You have been defeated.")
-        loop.delayPrint(1.5, "[???] Now leave.")
+        loop.delayPrint(1.5, "'Now leave,' the figure says before your vision fades to black.") # new
         time.sleep(2.5)
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(3, "[???] Hello?")
+        loop.delayPrint(3, "Your eyes slowly open once more. This time, you lay on a soft bed of grass.") # new
         loop.delayPrint(2.5, "[???] Oh my, are you okay??")
-        loop.delayPrint(2, "[???] Damn, you seem really bruised...")
-        loop.delayPrint(2.5, "[???] Follow me, I'll get you some help!")
+        loop.delayPrint(2, "[???] You seem to be covered in bruises...") # "[???] Damn, you seem really bruised..."
+        loop.delayPrint(2.5, "[???] Stand up! Follow me, I will find you aid!") # "[???] Follow me, I'll get you some help!"
         time.sleep(3)
         os.system("cls")
-        loop.delayPrint(3, "The unknown person drags you to a campsite . . .")
+        loop.delayPrint(3, "The unknown person carries you over her shoulder to a nearby campsite..." ) # The unknown person drags you to a campsite . . .
         time.sleep(3)
         os.system("cls")
-        loop.delayPrint(5, "[???] What happened to you? You're in really bad shape...")
-        loop.delayPrint(2, "[???] Don't worry, I know a guy who can help for things like this.")
-        loop.delayPrint(3, "")
-        loop.delayPrint(2.5, "[???] Oh! By the way, I'm Jade. Who might you be? ")
+        loop.delayPrint(5, "[???] What happened to you? Your bruises look like they cover your whole body...") # "[???] What happened to you? You are in really bad shape..."
+        loop.delayPrint(2, "[???] Just wait a little longer, one of my friends will be able to help you recover from your wounds.") # "[???] Don't worry, I know a guy who can help for things like this." 
+        loop.delayPrint(3, "'Thank you,' you tell her. She gives you a smile before you two sit in awkward silence.") # new
+        loop.delayPrint(5, "[???] ...my name is Jade. And what might your name be?") # "[???] Oh! By the way, I'm Jade. Who might you be? "
         loop.delayPrint(3, f"I'm {playerName}.")
-        loop.delayPrint(2.5, "[Jade] I see. Strange name, but then again, you don't look like an normal, average guy.")
-        loop.delayPrint(2.5, "[Jade] The others should be arriving soon... You never know though.")
-        loop.delayPrint(3.5, "[Jade] The forest surrounding the area is filled with monsters, so they might be caught up with dealing with some of them.")
-        loop.delayPrint(5, "...")
-        loop.delayPrint(2.5, "[Jade] Now that I think about it, it has been a while since they've went out. I might have to look for them...")
-        loop.delayPrint(4, "[Jade] Don't worry, though. You'll be in good hands sooner or later.")
-        loop.delayPrint(2, "[Jade] Follow me. I'll go look for them.")
+        loop.delayPrint(2.5, "[Jade] I see. A strange name, but you do not seem to be from around here anyways.") # "[Jade] I see. Strange name, but then again, you don't look like an normal, average guy."
+        loop.delayPrint(2.5, "[Jade] The others should be arriving soon.")
+        loop.delayPrint(3.5, "[Jade] The forest surrounding us is filled with dangerous monsters, so they might be caught up with fighting them.")
+        loop.delayPrint(5, "The awkward silence returns.") # ". . ."
+        loop.delayPrint(2.5, "[Jade] Now that I think about it, it has been a while since they have went out. I might have to look for them...")
+        loop.delayPrint(4, "[Jade] Do not worry, though. You will be in good hands soon.")
+        loop.delayPrint(2, "[Jade] Follow me. I will go look for them.")
         loop.delayPrint(4.5, "Jade leads the way as she tries searching for her party.")
-        loop.delayPrint(5, "Just then, the two of you hear a faint noise.")
-        loop.delayPrint(3.5, "[Jade] Sounds like commotion. I wonder what's happening?")
+        loop.delayPrint(5, "Just then, you hear the rustling of leaves in the distance.")
+        loop.delayPrint(3.5, "[Jade] That sounds like commotion. I wonder what is happening?")
         loop.delayPrint(2.5, "The two of you venture closer to the source of the noise...")
         time.sleep(5)
         loop.loadingScreen()
         os.system("cls")
-        loop.delayPrint(3.5, "You see two individuals struggling with a particularly large foe...")
-        loop.delayPrint(2, "[Jade] Shoot, I think that's them. Quick, let's help them out!")
+        loop.delayPrint(3.5, "You see two individuals in the distance fighting against a particularly large foe...")
+        loop.delayPrint(2, "[Jade] I think those are my friends. Quickly, we must help them!")
         time.sleep(3)
         loop.loadingScreen()
         os.system("cls")
@@ -576,74 +598,68 @@ class loop:
                 break
         loop.loadingScreen()
         os.system("cls")
-        loop.delayPrint(3.5, "[???] Damn, that guy was way tougher than usual...")
-        loop.delayPrint(2.5, "[???] Exactly! Usually all we face are some little enemies, but this guy was really big!")
-        loop.delayPrint(3.75, "[Jade] I'm glad you guys are all okay.")
-        loop.delayPrint(2.5, f"[Jade] {playerName}, this is Kelsey and Cashmere. Kelsey and Cashmere, {playerName}.")
-        loop.delayPrint(3, "[Jade] I found this guy near our campsite looking horribly disheveled, and I wanted to see if you guys could do anything about it.")
-        loop.delayPrint(2.5, "[Cashmere] Oh my... Of course!")
-        loop.delayPrint(6.5, "Cashmere tends to your wounds. You haven't bothered to look down the entire time, apparently, because you didn't even notice you had wounds on you.")
-        loop.delayPrint(2, "[Kelsey] That's only a temporary fix, though. We should probably head back to the campsite if we want to actually do something.")
-        loop.delayPrint(1.5, f"[Jade] Yeah, we also have to decide what to do with {playerName}. ")
-        loop.delayPrint(2, f"[Kelsey] Oh yeahhh! Where did you even come from, {playerName}?")
-        loop.delayPrint(2.5, "Where did I come from? That's obvious! I came from")
-        loop.delayPrint(2, "Uhhhhhh")
-        loop.delayPrint(5, "...")
-        loop.delayPrint(3.5, "I don't... remember...")
-        loop.delayPrint(4, "[Cashmere] Uhh???? Alright then?? I guess we can take care of you for now...")
-        loop.delayPrint(2.5, "[Jade] That's really strange... ")
-        loop.delayPrint(2.5, "[Kelsey] When Cashmere was tending to your wounds, I noticed a strange mark on your forearm. Do any of you know what that is?")
-        loop.delayPrint(3, "You look down, and lo and behold, there it is. A particularly strange mark is imbedded into your forearm, and there seems to be a strange pulsing emanating from it.")
-        loop.delayPrint(2, "[Jade] Yikes.... We probably shouldn't touch that. What if it's dangerous?")
+        loop.delayPrint(3.5, "[?] Damn, that guy was way tougher than usual...")
+        loop.delayPrint(2.5, "[??] Exactly! I didn't even know there were monsters as big as him here.")
+        loop.delayPrint(3.75, "[Jade] I am glad you guys are all okay.")
+        loop.delayPrint(2.5, f"[Jade] {playerName}, this is Kelsey and Cashmere. Kelsey and Cashmere, this is {playerName}.")
+        loop.delayPrint(3, "[Jade] I found him near our campsite looking horribly disheveled, and I wanted to see if you two could do anything about it.")
+        loop.delayPrint(2.5, "[Cashmere] Duh, obviously we can do something about it.")
+        loop.delayPrint(6.5, "Back at the campsite, Kelsey tends to your wounds while Cashmere cooks something over a fire.")
+        loop.delayPrint(2, "[Kelsey] That's only a temporary fix, though. We should probably find a shop, or hospital, or something to help you feel better.")
+        loop.delayPrint(1.5, f"[Jade] Yeah, we also have to decide what to do with {playerName} once he's fixed up. ")
+        loop.delayPrint(2, f"[Kelsey] Oh, yeahhh! Where did you even come from, {playerName}?")
+        loop.delayPrint(2.5, "'A good question,' you think to yourself. You try to recall memories of your past, but all you see are the marble pillars reaching above.")
+        loop.delayPrint(3.5, f"You tell them what you remembered, but they stare at you with blank faces.")
+        loop.delayPrint(4, "[Kelsey] ...I think he's still in shock.")
+        loop.delayPrint(2.5, "[Jade] I agree, that is quite the strange backstory.")
+        loop.delayPrint(2.5, f"[Kelsey] When I was tending to {playerName}'s wounds, I noticed a strange mark on their forearm. Do any of you know what that is?")
+        loop.delayPrint(3, "The other party members crowd around you, staring at the mark. ")
+        loop.delayPrint(2, "[Jade] Yikes.... We should not touch that. What if it's dangerous?")
         loop.delayPrint(3.5, f"[Cashmere] Good point. Let's go. We'll figure out what to do with {playerName} eventually.")
-        loop.delayPrint(1.5, "[Kelsey] I guess that settles it then? We just have another person now...?")
-        loop.delayPrint(2.5, "[Jade] You say that as if we don't need the manpower...")
-        loop.delayPrint(3.5, "[Cashmere] Come on, you guys, let's head back for now.")
         loop.delayPrint(4.5, "Now with a newfound group, you head to a campsite on the edge of the forest.")
         time.sleep(1.5)
+        input("Press Enter to continue.")
         loop.loadingScreen()
         os.system("cls")
-        loop.delayPrint(4, "[Kelsey] I can't WAIT for you to meet our campsite! It's got so much cool stuff and there's so much nature stuff and like there's - ")
-        loop.delayPrint(1.5, "[Jade] Shut up, Kel. You're ruining the surprise.")
-        loop.delayPrint(2.5, "[Kelsey] ??? Sorry I guess??? Excuse me for being excited about an accomplishment...")
-        loop.delayPrint(2, f"[Jade] I'm not trying to play down our accomplishment, I'm just saying that MAYBE {playerName} might want to find out for themself...")
-        loop.delayPrint(2.5, "[Kelsey] Well SORRY for slightly disrupting your routine, perfectionist...")
-        loop.delayPrint(1.5, "[Jade] Are you actually serious right now")
-        loop.delayPrint(4.5, "[Cashmere] Errrh... Guys, you might want to check this out...")
-        loop.delayPrint(1.5, "[Kelsey] WHAT DO YOU MEAN 'are you actually serious right now' ?????")
-        loop.delayPrint(2, "[Jade] WHAT I MEAN IS THAT MAYBE YOU DON'T HAVE TO BE SO IMPULSIVE ALL THE TIME????")
-        loop.delayPrint(2.5, "[Cashmere] Guys -")
-        loop.delayPrint(2.25, "[Kelsey] THERE IS NO WAY WE'RE GETTING INTO THIS RIGHT NOW IN FRONT OF THE NEW GUY")
-        loop.delayPrint(2, "[Jade] OH YOU WANNA BRING THEM INTO THIS???")
+        loop.delayPrint(4, "[Kelsey] I can't WAIT for you to see our campsite! It's got so much cool stuff, and there's so much nature stuff, and like there's-")
+        loop.delayPrint(1.5, "[Jade] Oh, be quiet Kel. You are ruining the surprise.")
+        loop.delayPrint(2.5, f"[Kelsey] What? I'm just excited to show {playerName} our accomplishment, is that unreasonable?")
+        loop.delayPrint(2, f"[Jade] I am not saying that it is unreasonable, I am just saying that maybe {playerName} might want to find out for themself...")
+        loop.delayPrint(2.5, "[Kelsey] Well SORRY for slightly disrupting the plan that YOU never told us...")
+        loop.delayPrint(1.5, "[Jade] Are you serious?")
+        loop.delayPrint(4.5, "[Cashmere] Yo, you might want to check this out...")
+        loop.delayPrint(1.5, "[Kelsey] WHAT DO YOU MEAN, 'are you serious'?????")
+        loop.delayPrint(2, "[Jade] WHAT I MEAN IS THAT MAYBE YOU SHOULD NOT BE SO LOUD-MOUTHED????")
+        loop.delayPrint(2.5, "[Cashmere] Yo, look at the damn camp-")
+        loop.delayPrint(2.5, "You watch in silence as Jade and Kelsey bicker at each other.")
+        loop.delayPrint(2.25, "[Kelsey] THERE IS NO WAY WE'RE GETTING INTO THIS RIGHT NOW IN FRONT OF THE NEW GUY!")
+        loop.delayPrint(2, "[Jade] THIS WOULD HAVE NEVER HAPPENED IF YOU COULD CONTROL YOURSELF FOR JUST ONE MOMENT!")
         loop.delayPrint(1, "[Cashmere] THE CAMPSITE IS GONE YOU IDIOTS")
-        time.sleep(0.25)
+        time.sleep(5)
         print("[Jade] WHAT")
-        print("[Kelsey] WHAT")
-        loop.delayPrint(0.5, "WHAT???")
-        loop.delayPrint(2, "Damn. Cashmere is right. The group's so-called 'campsite' seems to be nothing but a bunch of blankets and cloths now...")
-        loop.delayPrint(1, "There's also some seemingly foreign markings in the ground. ")
-        loop.delayPrint(2, "[Jade] Oh god oh god oh god oh god oh god")
-        loop.delayPrint(2, "[Kelsey] Yall where is Clove?")
-        loop.delayPrint(1.5, "Clove...? Must be another one of their troupe.")
-        loop.delayPrint(2, "[Cashmere] Shoot, you're right... Clove is missing!")
-        loop.delayPrint(3, "[Cashmere] I can't seem to find any sign of him anywhere... Maybe he's just wandered off?")
-        loop.delayPrint(1, "[Jade] Clove wouldn't do that... It's not like them!")
-        loop.delayPrint(1.5, "[Kelsey] OUSI;GH;AISDHG;ASDIGHAS;DLKHG well isn't this just the best day ever")
-        loop.delayPrint(2.5, "[Cashmere] Calm down, you guys. We'll find him...")
-        loop.delayPrint(1, "[Jade] How do you even know for sure???")
+        loop.delayPrint(0.2, "[Kelsey] WHAT")
+        loop.delayPrint(0.5, "What?")
+        loop.delayPrint(2, "Cashmere is right. The group's so-called 'campsite' now seems to be nothing but a bunch of crumpled up tents and clothes.")
+        loop.delayPrint(1, "The fire in the center has been extinguished. There are also some seemingly foreign markings etched into the ground. ")
+        loop.delayPrint(2, "[Jade] Oh my lord. Dear lord.")
+        loop.delayPrint(2, "[Kelsey] Where is Clove?")
+        loop.delayPrint(1.5, "Clove? You figure he must be another one of their troupe.")
+        loop.delayPrint(2, "[Cashmere] Ugh, you're right. He's gone missing.")
+        loop.delayPrint(3, "[Cashmere] I can't find any sign of him anywhere. Maybe he just wandered off?")
+        loop.delayPrint(1, "[Jade] Look! His tent is destroyed. Someone must have taken him away.")
+        loop.delayPrint(1.5, "Kelsey buries his face in his hands.")
+        loop.delayPrint(3, "[Kelsey] Well isn't this just the best day ever.")
+        loop.delayPrint(2.5, "[Cashmere] Calm down guys. We're gonna find him.")
+        loop.delayPrint(1, "[Kelsey] You don't even know that for sure, shut up.")
         loop.delayPrint(1.5, "[Cashmere] What, are we just going to give up on searching for him?")
-        loop.delayPrint(1, "[Kelsey] He brings up a good point....")
-        loop.delayPrint(2.5, "[Jade] I do NOT want to hear this from you right now Kelsey")
+        loop.delayPrint(1, "[Jade] He is right.")
+        loop.delayPrint(2.5, "[Kelsey] Jade, shut up already.")
         loop.delayPrint(1.5, "[Cashmere] Calm down, everyone. Do you all remember the caves we discovered a while back near here?")
-        loop.delayPrint(1, f"[Kelsey] {playerName} definitely wouldn't...")
-        loop.delayPrint(1, "[Jade] NOT HIS POINT RIGHT NOW KEL")
-        loop.delayPrint(1.5, "[Cashmere] What I was trying to say was that maybe we could start searching there?")
-        loop.delayPrint(2.5, "[Kelsey] Alright, but it's going to be quite dangerous there...")
+        loop.delayPrint(2, "[Cashmere] We could try exploring there.")
+        loop.delayPrint(2.5, "[Kelsey] Alright, but it's gonna be dangerous.")
         loop.delayPrint(1, "[Cashmere] Clove could also be in danger.")
-        loop.delayPrint(1.5, "[Jade] Come on, let's go already....")
-        loop.delayPrint(2, "I guess we're going to the caves now?")
-        loop.delayPrint(1, "None of them really asked about my opinion on this, but... whatever... it sounds important to them.")
-        loop.delayPrint(1, "I still have yet to figure out what the hell I'm doing here, though.")
+        loop.delayPrint(1.5, "[Jade] Come on, we should go already...")
+        loop.delayPrint(2, "The three go on and walk towards the cave, completely disregarding your opinion. You decide to follow them.")
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(1.5, "The group has dragged you along with them for the second or third time today, and this time, you're going along with them to what's supposed to be a super dangerous cave. ")
@@ -975,7 +991,7 @@ class loop:
         currentLevel = 3
         currentLevelUltimateModifier = 1.25
 
-        curveball = Attack(random.randint(Kelsey.level * 2 - 5, Kelsey.level * 3 + 20), random.randint(round(Kelsey.maxEnergy / 8), round(Kelsey.maxEnergy / 6)), "Curveball", isHealing = False)
+        curveball = Attack(random.randint(Kelsey.level * 2 - 5, Kelsey.level * 2 + 20), random.randint(round(Kelsey.maxEnergy / 8), round(Kelsey.maxEnergy / 6)), "Curveball", isHealing = False)
         groupHeal = Attack(20, 25, "Group Heal", isHealing = True)
         strike = Attack(40, 25, "Strike", isHealing = False)
         energySupport = Attack(0, 15, "Energy Support", isHealing = True)
@@ -1044,12 +1060,56 @@ class loop:
         os.system("cls")
         
         loop.delayPrint(1, "test")
-        loop.delayPrint(2.5, "another test")
 
     def delayPrint(delaySeconds, printString):
         time.sleep(delaySeconds)
         print(printString)
 
-# check commit history
-# 屌你老母 屌你老母 屌你老母 屌你老母
 loop.mainLoop()
+
+# when name confirmation is asked, choosing invalid input just lets the name you typed in be the name.
+# choosing no also leads to the "invalid position selected" message to show up again
+# hero position is redundant
+
+# seperate functions for dialogue, attacks, and encounters
+# use a counter to determine what encounter ur on
+# ultimates should be displayed w/ their effect, but your energy has to be enough to actually use it
+# all enemy attacks should be displayed in one command without having to press enter multiple time
+# round attack damages to the nearest integer
+# energy is only added after stats r displayed
+# the last dialogue quickly flashes before it goes to a retarded loading screen
+# if jash has no more items, it should say in his list "None!"
+# if invalid input is given in jash's shop, it should os.cls
+# continuing in jash's shop after buying out everything doesnt display the stats. it also says that its invalid input.
+# when opening your inventory, it asks for input twice AND says its invalid before asking for the third time.
+# no error handling when confirming what item to use. it sends you straight to the next cutscene.
+# your name should be displayed in dialogue
+# when enemies are displayed, display their health next to them with their position
+# when using the moveset consumable, it appends new attacks to EVERYONE's moveset
+# might need to buff enemies
+# whittle (kelsey) is absolutely useless
+# after a basic attack is used, it should display your energy regen
+# when a healing attack is selected, it should also display energy alongside health
+# if a hero's ult is ready, it should tell you
+    # could do this thru if statements
+# add options to skip dialogue
+# 
+
+
+# no real buildup to the fight.
+    # maybe say that noah will stay until he gets answers, zol refuses, fight starts
+# no description of where u are after being destroyed by zol
+# 
+
+# nerf heal (50% is actually broken as fuck)
+
+# Changelogs
+
+# Bug Fixes & Code Changes:
+    # if you type in the name "Queenie", a special message pops up.
+
+# Nerfs & Buffs:
+    #
+
+# Other Changes:
+    # dialogue revamped
