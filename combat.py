@@ -410,24 +410,24 @@ class Game:
 
 class loop:
     def tips():
-        randomTip = random.randint(1, 14)
-        if randomTip == 1 or randomTip == 2:
+        randomTip = random.randint(1, 19)
+        if randomTip in [1, 2, 3]:
             displayedTip = "Tip: Your computer is spying on you. Your government is spying on you. No one is safe."
-        elif randomTip == 3 or randomTip == 4:
+        elif randomTip in [4, 5, 6]:
             displayedTip = "Tip: You are never alone. I am in your washing machine every day from 1 AM to 5 AM."
-        elif randomTip == 5 or randomTip == 6:
+        elif randomTip in [7, 8, 9]:
             displayedTip = "Tip: The 'dry' part in the word 'drywall' is a lie. It was not dry."
-        elif randomTip == 7 or randomTip == 8:
+        elif randomTip in [10, 11, 12]:
             displayedTip = "Tip: Every 60 seconds in Africa, a minute goes by everywhere else. This is true!"
-        elif randomTip == 9 or randomTip == 10:
+        elif randomTip in [13, 14, 15]:
             displayedTip = "Tip: There is a secret code that activates easy mode! Don't try to find it, though. You won't find it."
-        elif randomTip == 11:
+        elif randomTip == 16:
             displayedTip = "Tip: This project is brought to you by a poorly designed garble of spaghetti code. Please do not test its limits or it will cry. And then I will cry. "
-        elif randomTip == 12:
+        elif randomTip == 17:
             displayedTip = "Tip: My grade for this project is so LOW. My report card is going to be a MASSIVE upset. I will FADE away into obscurity after this. I hope to never see any of you again."
-        elif randomTip == 13:
+        elif randomTip == 18:
             displayedTip = "Tip: You just lost the game. If you think that you lost this game, you are deeply mistaken. You instead lost 'The Game', the game where the entire point of the game is to not realize that you lost the game. You see, the point of the game is that you won the game as long as you don't think of the game. As soon as you realize that you have been an active participant of the game, or as soon as you are reminded of the game, you lose."
-        elif randomTip == 14:
+        elif randomTip == 19:
             displayedTip = "Tip: im over here playing this game rn i got my fingers on the keys rn typing in enemy positions and stuff, im whimsical as freak man im a player man"
         
 
