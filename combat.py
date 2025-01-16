@@ -491,10 +491,10 @@ class loop:
         Kelsey.currentEnergy = 55
         Cashmere.currentHealth = 140
         Cashmere.currentEnergy = 75
+
         voraciousSpider = Enemy("Voracious Spider", 80, 80, 15, {"String Shot", "Venom Shot", "Lunge"}, "A") # enemy attacks are defined in enemy class
         undeadMiner = Enemy("Undead Miner", 110, 110, 7.5, {"Shovel Whack", "Shovel Smack"}, "B")
         bat = Enemy("Bat", 20, 20, 20, {"Nibble", "Blood Ichor"}, "C")
-
         enemies.clear()
         enemies.append(voraciousSpider)
         enemies.append(undeadMiner)
@@ -514,11 +514,6 @@ class loop:
         currentLevel = 2
         global currentLevelUltimateModifier
         currentLevelUltimateModifier = 1
-
-        stab = Attack(30, 20, "Stab", isHealing = False)
-        powerhit = Attack(25, 20, "Power Hit", isHealing = False)
-        rebound = Attack(round(Game.selectedEnemy.currentHealth * 0.15), round(Kelsey.maxEnergy / 5), "Rebound", isHealing = False)
-        whack = Attack(10, 10, "Whack", isHealing = False)
 
         Ceres.currentHealth = 105
         Ceres.maxHealth = 105
@@ -802,6 +797,10 @@ sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = F
 headbutt = Attack(15, 10, "Headbutt", isHealing = False)
 slam = Attack(10, 5, "Slam", isHealing = False)
 cook = Attack(50, 17.5, "Cook", isHealing = True)
+stab = Attack(30, 20, "Stab", isHealing = False)
+powerhit = Attack(25, 20, "Power Hit", isHealing = False)
+rebound = Attack(round(Game.selectedEnemy.currentHealth * 0.15), round(Kelsey.maxEnergy / 5), "Rebound", isHealing = False)
+whack = Attack(10, 10, "Whack", isHealing = False)
 
 ## heroes
 Ceres = Hero(playerName, 90, 90, 45, 90, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)], "A")
