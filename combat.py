@@ -11,7 +11,7 @@ global currentLevelUltimateModifier
 currentLevelUltimateModifier = 0.75
 playerName = ""
 class Hero: 
-    def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset, position):
+    def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset):
         self.name = name
         self.currentHealth = currentHealth
         self.maxHealth = maxHealth
@@ -20,7 +20,6 @@ class Hero:
         self.energyRegen = energyRegen
         self.level = level
         self.moveset = moveset
-        self.position = position
     
     def displayStats(self):
         print(f"Name: {self.name}")
@@ -150,8 +149,8 @@ class Game:
         for hero in self.heroes:
             if hero.currentEnergy > hero.maxEnergy:
                 hero.currentEnergy = hero.maxEnergy
-            print(f"Name: {hero.name} [{hero.position}]")
-            print(f"Health: {hero.currentHealth} / {hero.maxHealth} | Energy: {hero.currentEnergy} / {hero.maxEnergy}")
+            print(f"Name: {hero.name}")
+            print(f"Health: [{hero.currentHealth}] / {hero.maxHealth} | Energy: [{hero.currentEnergy} / {hero.maxEnergy}]")
 
     def heroSelect(self):
         self.displayParty()
@@ -178,7 +177,8 @@ class Game:
         aliveEnemies = [enemy for enemy in self.enemies if enemy.currentHealth > 0]
         while True:
             print(f"{self.selectedHero.name} is attacking!")
-            print(f"{self.selectedHero.name} ({self.selectedHero.currentHealth} / {self.selectedHero.maxHealth} Health, {self.selectedHero.currentEnergy} / {self.selectedHero.maxEnergy} Energy)")
+            print(f"Health: [{self.selectedHero.currentHealth} / {self.selectedHero.maxHealth}] | Energy: [{self.selectedHero.currentEnergy} / {self.selectedHero.maxEnergy}]")
+            print(" ")
             print("Available enemies to target: ")
             for enemy in aliveEnemies:
                 print(f"Name: {enemy.name} [{enemy.position}]")
@@ -209,7 +209,7 @@ class Game:
             if move:
                 if attack.isHealing:
                     if attack.name == "Cook":
-                        healingPercentage = 50
+                        healingPercentage = 37.5
                         print(f"{move} [{letter}] (Cost: {attack.energyCost} Energy, Heals: {healingPercentage}% HP)")
                     elif attack.name == "Group Heal":
                         healingPercentage = 20
@@ -349,7 +349,7 @@ class Game:
 
                 for ally in availableAllies:
                     if ally.position == allyPosition:
-                        healAmount = ally.maxHealth * 0.50
+                        healAmount = ally.maxHealth * 0.375
                         ally.currentHealth += healAmount
                         if ally.currentHealth > ally.maxHealth:  
                             ally.currentHealth = ally.maxHealth
@@ -380,7 +380,7 @@ class Game:
                 for ally in availableAllies:
                     print(f"{ally.name} [{ally.position}] - Energy: {ally.currentEnergy} / {ally.maxEnergy}")
 
-                allyPosition = input("Enter the position of the ally to heal: ").strip().upper()
+                allyPosition = input("Enter the position of the ally to support: ").strip().upper()
 
                 validSelection = False
                 for ally in availableAllies:
@@ -409,7 +409,7 @@ class Game:
 
 class loop:
     def tips():
-        randomTip = random.randint(1, 11)
+        randomTip = random.randint(1, 22)
         if randomTip == 1 or randomTip == 2:
             displayedTip = "Tip: Your computer is spying on you. Your government is spying on you. No one is safe."
         elif randomTip == 3 or randomTip == 4:
@@ -419,9 +419,33 @@ class loop:
         elif randomTip == 7 or randomTip == 8:
             displayedTip = "Tip: Every 60 seconds in Africa, a minute goes by everywhere else. This is true!"
         elif randomTip == 9 or randomTip == 10:
-            displayedTip = "Tip: There is a secret code that activates easy mode! Don't try it, though. You won't find it."
+            displayedTip = "Tip: There is a secret code that activates easy mode! Don't try to find it, though. You won't find it."
         elif randomTip == 11:
             displayedTip = "Tip: This project is brought to you by a poorly designed garble of spaghetti code. Please do not test its limits or it will cry. And then I will cry. "
+        elif randomTip == 12:
+            displayedTip = "Hawk One: What's 1 + 1?"
+        elif randomTip == 13:
+            displayedTip = "My grade for this project is so LOW. My report card is going to be a MASSIVE upset. I will FADE away into obscurity after this. I hope to never see any of you again."
+        elif randomTip == 14:
+            displayedTip = "You just lost the game. If you think that you lost this game, you are deeply mistaken. You instead lost 'The Game', the game where the entire point of the game is to not realize that you lost the game. You see, the point of the game is that you won the game as long as you don't think of the game. As soon as you realize that you have been an active participant of the game, or as soon as you are reminded of the game, you lose."
+        elif randomTip == 15:
+            displayedTip = "Pakho, remind me to get rid of this tip"
+        elif randomTip == 16:
+            displayedTip = "How many tips can we display before you realize that none of these are remotely helpful?"
+        elif randomTip == 17:
+            displayedTip = "KILL CASHMERE"
+        elif randomTip == 18:
+            displayedTip = "Pay attention to the next tip. It's very important."
+        elif randomTip == 19:
+            displayedTip = "Actually, I take that back. The last tip was incorrect."
+        elif randomTip == 20:
+            displayedTip = "im over here playing this game rn i got my fingers on the keys rn typing in enemy positions and stuff, im whimsical as freak man im a player man"
+        elif randomTip == 21:
+            displayedTip = "Noah, come back and write this tip at like 12 am and its just you venting about this project"
+        elif randomTip == 22:
+            displayedTip = " "
+        
+
         print(displayedTip)
     def loadingScreen():
         os.system("cls")
@@ -445,6 +469,7 @@ class loop:
         
         loop.loadingScreen()
         os.system("cls")
+        """
         loop.delayPrint(2.5, "Your eyes creep open as you slowly pick yourself up from the ground.") # new
         loop.delayPrint(3, "Brilliant white pillars of marble rise from the ground, stretching into the sky above.") # new
         loop.delayPrint(3, "In front of you, a being of massive proportions sits upon a throne of marble. He raises his voice to speak.") # new
@@ -453,7 +478,7 @@ class loop:
         loop.delayPrint(2, "[You] ...what?") # "[Nameless] What...?"
         loop.delayPrint(2, "[???] Why are you here? Who are you?") # "[???] Who are you? Why are you here?
         time.sleep(2)
-        print("[You] I don't know. Who am I?") # [Nameless] Good question... Who am I?
+        print("[You] I don't know. Who am I?") # [Nameless] Good question... Who am I?"""
         time.sleep(2)
         global playerName
         yes = True
@@ -463,35 +488,41 @@ class loop:
                 input("[???] Speak up. (Press Enter to retry.) ")
                 os.system("cls")
             elif playerName == "Queenie":
-                loop.delayPrint(0.5, "[Noah] Hi Mr. Whalen.")
+                print("Hi, Mr. Whalen.")
                 time.sleep(1)
                 yes = False
-                confirm = input(f"[Noah] The name 'Queenie' stinks. Are you absolutely sure you want to go through with this? (Y/N) ")
-                if confirm not in ["y", "yes", "n", "no"]:
-                    input("Invalid input. Try again. ")
-                elif confirm in ["y", "yes"]:
-                    print("[Noah] Alright, your loss.")
-                    time.sleep(2)
-                    break
-                elif confirm in ["n", "no"]: # optimize the checking system. .upper() or something and remove the lists
-                    yes = True
+                while not yes:
+                    confirm = input(f"I think you should reconsider your actions and select a different name. Are you absolutely sure you want to go through with this? (Y/N) ").strip().upper()
+                    if not confirm or confirm not in ["Y", "N"]:
+                        input("Invalid input. Try again. ")
+                        os.system("cls")
+                    elif confirm == "Y":
+                        print("Alright, your loss.")
+                        time.sleep(2)
+                        break
+                    elif confirm == "N": # optimize the checking system. .upper() or something and remove the lists
+                        print("A wise choice.")
+                        yes = True
             else:
                 loop.delayPrint(1, f"My name is {playerName}.")
                 yes = False
-                confirm = input(f"Your name is {playerName}? Y/N ")
-                if confirm not in ["y", "yes", "n", "no"]:
-                    input("Invalid input. Try again. ")
-                elif confirm in ["y", "yes"]:
-                    break
-                elif confirm in ["n", "no"]:
-                    yes = True
+                while not yes:
+                    confirm = input(f"Your name is {playerName}? Y/N ").strip().upper()
+                    if not confirm or confirm not in ["Y", "N"]:
+                        input("Invalid input. Try again. ")
+                        os.system("cls")
+                    elif confirm == "Y":
+                        break
+                    elif confirm == "N":
+                        yes = True
         os.system("cls")
+        """
         loop.delayPrint(3, "[???] Ah.") # "[???] Hm."
         loop.delayPrint(2, f"[???] '{playerName}'.") # "[???] {playerName}?"
-        loop.delayPrint(2, "[???] That's a horrible name.")
+        loop.delayPrint(2, "[???] Your name is the worst name I have ever heard.")
         loop.delayPrint(2, "[???] You seem lost. ") # "[???] Whatever... You seem lost. "
         loop.delayPrint(1.4, "[???] Confused, perhaps.") # "[???] Confused, perhaps...?"
-        loop.delayPrint(2.5, f"[{playerName}] Yes, very confused. Where am I?") # new
+        loop.delayPrint(2.5, f"[{playerName}] Yeah... Where am I?") # new
         loop.delayPrint(2, f"[???] You are currently in my temple. Isn't it so beautiful?") # "[???] Let me explain: Your name is {playerName}, apparently, and you are in my temple."
         loop.delayPrint(3.5, "'No,' you think to yourself.") # new
         loop.delayPrint(2, "[???] Well, I must ask you to leave now. I have more important matters to focus on right now.") # "[???] I'm pretty busy right now, so I'm going to kindly ask you to leave."
@@ -499,20 +530,19 @@ class loop:
         loop.delayPrint(2, "Who are you, where am I, and how did I get here?") # new
         loop.delayPrint(2, "The figure sighs.") # new
         loop.delayPrint(2.5, "My identity is of no concern to you. Also, I already answered the second question. You're in my tem-") # new
-        loop.delayPrint(4, "'WHO ARE YOU?!' you yell. He stops speaking.") # new
+        loop.delayPrint(4, "' - Who are you???' you interject. He stops speaking.") # new
         loop.delayPrint(3, "[???] You dare cut off a God while he speaks?") # new
-        loop.delayPrint(3, f"[{playerName}] I don't care if you're a god! I want answers!") # new
+        loop.delayPrint(3, f"[{playerName}] ... I really... don't care... I just want answers...") # new
         loop.delayPrint(2.5, "The figure sighs before standing up from his throne. A staff materializes in his hand, and he points it at you.") # new
-        loop.delayPrint(5.5, f"[???] Prepare yourself, {playerName}. Your name will be forgotten by my hands.") # new
+        loop.delayPrint(5.5, f"[???] Prepare yourself. Your name will be erased from the annals of history.") # new"""
         time.sleep(2)
-        # delayPrint first waits then prints.
         # moves
         basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
         sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
 
         # characters/heroes
         global currentLevel
-        Ceres = Hero(playerName, 90, 90, 45, 90, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)], "A")
+        Ceres = Hero(playerName, 90, 90, 45, 90, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)])
         heroes = [Ceres]
 
         # enemies
@@ -529,9 +559,12 @@ class loop:
                     break
             else:
                 break
+        
         os.system("cls")
+        """
         loop.delayPrint(4, "[???] You have been defeated.")
-        loop.delayPrint(1.5, "'Now leave,' the figure says before your vision fades to black.") # new
+        loop.delayPrint(1.5, "[???] 'Now leave'") # new
+        loop.delayPrint(2, "Your vision starts to fade to black... ")
         time.sleep(2.5)
         loop.loadingScreen()
         os.system("cls")
@@ -553,7 +586,7 @@ class loop:
         loop.delayPrint(2.5, "[Jade] I see. A strange name, but you do not seem to be from around here anyways.") # "[Jade] I see. Strange name, but then again, you don't look like an normal, average guy."
         loop.delayPrint(2.5, "[Jade] The others should be arriving soon.")
         loop.delayPrint(3.5, "[Jade] The forest surrounding us is filled with dangerous monsters, so they might be caught up with fighting them.")
-        loop.delayPrint(5, "The awkward silence returns.") # ". . ."
+        loop.delayPrint(5, "The awkward silence returns.") 
         loop.delayPrint(2.5, "[Jade] Now that I think about it, it has been a while since they have went out. I might have to look for them...")
         loop.delayPrint(4, "[Jade] Do not worry, though. You will be in good hands soon.")
         loop.delayPrint(2, "[Jade] Follow me. I will go look for them.")
@@ -566,7 +599,7 @@ class loop:
         os.system("cls")
         loop.delayPrint(3.5, "You see two individuals in the distance fighting against a particularly large foe...")
         loop.delayPrint(2, "[Jade] I think those are my friends. Quickly, we must help them!")
-        time.sleep(3)
+        time.sleep(3)"""
         loop.loadingScreen()
         os.system("cls")
         
@@ -575,9 +608,9 @@ class loop:
         cook = Attack(50, 17.5, "Cook", isHealing = True)
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
-        Jade = Hero("Jade", 120, 120, 50, 100, 2.5, currentLevel, [("Basic Attack", "A", basicattack), ("Headbutt", "B", headbutt)], "B")
-        Kelsey = Hero("Kelsey", 75, 75, 55, 110, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam)], "C")
-        Cashmere = Hero("Cashmere", 140, 140, 75, 150, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook)], "D")
+        Jade = Hero("Jade", 120, 120, 50, 100, 2.5, currentLevel, [("Basic Attack", "A", basicattack), ("Headbutt", "B", headbutt)])
+        Kelsey = Hero("Kelsey", 75, 75, 55, 110, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam)])
+        Cashmere = Hero("Cashmere", 140, 140, 75, 150, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook)])
         heroes.append(Jade)
         heroes.append(Kelsey)
         heroes.append(Cashmere)
@@ -598,6 +631,7 @@ class loop:
                 break
         loop.loadingScreen()
         os.system("cls")
+        """
         loop.delayPrint(3.5, "[?] Damn, that guy was way tougher than usual...")
         loop.delayPrint(2.5, "[??] Exactly! I didn't even know there were monsters as big as him here.")
         loop.delayPrint(3.75, "[Jade] I am glad you guys are all okay.")
@@ -693,7 +727,7 @@ class loop:
         loop.delayPrint(3, "Monsters rise from the smoke, and they stare down you & the troupe.")
         loop.delayPrint(2.5, "[Jade] Now why on earth would you do that?")
         loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight!")
-        input("Press Enter to proceed. ")
+        input("Press Enter to proceed. ") """
         
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
@@ -757,7 +791,8 @@ class loop:
         Cashmere.energyRegen = 10
         Cashmere.moveset.append(("Whack", "C", whack))
 
-        loop.delayPrint(1.5, "[Jade] Kel, I really hope you are done being a blockhead.")
+        """
+        loop.delayPrint(1.5, "[Jade] Kel, I really hope you are done being a blockhead.") 
         loop.delayPrint(1.5, "[Kelsey] Sorry, I didn't know...")
         loop.delayPrint(2, "[Cashmere] Kelsey! Even if you didn't know, throwing things at walls is highly irresponsible!")
         loop.delayPrint(0.5, "[Kelsey] I didn't know! I'm sorry! This isn't my fault!")
@@ -787,6 +822,7 @@ class loop:
         loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")
         
         input("Entering Jash's shop. Press Enter to proceed. ")
+        """
 
         player = inShop.Player(playerName, 500)
         strengthItem = inShop.Item("Strength Modifier", 40, 1, "A")
@@ -990,7 +1026,7 @@ class loop:
         currentLevel = 3
         currentLevelUltimateModifier = 1.25
 
-        curveball = Attack(random.randint(Kelsey.level * 2 - 5, Kelsey.level * 2 + 20), random.randint(round(Kelsey.maxEnergy / 8), round(Kelsey.maxEnergy / 6)), "Curveball", isHealing = False)
+        curveball = Attack(random.randint(Kelsey.level * 2, Kelsey.level * 2 + 35), random.randint(round(Kelsey.maxEnergy / 10), round(Kelsey.maxEnergy / 6)), "Curveball", isHealing = False)
         groupHeal = Attack(20, 25, "Group Heal", isHealing = True)
         strike = Attack(40, 25, "Strike", isHealing = False)
         energySupport = Attack(0, 15, "Energy Support", isHealing = True)
@@ -1024,7 +1060,7 @@ class loop:
             hero.level = currentLevel
 
         enemies.clear()
-        arachne2 = Enemy("Arachne, Reborn", 450, 450, 30, {"Noxious Shot", "Blood Harvest", "Bite"}, "A")
+        arachne2 = Enemy("Arachne, Reborn", 450, 450, 30, {"Noxious Shot", "Blood Harvest", "Bite", "Blood Ichor"}, "A")
         enemies.append(arachne2)
 
         loop.delayPrint(2, "[Jade] What was that...?")
@@ -1058,6 +1094,30 @@ class loop:
         loop.loadingScreen()
         os.system("cls")
         
+        currentLevel = 4
+        currentLevelUltimateModifier = 1.5
+
+        Ceres.currentHealth = 135
+        Ceres.maxHealth = 135
+        Ceres.currentEnergy = 75
+        Ceres.maxEnergy = 150
+        Ceres.energyRegen = 17.5
+        Jade.currentHealth = 170
+        Jade.maxHealth = 170
+        Jade.currentEnergy = 80
+        Jade.maxEnergy = 160
+        Jade.energyRegen = 8
+        Kelsey.currentHealth = 95
+        Kelsey.maxHealth = 95
+        Kelsey.currentEnergy = 80
+        Kelsey.maxEnergy = 160
+        Kelsey.energyRegen = 18
+        Cashmere.currentHealth = 195
+        Cashmere.maxHealth = 195
+        Cashmere.currentEnergy = 100
+        Cashmere.maxEnergy = 200
+        Cashmere.energyRegen = 17.5
+
         loop.delayPrint(1, "test")
 
     def delayPrint(delaySeconds, printString):
@@ -1081,34 +1141,6 @@ loop.mainLoop()
 # if invalid input is given in jash's shop, it should os.cls
 # continuing in jash's shop after buying out everything doesnt display the stats. it also says that its invalid input.
 # when opening your inventory, it asks for input twice AND says its invalid before asking for the third time.
-# no error handling when confirming what item to use. it sends you straight to the next cutscene.
-# your name should be displayed in dialogue
-# when enemies are displayed, display their health next to them with their position
 # when using the moveset consumable, it appends new attacks to EVERYONE's moveset
-# might need to buff enemies
-# whittle (kelsey) is absolutely useless
+# whittle (kelsey) is absolutely useless WELL OKAY YOU TRY BEING THAT ATTACK THEN
 # after a basic attack is used, it should display your energy regen
-# when a healing attack is selected, it should also display energy alongside health
-# if a hero's ult is ready, it should tell you
-    # could do this thru if statements
-# add options to skip dialogue
-# 
-
-
-# no real buildup to the fight.
-    # maybe say that noah will stay until he gets answers, zol refuses, fight starts
-# no description of where u are after being destroyed by zol
-# 
-
-# nerf heal (50% is actually broken as fuck)
-
-# Changelogs
-
-# Bug Fixes & Code Changes:
-    # if you type in the name "Queenie", a special message pops up.
-
-# Nerfs & Buffs:
-    #
-
-# Other Changes:
-    # dialogue revamped
