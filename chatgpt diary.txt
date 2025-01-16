@@ -1,0 +1,14 @@
+about a week ago i used chatgpt for the assignment but didnt record my exact prompts & its answers. i know that i tried to use it to finish the assignment beacuse i didn't think id finish the assignment. it mainly helped with the attack selection method, and the function is still used in this code. i retained a few of the things that chatgpt used in its code, including things such as list comprehensions, tuple unpacking, and using infinite loops for error handling. all of the code now is written by me and pakho.
+below are my recent chatgpt prompts.
+
+prompt: "what does del() do"
+answer: 
+"del is useful for:
+Removing variables, elements, or dictionary keys.
+Deleting objects (but only removing the reference in the current scope, not the object itself, unless no other references exist)."
+learned: how to apply del() when changing the enemy list in my project. I can use del to create new copies of the same enemy.
+
+prompt: "what does a breakpoint do in vscode"
+answer:
+"In Visual Studio Code (VSCode), a breakpoint is a marker you set in your code that tells the debugger to pause the execution of your program at a specific point. When your program reaches that line, it will stop running, allowing you to inspect the current state of your application—such as variable values, the call stack, and other relevant information."
+learned: i can use breakpoints to test specific parts of my program that is buggy (ex: shop section)
