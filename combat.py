@@ -52,7 +52,8 @@ class Enemy:
         print(f"Moveset: {self.moveset}")
 
     def takeTurn(self, heroes):
-        targetHero = random.choice(heroes)
+        aliveHeroes = [hero for hero in heroes if hero.currentHealth > 0]
+        targetHero = random.choice(aliveHeroes)
         selectedEnemyMove = random.choice(list(self.moveset))
 
         if selectedEnemyMove == "Roll Over":
