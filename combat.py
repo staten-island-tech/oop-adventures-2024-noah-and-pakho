@@ -10,6 +10,7 @@ currentLevel = 1
 global currentLevelUltimateModifier
 currentLevelUltimateModifier = 0.75
 playerName = ""
+
 class Hero: 
     def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset):
         self.name = name
@@ -423,27 +424,27 @@ class loop:
         elif randomTip == 11:
             displayedTip = "Tip: This project is brought to you by a poorly designed garble of spaghetti code. Please do not test its limits or it will cry. And then I will cry. "
         elif randomTip == 12:
-            displayedTip = "Hawk One: What's 1 + 1?"
+            displayedTip = "Tip: Hawk One: What's 1 + 1?"
         elif randomTip == 13:
-            displayedTip = "My grade for this project is so LOW. My report card is going to be a MASSIVE upset. I will FADE away into obscurity after this. I hope to never see any of you again."
+            displayedTip = "Tip: My grade for this project is so LOW. My report card is going to be a MASSIVE upset. I will FADE away into obscurity after this. I hope to never see any of you again."
         elif randomTip == 14:
-            displayedTip = "You just lost the game. If you think that you lost this game, you are deeply mistaken. You instead lost 'The Game', the game where the entire point of the game is to not realize that you lost the game. You see, the point of the game is that you won the game as long as you don't think of the game. As soon as you realize that you have been an active participant of the game, or as soon as you are reminded of the game, you lose."
+            displayedTip = "Tip: You just lost the game. If you think that you lost this game, you are deeply mistaken. You instead lost 'The Game', the game where the entire point of the game is to not realize that you lost the game. You see, the point of the game is that you won the game as long as you don't think of the game. As soon as you realize that you have been an active participant of the game, or as soon as you are reminded of the game, you lose."
         elif randomTip == 15:
-            displayedTip = "Pakho, remind me to get rid of this tip"
+            displayedTip = "Tip: Pakho, remind me to get rid of this tip"
         elif randomTip == 16:
-            displayedTip = "How many tips can we display before you realize that none of these are remotely helpful?"
+            displayedTip = "Tip: How many tips can we display before you realize that none of these are remotely helpful?"
         elif randomTip == 17:
-            displayedTip = "KILL CASHMERE"
+            displayedTip = "Tip: KILL CASHMERE"
         elif randomTip == 18:
-            displayedTip = "Pay attention to the next tip. It's very important."
+            displayedTip = "Tip: Pay attention to the next tip. It's very important."
         elif randomTip == 19:
-            displayedTip = "Actually, I take that back. The last tip was incorrect."
+            displayedTip = "Tip: Actually, I take that back. The last tip was incorrect."
         elif randomTip == 20:
-            displayedTip = "im over here playing this game rn i got my fingers on the keys rn typing in enemy positions and stuff, im whimsical as freak man im a player man"
+            displayedTip = "Tip: im over here playing this game rn i got my fingers on the keys rn typing in enemy positions and stuff, im whimsical as freak man im a player man"
         elif randomTip == 21:
-            displayedTip = "Noah, come back and write this tip at like 12 am and its just you venting about this project"
+            displayedTip = "Tip: Noah, come back and write this tip at like 12 am and its just you venting about this project"
         elif randomTip == 22:
-            displayedTip = " "
+            displayedTip = "Tip: There is no Tip."
         
 
         print(displayedTip)
@@ -454,97 +455,13 @@ class loop:
         input("Press Enter to continue.")
 
     def mainLoop():
-        while True:
-            os.system("cls")
-            print("Welcome. Please select an option:")
-            print()
-            print("[A] - New Game")
-            print()
-            startingOption = input("Input the letter of the option chosen: ").strip().lower()
-            if startingOption not in ["a"]:
-                input("Invalid option selected. Press enter to try again. ")
-            elif startingOption == "a":
-                break
+        input("Welcome. Press Enter to start.")
         
-        """"
-        loop.loadingScreen()
-        os.system("cls")
-        loop.delayPrint(2.5, "Your eyes creep open as you slowly pick yourself up from the ground.")
-        loop.delayPrint(3, "Brilliant white pillars of marble rise from the ground, stretching into the sky above.")
-        loop.delayPrint(3, "In front of you, a being of massive proportions sits upon a throne of marble. He raises his voice to speak.")
-        loop.delayPrint(4, "[???] Hello there.")
-        loop.delayPrint(2, "[???] What are you doing here?")
-        loop.delayPrint(2, "[You] ...what?") 
-        loop.delayPrint(2, "[???] Why are you here? Who are you?") 
-        time.sleep(2)
-        print("[You] I don't know. Who am I?")
-        time.sleep(2)
-        """
-        global playerName
-        yes = True
-        while yes:
-            playerName = input("Who are you? ").strip()
-            if not playerName:
-                input("[???] Speak up. (Press Enter to retry.) ")
-                os.system("cls")
-            elif playerName == "Queenie":
-                print("Hi, Mr. Whalen.")
-                time.sleep(1)
-                yes = False
-                while not yes:
-                    confirm = input(f"I think you should reconsider your actions and select a different name. Are you absolutely sure you want to go through with this? (Y/N) ").strip().upper()
-                    if not confirm or confirm not in ["Y", "N"]:
-                        input("Invalid input. Try again. ")
-                        os.system("cls")
-                    elif confirm == "Y":
-                        print("Alright, your loss.")
-                        time.sleep(2)
-                        break
-                    elif confirm == "N": # optimize the checking system. .upper() or something and remove the lists
-                        print("A wise choice.")
-                        yes = True
-            else:
-                loop.delayPrint(1, f"My name is {playerName}.")
-                yes = False
-                while not yes:
-                    confirm = input(f"Your name is {playerName}? Y/N ").strip().upper()
-                    if not confirm or confirm not in ["Y", "N"]:
-                        input("Invalid input. Try again. ")
-                        os.system("cls")
-                    elif confirm == "Y":
-                        break
-                    elif confirm == "N":
-                        yes = True
-        os.system("cls")
-        """
-        loop.delayPrint(3, "[???] Ah.") 
-        loop.delayPrint(2, f"[???] '{playerName}'.") 
-        loop.delayPrint(2, "[???] Your name is the worst name I have ever heard.")
-        loop.delayPrint(2, "[???] You seem lost. ") 
-        loop.delayPrint(1.4, "[???] Confused, perhaps.") 
-        loop.delayPrint(2.5, f"[{playerName}] Yeah... Where am I?")
-        loop.delayPrint(2, f"[???] You are currently in my temple. Isn't it so beautiful?") 
-        loop.delayPrint(3.5, "'No,' you think to yourself.")
-        loop.delayPrint(2, "[???] Well, I must ask you to leave now. I have more important matters to focus on right now.")
-        loop.delayPrint(3.5, "No, I won't leave until you give me answers.") # "..."
-        loop.delayPrint(2, "Who are you, where am I, and how did I get here?")
-        loop.delayPrint(2, "The figure sighs.")
-        loop.delayPrint(2.5, "My identity is of no concern to you. Also, I already answered the second question. You're in my tem-")
-        loop.delayPrint(4, "' - Who are you???' you interject. He stops speaking.")
-        loop.delayPrint(3, "[???] You dare cut off a God while he speaks?")
-        loop.delayPrint(3, f"[{playerName}] ... I really... don't care... I just want answers...")
-        loop.delayPrint(2.5, "The figure sighs before standing up from his throne. A staff materializes in his hand, and he points it at you.")
-        loop.delayPrint(5.5, f"[???] Prepare yourself. Your name will be erased from the annals of history.")
-        time.sleep(2)
-        """
-        # moves
-        basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
-        sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
+        # have an if statement here
+        # cutscene1()
 
         # characters/heroes
         global currentLevel
-        Ceres = Hero(playerName, 90, 90, 45, 90, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)])
-        heroes = [Ceres]
 
         # enemies
         Zol = Enemy("???", 100000000, 100000000, 100000000, {"Demolish"}, "A")
@@ -561,49 +478,7 @@ class loop:
             else:
                 break
         
-        """
-        os.system("cls")
-        loop.delayPrint(4, "[???] You have been defeated.")
-        loop.delayPrint(1.5, "[???] 'Now leave'")
-        loop.delayPrint(2, "Your vision starts to fade to black... ")
-        time.sleep(2.5)
-        loop.loadingScreen()
-        os.system("cls")
-        loop.delayPrint(3, "[???] Hello?")
-        loop.delayPrint(3, "Your eyes slowly open once more. This time, you lay on a soft bed of grass.")
-        loop.delayPrint(2.5, "[???] Oh my, are you okay??")
-        loop.delayPrint(2, "[???] You seem to be covered in bruises...")
-        loop.delayPrint(2.5, "[???] Stand up! Follow me, I will find you aid!")
-        time.sleep(3)
-        os.system("cls")
-        loop.delayPrint(3, "The unknown person carries you over her shoulder to a nearby campsite..." )
-        time.sleep(3)
-        os.system("cls")
-        loop.delayPrint(5, "[???] What happened to you? Your bruises look like they cover your whole body...") 
-        loop.delayPrint(2, "[???] Just wait a little longer, one of my friends will be able to help you recover from your wounds.") 
-        loop.delayPrint(3, "'Thank you,' you tell her. She gives you a smile before you two sit in awkward silence.")
-        loop.delayPrint(5, "[???] ...my name is Jade. And what might your name be?") 
-        loop.delayPrint(3, f"I'm {playerName}.")
-        loop.delayPrint(2.5, "[Jade] I see. A strange name, but you do not seem to be from around here anyways.") 
-        loop.delayPrint(2.5, "[Jade] The others should be arriving soon.")
-        loop.delayPrint(3.5, "[Jade] The forest surrounding us is filled with dangerous monsters, so they might be caught up with fighting them.")
-        loop.delayPrint(5, "The awkward silence returns.") 
-        loop.delayPrint(2.5, "[Jade] Now that I think about it, it has been a while since they have went out. I might have to look for them...")
-        loop.delayPrint(4, "[Jade] Do not worry, though. You will be in good hands soon.")
-        loop.delayPrint(2, "[Jade] Follow me. I will go look for them.")
-        loop.delayPrint(4.5, "Jade leads the way as she tries searching for her party.")
-        loop.delayPrint(5, "Just then, you hear the rustling of leaves in the distance.")
-        loop.delayPrint(3.5, "[Jade] That sounds like commotion. I wonder what is happening?")
-        loop.delayPrint(2.5, "The two of you venture closer to the source of the noise...")
-        time.sleep(5)
-        loop.loadingScreen()
-        os.system("cls")
-        loop.delayPrint(3.5, "You see two individuals in the distance fighting against a particularly large foe...")
-        loop.delayPrint(2, "[Jade] I think those are my friends. Quickly, we must help them!")
-        time.sleep(3)
-        loop.loadingScreen()
-        os.system("cls")
-        """
+        cutscene2()
 
         headbutt = Attack(15, 10, "Headbutt", isHealing = False)
         slam = Attack(10, 5, "Slam", isHealing = False)
@@ -1132,6 +1007,130 @@ class loop:
     def delayPrint(delaySeconds, printString):
         time.sleep(delaySeconds)
         print(printString)
+
+
+
+
+## attacks
+basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
+sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
+
+## heroes
+Ceres = Hero(playerName, 90, 90, 45, 90, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)])
+heroes = [Ceres]
+## cutscenes
+def cutscene1():
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(2.5, "Your eyes creep open as you slowly pick yourself up from the ground.")
+        loop.delayPrint(3, "Brilliant white pillars of marble rise from the ground, stretching into the sky above.")
+        loop.delayPrint(3, "In front of you, a being of massive proportions sits upon a throne of marble. He raises his voice to speak.")
+        loop.delayPrint(4, "[???] Hello there.")
+        loop.delayPrint(2, "[???] What are you doing here?")
+        loop.delayPrint(2, "[You] ...what?") 
+        loop.delayPrint(2, "[???] Why are you here? Who are you?") 
+        time.sleep(2)
+        print("[You] I don't know. Who am I?")
+        time.sleep(2)
+
+        global playerName
+        yes = True
+        while yes:
+            playerName = input("Who are you? ").strip()
+            if not playerName:
+                input("[???] Speak up. (Press Enter to retry.) ")
+                os.system("cls")
+            elif playerName == "Queenie":
+                print("Hi, Mr. Whalen.")
+                time.sleep(1)
+                yes = False
+                while not yes:
+                    confirm = input(f"I think you should reconsider your actions and select a different name. Are you absolutely sure you want to go through with this? (Y/N) ").strip().upper()
+                    if not confirm or confirm not in ["Y", "N"]:
+                        input("Invalid input. Try again. ")
+                        os.system("cls")
+                    elif confirm == "Y":
+                        print("Alright, your loss.")
+                        time.sleep(2)
+                        break
+                    elif confirm == "N":
+                        print("A wise choice.")
+                        yes = True
+            else:
+                loop.delayPrint(1, f"My name is {playerName}.")
+                yes = False
+                while not yes:
+                    confirm = input(f"Your name is {playerName}? Y/N ").strip().upper()
+                    if not confirm or confirm not in ["Y", "N"]:
+                        input("Invalid input. Try again. ")
+                        os.system("cls")
+                    elif confirm == "Y":
+                        break
+                    elif confirm == "N":
+                        yes = True
+        os.system("cls")
+        
+        loop.delayPrint(3, "[???] Ah.") 
+        loop.delayPrint(2, f"[???] '{playerName}'.") 
+        loop.delayPrint(2, "[???] Your name is the worst name I have ever heard.")
+        loop.delayPrint(2, "[???] You seem lost. ") 
+        loop.delayPrint(1.4, "[???] Confused, perhaps.") 
+        loop.delayPrint(2.5, f"[{playerName}] Yeah... Where am I?")
+        loop.delayPrint(2, f"[???] You are currently in my temple. Isn't it so beautiful?") 
+        loop.delayPrint(3.5, "'No,' you think to yourself.")
+        loop.delayPrint(2, "[???] Well, I must ask you to leave now. I have more important matters to focus on right now.")
+        loop.delayPrint(3.5, "No, I won't leave until you give me answers.") # "..."
+        loop.delayPrint(2, "Who are you, where am I, and how did I get here?")
+        loop.delayPrint(2, "The figure sighs.")
+        loop.delayPrint(2.5, "My identity is of no concern to you. Also, I already answered the second question. You're in my tem-")
+        loop.delayPrint(4, "' - Who are you???' you interject. He stops speaking.")
+        loop.delayPrint(3, "[???] You dare cut off a God while he speaks?")
+        loop.delayPrint(3, f"[{playerName}] ... I really... don't care... I just want answers...")
+        loop.delayPrint(2.5, "The figure sighs before standing up from his throne. A staff materializes in his hand, and he points it at you.")
+        loop.delayPrint(5.5, f"[???] Prepare yourself. Your name will be erased from the annals of history.")
+        time.sleep(2)
+def cutscene2():
+        os.system("cls")
+        loop.delayPrint(4, "[???] You have been defeated.")
+        loop.delayPrint(1.5, "[???] Now leave.")
+        loop.delayPrint(2, "Your vision starts to fade to black... ")
+        time.sleep(2.5)
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(3, "[???] Hello?")
+        loop.delayPrint(3, "Your eyes slowly open once more. This time, you lay on a soft bed of grass.")
+        loop.delayPrint(2.5, "[???] Oh my, are you okay??")
+        loop.delayPrint(2, "[???] You seem to be covered in bruises...")
+        loop.delayPrint(2.5, "[???] Stand up! Follow me, I will find you aid!")
+        time.sleep(3)
+        os.system("cls")
+        loop.delayPrint(3, "The unknown person carries you over her shoulder to a nearby campsite..." )
+        time.sleep(3)
+        os.system("cls")
+        loop.delayPrint(5, "[???] What happened to you? Your bruises look like they cover your whole body...") 
+        loop.delayPrint(2, "[???] Just wait a little longer, one of my friends will be able to help you recover from your wounds.") 
+        loop.delayPrint(3, "'Thank you,' you tell her. She gives you a smile before you two sit in awkward silence.")
+        loop.delayPrint(5, "[???] ...my name is Jade. And what might your name be?") 
+        loop.delayPrint(3, f"I'm {playerName}.")
+        loop.delayPrint(2.5, "[Jade] I see. A strange name, but you do not seem to be from around here anyways.") 
+        loop.delayPrint(2.5, "[Jade] The others should be arriving soon.")
+        loop.delayPrint(3.5, "[Jade] The forest surrounding us is filled with dangerous monsters, so they might be caught up with fighting them.")
+        loop.delayPrint(5, "The awkward silence returns.") 
+        loop.delayPrint(2.5, "[Jade] Now that I think about it, it has been a while since they have went out. I might have to look for them...")
+        loop.delayPrint(4, "[Jade] Do not worry, though. You will be in good hands soon.")
+        loop.delayPrint(2, "[Jade] Follow me. I will go look for them.")
+        loop.delayPrint(4.5, "Jade leads the way as she tries searching for her party.")
+        loop.delayPrint(5, "Just then, you hear the rustling of leaves in the distance.")
+        loop.delayPrint(3.5, "[Jade] That sounds like commotion. I wonder what is happening?")
+        loop.delayPrint(2.5, "The two of you venture closer to the source of the noise...")
+        time.sleep(5)
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(3.5, "You see two individuals in the distance fighting against a particularly large foe...")
+        loop.delayPrint(2, "[Jade] I think those are my friends. Quickly, we must help them!")
+        time.sleep(3)
+        loop.loadingScreen()
+        os.system("cls")
 
 loop.mainLoop()
 
