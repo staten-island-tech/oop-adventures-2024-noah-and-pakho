@@ -449,10 +449,9 @@ class loop:
         print(displayedTip)
     def loadingScreen():
         os.system("cls")
-        print("Loading . . . ")
         loop.tips()
-        time.sleep(1)
-        input("Done! Press Enter to continue. ")
+        time.sleep(2.5)
+        input("Press Enter to continue.")
 
     def mainLoop():
         while True:
@@ -469,16 +468,15 @@ class loop:
         
         loop.loadingScreen()
         os.system("cls")
-        """
-        loop.delayPrint(2.5, "Your eyes creep open as you slowly pick yourself up from the ground.") # new
-        loop.delayPrint(3, "Brilliant white pillars of marble rise from the ground, stretching into the sky above.") # new
-        loop.delayPrint(3, "In front of you, a being of massive proportions sits upon a throne of marble. He raises his voice to speak.") # new
+        loop.delayPrint(2.5, "Your eyes creep open as you slowly pick yourself up from the ground.")
+        loop.delayPrint(3, "Brilliant white pillars of marble rise from the ground, stretching into the sky above.")
+        loop.delayPrint(3, "In front of you, a being of massive proportions sits upon a throne of marble. He raises his voice to speak.")
         loop.delayPrint(4, "[???] Hello there.")
         loop.delayPrint(2, "[???] What are you doing here?")
-        loop.delayPrint(2, "[You] ...what?") # "[Nameless] What...?"
-        loop.delayPrint(2, "[???] Why are you here? Who are you?") # "[???] Who are you? Why are you here?
+        loop.delayPrint(2, "[You] ...what?") 
+        loop.delayPrint(2, "[???] Why are you here? Who are you?") 
         time.sleep(2)
-        print("[You] I don't know. Who am I?") # [Nameless] Good question... Who am I?"""
+        print("[You] I don't know. Who am I?")
         time.sleep(2)
         global playerName
         yes = True
@@ -516,25 +514,24 @@ class loop:
                     elif confirm == "N":
                         yes = True
         os.system("cls")
-        """
-        loop.delayPrint(3, "[???] Ah.") # "[???] Hm."
-        loop.delayPrint(2, f"[???] '{playerName}'.") # "[???] {playerName}?"
+        loop.delayPrint(3, "[???] Ah.") 
+        loop.delayPrint(2, f"[???] '{playerName}'.") 
         loop.delayPrint(2, "[???] Your name is the worst name I have ever heard.")
-        loop.delayPrint(2, "[???] You seem lost. ") # "[???] Whatever... You seem lost. "
-        loop.delayPrint(1.4, "[???] Confused, perhaps.") # "[???] Confused, perhaps...?"
-        loop.delayPrint(2.5, f"[{playerName}] Yeah... Where am I?") # new
-        loop.delayPrint(2, f"[???] You are currently in my temple. Isn't it so beautiful?") # "[???] Let me explain: Your name is {playerName}, apparently, and you are in my temple."
-        loop.delayPrint(3.5, "'No,' you think to yourself.") # new
-        loop.delayPrint(2, "[???] Well, I must ask you to leave now. I have more important matters to focus on right now.") # "[???] I'm pretty busy right now, so I'm going to kindly ask you to leave."
+        loop.delayPrint(2, "[???] You seem lost. ") 
+        loop.delayPrint(1.4, "[???] Confused, perhaps.") 
+        loop.delayPrint(2.5, f"[{playerName}] Yeah... Where am I?")
+        loop.delayPrint(2, f"[???] You are currently in my temple. Isn't it so beautiful?") 
+        loop.delayPrint(3.5, "'No,' you think to yourself.")
+        loop.delayPrint(2, "[???] Well, I must ask you to leave now. I have more important matters to focus on right now.")
         loop.delayPrint(3.5, "No, I won't leave until you give me answers.") # "..."
-        loop.delayPrint(2, "Who are you, where am I, and how did I get here?") # new
-        loop.delayPrint(2, "The figure sighs.") # new
-        loop.delayPrint(2.5, "My identity is of no concern to you. Also, I already answered the second question. You're in my tem-") # new
-        loop.delayPrint(4, "' - Who are you???' you interject. He stops speaking.") # new
-        loop.delayPrint(3, "[???] You dare cut off a God while he speaks?") # new
-        loop.delayPrint(3, f"[{playerName}] ... I really... don't care... I just want answers...") # new
-        loop.delayPrint(2.5, "The figure sighs before standing up from his throne. A staff materializes in his hand, and he points it at you.") # new
-        loop.delayPrint(5.5, f"[???] Prepare yourself. Your name will be erased from the annals of history.") # new"""
+        loop.delayPrint(2, "Who are you, where am I, and how did I get here?")
+        loop.delayPrint(2, "The figure sighs.")
+        loop.delayPrint(2.5, "My identity is of no concern to you. Also, I already answered the second question. You're in my tem-")
+        loop.delayPrint(4, "' - Who are you???' you interject. He stops speaking.")
+        loop.delayPrint(3, "[???] You dare cut off a God while he speaks?")
+        loop.delayPrint(3, f"[{playerName}] ... I really... don't care... I just want answers...")
+        loop.delayPrint(2.5, "The figure sighs before standing up from his throne. A staff materializes in his hand, and he points it at you.")
+        loop.delayPrint(5.5, f"[???] Prepare yourself. Your name will be erased from the annals of history.")
         time.sleep(2)
         # moves
         basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
@@ -561,29 +558,28 @@ class loop:
                 break
         
         os.system("cls")
-        """
         loop.delayPrint(4, "[???] You have been defeated.")
-        loop.delayPrint(1.5, "[???] 'Now leave'") # new
+        loop.delayPrint(1.5, "[???] 'Now leave'")
         loop.delayPrint(2, "Your vision starts to fade to black... ")
         time.sleep(2.5)
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(3, "[???] Hello?")
-        loop.delayPrint(3, "Your eyes slowly open once more. This time, you lay on a soft bed of grass.") # new
+        loop.delayPrint(3, "Your eyes slowly open once more. This time, you lay on a soft bed of grass.")
         loop.delayPrint(2.5, "[???] Oh my, are you okay??")
-        loop.delayPrint(2, "[???] You seem to be covered in bruises...") # "[???] Damn, you seem really bruised..."
-        loop.delayPrint(2.5, "[???] Stand up! Follow me, I will find you aid!") # "[???] Follow me, I'll get you some help!"
+        loop.delayPrint(2, "[???] You seem to be covered in bruises...")
+        loop.delayPrint(2.5, "[???] Stand up! Follow me, I will find you aid!")
         time.sleep(3)
         os.system("cls")
-        loop.delayPrint(3, "The unknown person carries you over her shoulder to a nearby campsite..." ) # The unknown person drags you to a campsite . . .
+        loop.delayPrint(3, "The unknown person carries you over her shoulder to a nearby campsite..." )
         time.sleep(3)
         os.system("cls")
-        loop.delayPrint(5, "[???] What happened to you? Your bruises look like they cover your whole body...") # "[???] What happened to you? You are in really bad shape..."
-        loop.delayPrint(2, "[???] Just wait a little longer, one of my friends will be able to help you recover from your wounds.") # "[???] Don't worry, I know a guy who can help for things like this." 
-        loop.delayPrint(3, "'Thank you,' you tell her. She gives you a smile before you two sit in awkward silence.") # new
-        loop.delayPrint(5, "[???] ...my name is Jade. And what might your name be?") # "[???] Oh! By the way, I'm Jade. Who might you be? "
+        loop.delayPrint(5, "[???] What happened to you? Your bruises look like they cover your whole body...") 
+        loop.delayPrint(2, "[???] Just wait a little longer, one of my friends will be able to help you recover from your wounds.") 
+        loop.delayPrint(3, "'Thank you,' you tell her. She gives you a smile before you two sit in awkward silence.")
+        loop.delayPrint(5, "[???] ...my name is Jade. And what might your name be?") 
         loop.delayPrint(3, f"I'm {playerName}.")
-        loop.delayPrint(2.5, "[Jade] I see. A strange name, but you do not seem to be from around here anyways.") # "[Jade] I see. Strange name, but then again, you don't look like an normal, average guy."
+        loop.delayPrint(2.5, "[Jade] I see. A strange name, but you do not seem to be from around here anyways.") 
         loop.delayPrint(2.5, "[Jade] The others should be arriving soon.")
         loop.delayPrint(3.5, "[Jade] The forest surrounding us is filled with dangerous monsters, so they might be caught up with fighting them.")
         loop.delayPrint(5, "The awkward silence returns.") 
@@ -599,7 +595,7 @@ class loop:
         os.system("cls")
         loop.delayPrint(3.5, "You see two individuals in the distance fighting against a particularly large foe...")
         loop.delayPrint(2, "[Jade] I think those are my friends. Quickly, we must help them!")
-        time.sleep(3)"""
+        time.sleep(3)
         loop.loadingScreen()
         os.system("cls")
         
@@ -631,7 +627,6 @@ class loop:
                 break
         loop.loadingScreen()
         os.system("cls")
-        """
         loop.delayPrint(3.5, "[?] Damn, that guy was way tougher than usual...")
         loop.delayPrint(2.5, "[??] Exactly! I didn't even know there were monsters as big as him here.")
         loop.delayPrint(3.75, "[Jade] I am glad you guys are all okay.")
@@ -1125,22 +1120,23 @@ class loop:
         print(printString)
 
 loop.mainLoop()
+"""
+when name confirmation is asked, choosing invalid input just lets the name you typed in be the name.
+choosing no also leads to the "invalid position selected" message to show up again
+hero position is redundant
 
-# when name confirmation is asked, choosing invalid input just lets the name you typed in be the name.
-# choosing no also leads to the "invalid position selected" message to show up again
-# hero position is redundant
-
-# seperate functions for dialogue, attacks, and encounters
-# use a counter to determine what encounter ur on
-# ultimates should be displayed w/ their effect, but your energy has to be enough to actually use it
-# all enemy attacks should be displayed in one command without having to press enter multiple time
-# round attack damages to the nearest integer
-# energy is only added after stats r displayed
-# the last dialogue quickly flashes before it goes to a retarded loading screen
-# if jash has no more items, it should say in his list "None!"
-# if invalid input is given in jash's shop, it should os.cls
-# continuing in jash's shop after buying out everything doesnt display the stats. it also says that its invalid input.
-# when opening your inventory, it asks for input twice AND says its invalid before asking for the third time.
-# when using the moveset consumable, it appends new attacks to EVERYONE's moveset
-# whittle (kelsey) is absolutely useless WELL OKAY YOU TRY BEING THAT ATTACK THEN
-# after a basic attack is used, it should display your energy regen
+seperate functions for dialogue, attacks, and encounters
+use a counter to determine what encounter ur on
+ultimates should be displayed w/ their effect, but your energy has to be enough to actually use it
+all enemy attacks should be displayed in one command without having to press enter multiple time
+round attack damages to the nearest integer
+energy is only added after stats r displayed
+the last dialogue quickly flashes before it goes to a retarded loading screen
+if jash has no more items, it should say in his list "None!"
+if invalid input is given in jash's shop, it should os.cls
+continuing in jash's shop after buying out everything doesnt display the stats. it also says that its invalid input.
+when opening your inventory, it asks for input twice AND says its invalid before asking for the third time.
+when using the moveset consumable, it appends new attacks to EVERYONE's moveset
+whittle (kelsey) is absolutely useless WELL OKAY YOU TRY BEING THAT ATTACK THEN
+after a basic attack is used, it should display your energy regen
+"""
