@@ -151,7 +151,7 @@ class Game:
             if hero.currentEnergy > hero.maxEnergy:
                 hero.currentEnergy = hero.maxEnergy
             print(f"Name: {hero.name}")
-            print(f"Health: [{hero.currentHealth}] / {hero.maxHealth} | Energy: [{hero.currentEnergy} / {hero.maxEnergy}]")
+            print(f"Health: [{hero.currentHealth} / {hero.maxHealth}] | Energy: [{hero.currentEnergy} / {hero.maxEnergy}]")
 
     def heroSelect(self):
         self.displayParty()
@@ -441,8 +441,8 @@ class loop:
     def mainLoop():
         input("Welcome. Press Enter to start.")
 
-        # have an if statement here
-        cutscene1()
+        # ask if u wanna see the cutscene
+        # cutscene1()
 
         game = Game(heroes, enemies)
         while True:
@@ -455,16 +455,11 @@ class loop:
             else:
                 break
         
+        # ask if you wanna see the cutscene
         # cutscene2()
 
-        headbutt = Attack(15, 10, "Headbutt", isHealing = False)
-        slam = Attack(10, 5, "Slam", isHealing = False)
-        cook = Attack(50, 17.5, "Cook", isHealing = True)
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
-        Jade = Hero("Jade", 120, 120, 50, 100, 2.5, currentLevel, [("Basic Attack", "A", basicattack), ("Headbutt", "B", headbutt)])
-        Kelsey = Hero("Kelsey", 75, 75, 55, 110, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam)])
-        Cashmere = Hero("Cashmere", 140, 140, 75, 150, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook)])
         heroes.append(Jade)
         heroes.append(Kelsey)
         heroes.append(Cashmere)
@@ -484,7 +479,8 @@ class loop:
             else:
                 break
         
-        cutscene3()
+        # ask if you wanna see the cutscene
+        # cutscene3()
         
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
@@ -496,9 +492,6 @@ class loop:
         Cashmere.currentEnergy = 75
 
         enemies.clear()
-        voraciousSpider = Enemy("Voracious Spider", 80, 80, 15, {"String Shot", "Venom Shot", "Lunge"}, "A")
-        undeadMiner = Enemy("Undead Miner", 110, 110, 7.5, {"Shovel Whack", "Shovel Smack"}, "B")
-        bat = Enemy("Bat", 20, 20, 20, {"Nibble", "Blood Ichor"}, "C")
         enemies.append(voraciousSpider)
         enemies.append(undeadMiner)
         enemies.append(bat)
@@ -697,55 +690,7 @@ class loop:
                 loop.delayPrint(1, "Very well. Closing inventory...")
                 break
         
-        loop.loadingScreen()
-        os.system("cls")
-        loop.delayPrint(1, "And as fast as he came, Jash disappears...")
-        loop.delayPrint(2, "[Jade] What a strange little man.")
-        loop.delayPrint(1.5, "[Kelsey] Weren't you literally screaming at it to go away just now?")
-        loop.delayPrint(3, "[Jade] My opinion of him has changed since then. He has grown on me.")
-        loop.delayPrint(2.5, "[Kelsey] He's gone now, you don't have to act polite.")
-        loop.delayPrint(2.5, "[Cashmere] Calm down, you two... We're going to have to not fight if we want to be able to find Clove and be able to make it out of here.")
-        loop.delayPrint(1.5, "[Jade] The only person that needs to calm down is Kel.")
-        loop.delayPrint(2, "[Cashmere] Whatever, let's just stick together and keep going.")
-        loop.delayPrint(3, "[Cashmere] I really hope we're able to find Clove soon...")
-        loop.loadingScreen()
-        os.system("cls")
-        loop.delayPrint(2, "You and your group ventures even deeper into the cave, not sure if you're lost... Hopefully someone else was keeping track of where everyone was heading.")
-        loop.delayPrint(2.5, "You turn a corner, and you feel a sense of familiarity. The group seems to have had the same feeling, too.")
-        loop.delayPrint(2, "[Kelsey] Is it just me, or have we been walking in circles?")
-        loop.delayPrint(2.5, "[Cashmere] What do you mean?")
-        loop.delayPrint(3, "[Kelsey] I swear we turned this same corner five minutes ago.")
-        loop.delayPrint(2, "[Jade] Maybe we are losing ourselves. We should return to the surface before it is too late.")
-        loop.delayPrint(2, "The four of you search for an exit... ")
-        loop.loadingScreen()
-        os.system("cls")
-        loop.delayPrint(3, "[Kelsey] How long have we been searching for an exit?")
-        loop.delayPrint(2.5, "[Jade] I cannot tell. I think we truely are lost...")
-        loop.delayPrint(1.5, "[Cashmere] Shoot. We need to find an exit before any monsters get to us... We don't know what these guys are capable of.")
-        loop.delayPrint(2.5, "[Jade] Oh yes, let us find the one specific thing that we have been trying to find for the past 20 minutes. WE HAVE BEEN TRYING, CASHMERE!")
-        loop.delayPrint(3, "[Cashmere] Calm yourself and save your energy. Yelling won't help.")
-        loop.delayPrint(2.5, "[Kelsey] What are we supposed to do here?")
-        loop.delayPrint(3, "[Cashmere] Let's look around. Maybe we'll find Jash again, or someone that can guide us...")
-        loop.loadingScreen()
-        os.system("cls")
-        loop.delayPrint(5, "About 40 minutes have passed without any sign of progress. Your legs feel like giving up.")
-        loop.delayPrint(2.5, "[Kelsey] I really dont think we're gonna be able to get out of here...")
-        loop.delayPrint(3, "[Jade] Hold on... Look over there!")
-        loop.delayPrint(2.5, "All of your heads turn towards where Jade is pointing.")
-        loop.delayPrint(2, f"[{playerName}] Jade, there's nothing there.")
-        loop.delayPrint(3, "[Kelsey] Oh yeah, air. Real helpful, stupid.")
-        loop.delayPrint(2.5, "[Jade] No, no, no! Look closer!")
-        loop.delayPrint(3, "[Cashmere] Shut up, Kelsey. I think I see something.")
-        loop.delayPrint(2.5, "[Jade] I can just barely see... some sort of light?")
-        loop.delayPrint(3, "[Kelsey] This is it... we're going to heaven...")
-        loop.delayPrint(2.5, "[Jade] Kel, what are you talking about?")
-        loop.delayPrint(3, "[Cashmere] Let's investigate, guys.")
-        loop.delayPrint(3.5, "The four of you inch closer towards the mysterious light, but before you can make any progress...")
-        loop.delayPrint(1.5, "A group of giant spiders jump from the walls and ambushes the group!")
-        loop.delayPrint(2, "[Cashmere] Get ready, everyone!")
-        input("Press Enter to proceed. ")
-        loop.loadingScreen()
-        os.system("cls")
+        # cutscene5()
         
         enemies.clear()
         
@@ -889,13 +834,22 @@ class loop:
 ## attacks
 basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
 sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
+headbutt = Attack(15, 10, "Headbutt", isHealing = False)
+slam = Attack(10, 5, "Slam", isHealing = False)
+cook = Attack(50, 17.5, "Cook", isHealing = True)
 
 ## heroes
 Ceres = Hero(playerName, 90, 90, 45, 90, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)])
+Jade = Hero("Jade", 120, 120, 50, 100, 2.5, currentLevel, [("Basic Attack", "A", basicattack), ("Headbutt", "B", headbutt)])
+Kelsey = Hero("Kelsey", 75, 75, 55, 110, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam)])
+Cashmere = Hero("Cashmere", 140, 140, 75, 150, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook)])
 heroes = [Ceres]
 
 ## enemies
 Zol = Enemy("???", 100000000, 100000000, 100000000, {"Demolish"}, "A")
+voraciousSpider = Enemy("Voracious Spider", 80, 80, 15, {"String Shot", "Venom Shot", "Lunge"}, "A") # enemy attacks are defined in enemy class
+undeadMiner = Enemy("Undead Miner", 110, 110, 7.5, {"Shovel Whack", "Shovel Smack"}, "B")
+bat = Enemy("Bat", 20, 20, 20, {"Nibble", "Blood Ichor"}, "C")
 enemies = [Zol]
 
 ## cutscenes
@@ -1110,7 +1064,56 @@ def cutscene3():
         loop.delayPrint(2.5, "[Jade] Now why on earth would you do that?")
         loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight!")
         input("Press Enter to proceed. ") 
-
+def cutscene5():
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(1, "And as fast as he came, Jash disappears...")
+        loop.delayPrint(2, "[Jade] What a strange little man.")
+        loop.delayPrint(1.5, "[Kelsey] Weren't you literally screaming at it to go away just now?")
+        loop.delayPrint(3, "[Jade] My opinion of him has changed since then. He has grown on me.")
+        loop.delayPrint(2.5, "[Kelsey] He's gone now, you don't have to act polite.")
+        loop.delayPrint(2.5, "[Cashmere] Calm down, you two... We're going to have to not fight if we want to be able to find Clove and be able to make it out of here.")
+        loop.delayPrint(1.5, "[Jade] The only person that needs to calm down is Kel.")
+        loop.delayPrint(2, "[Cashmere] Whatever, let's just stick together and keep going.")
+        loop.delayPrint(3, "[Cashmere] I really hope we're able to find Clove soon...")
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(2, "You and your group ventures even deeper into the cave, not sure if you're lost... Hopefully someone else was keeping track of where everyone was heading.")
+        loop.delayPrint(2.5, "You turn a corner, and you feel a sense of familiarity. The group seems to have had the same feeling, too.")
+        loop.delayPrint(2, "[Kelsey] Is it just me, or have we been walking in circles?")
+        loop.delayPrint(2.5, "[Cashmere] What do you mean?")
+        loop.delayPrint(3, "[Kelsey] I swear we turned this same corner five minutes ago.")
+        loop.delayPrint(2, "[Jade] Maybe we are losing ourselves. We should return to the surface before it is too late.")
+        loop.delayPrint(2, "The four of you search for an exit... ")
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(3, "[Kelsey] How long have we been searching for an exit?")
+        loop.delayPrint(2.5, "[Jade] I cannot tell. I think we truely are lost...")
+        loop.delayPrint(1.5, "[Cashmere] Shoot. We need to find an exit before any monsters get to us... We don't know what these guys are capable of.")
+        loop.delayPrint(2.5, "[Jade] Oh yes, let us find the one specific thing that we have been trying to find for the past 20 minutes. WE HAVE BEEN TRYING, CASHMERE!")
+        loop.delayPrint(3, "[Cashmere] Calm yourself and save your energy. Yelling won't help.")
+        loop.delayPrint(2.5, "[Kelsey] What are we supposed to do here?")
+        loop.delayPrint(3, "[Cashmere] Let's look around. Maybe we'll find Jash again, or someone that can guide us...")
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(5, "About 40 minutes have passed without any sign of progress. Your legs feel like giving up.")
+        loop.delayPrint(2.5, "[Kelsey] I really dont think we're gonna be able to get out of here...")
+        loop.delayPrint(3, "[Jade] Hold on... Look over there!")
+        loop.delayPrint(2.5, "All of your heads turn towards where Jade is pointing.")
+        loop.delayPrint(2, f"[{playerName}] Jade, there's nothing there.")
+        loop.delayPrint(3, "[Kelsey] Oh yeah, air. Real helpful, stupid.")
+        loop.delayPrint(2.5, "[Jade] No, no, no! Look closer!")
+        loop.delayPrint(3, "[Cashmere] Shut up, Kelsey. I think I see something.")
+        loop.delayPrint(2.5, "[Jade] I can just barely see... some sort of light?")
+        loop.delayPrint(3, "[Kelsey] This is it... we're going to heaven...")
+        loop.delayPrint(2.5, "[Jade] Kel, what are you talking about?")
+        loop.delayPrint(3, "[Cashmere] Let's investigate, guys.")
+        loop.delayPrint(3.5, "The four of you inch closer towards the mysterious light, but before you can make any progress...")
+        loop.delayPrint(1.5, "A group of giant spiders jump from the walls and ambushes the group!")
+        loop.delayPrint(2, "[Cashmere] Get ready, everyone!")
+        input("Press Enter to proceed. ")
+        loop.loadingScreen()
+        os.system("cls")
 loop.mainLoop()
 
 """
