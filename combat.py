@@ -409,7 +409,7 @@ class Game:
 
 class loop:
     def tips():
-        randomTip = random.randint(1, 22)
+        randomTip = random.randint(1, 214)
         if randomTip == 1 or randomTip == 2:
             displayedTip = "Tip: Your computer is spying on you. Your government is spying on you. No one is safe."
         elif randomTip == 3 or randomTip == 4:
@@ -423,27 +423,11 @@ class loop:
         elif randomTip == 11:
             displayedTip = "Tip: This project is brought to you by a poorly designed garble of spaghetti code. Please do not test its limits or it will cry. And then I will cry. "
         elif randomTip == 12:
-            displayedTip = "Hawk One: What's 1 + 1?"
-        elif randomTip == 13:
             displayedTip = "My grade for this project is so LOW. My report card is going to be a MASSIVE upset. I will FADE away into obscurity after this. I hope to never see any of you again."
-        elif randomTip == 14:
+        elif randomTip == 13:
             displayedTip = "You just lost the game. If you think that you lost this game, you are deeply mistaken. You instead lost 'The Game', the game where the entire point of the game is to not realize that you lost the game. You see, the point of the game is that you won the game as long as you don't think of the game. As soon as you realize that you have been an active participant of the game, or as soon as you are reminded of the game, you lose."
-        elif randomTip == 15:
-            displayedTip = "Pakho, remind me to get rid of this tip"
-        elif randomTip == 16:
-            displayedTip = "How many tips can we display before you realize that none of these are remotely helpful?"
-        elif randomTip == 17:
-            displayedTip = "KILL CASHMERE"
-        elif randomTip == 18:
-            displayedTip = "Pay attention to the next tip. It's very important."
-        elif randomTip == 19:
-            displayedTip = "Actually, I take that back. The last tip was incorrect."
-        elif randomTip == 20:
+        elif randomTip == 14:
             displayedTip = "im over here playing this game rn i got my fingers on the keys rn typing in enemy positions and stuff, im whimsical as freak man im a player man"
-        elif randomTip == 21:
-            displayedTip = "Noah, come back and write this tip at like 12 am and its just you venting about this project"
-        elif randomTip == 22:
-            displayedTip = " "
         
 
         print(displayedTip)
@@ -488,7 +472,7 @@ class loop:
                 input("[???] Speak up. (Press Enter to retry.) ")
                 os.system("cls")
             elif playerName == "Queenie":
-                print("Hi, Mr. Whalen.")
+                print("Hi Mr. Whalen...")
                 time.sleep(1)
                 yes = False
                 while not yes:
@@ -767,7 +751,7 @@ class loop:
 
         stab = Attack(30, 20, "Stab", isHealing = False)
         powerhit = Attack(25, 20, "Power Hit", isHealing = False)
-        whittle = Attack(5, 1, "Whittle", isHealing = False)
+        rebound = Attack(Game.selectedEnemy.currentHealth * 0.15, Kelsey.maxEnergy / 5, "Rebound", isHealing = False)
         whack = Attack(10, 10, "Whack", isHealing = False)
 
         Ceres.currentHealth = 105
@@ -787,7 +771,7 @@ class loop:
         Kelsey.currentEnergy = 65
         Kelsey.maxEnergy = 130
         Kelsey.energyRegen = 15
-        Kelsey.moveset.append(("Whittle", "C", whittle))
+        Kelsey.moveset.append(("Rebound", "C", rebound))
         Cashmere.currentHealth = 150
         Cashmere.maxHealth = 150
         Cashmere.currentEnergy = 85
@@ -1135,21 +1119,23 @@ class loop:
 
 loop.mainLoop()
 
-#when name confirmation is asked, choosing invalid input just lets the name you typed in be the name.
-#choosing no also leads to the "invalid position selected" message to show up again
-#hero position is redundant
+"""
+when name confirmation is asked, choosing invalid input just lets the name you typed in be the name.
+choosing no also leads to the "invalid position selected" message to show up again
+hero position is redundant
 
-#seperate functions for dialogue, attacks, and encounters
-#use a counter to determine what encounter ur on
-#ultimates should be displayed w/ their effect, but your energy has to be enough to actually use it
-#all enemy attacks should be displayed in one command without having to press enter multiple time
-#round attack damages to the nearest integer
-#energy is only added after stats r displayed
-#the last dialogue quickly flashes before it goes to a retarded loading screen
-#if jash has no more items, it should say in his list "None!"
-#if invalid input is given in jash's shop, it should os.cls
-#continuing in jash's shop after buying out everything doesnt display the stats. it also says that its invalid input.
-#when opening your inventory, it asks for input twice AND says its invalid before asking for the third time.
-#when using the moveset consumable, it appends new attacks to EVERYONE's moveset
-#whittle (kelsey) is absolutely useless WELL OKAY YOU TRY BEING THAT ATTACK THEN
-#after a basic attack is used, it should display your energy regen
+seperate functions for dialogue, attacks, and encounters
+use a counter to determine what encounter ur on
+ultimates should be displayed w/ their effect, but your energy has to be enough to actually use it
+all enemy attacks should be displayed in one command without having to press enter multiple time
+round attack damages to the nearest integer
+energy is only added after stats r displayed
+the last dialogue quickly flashes before it goes to a retarded loading screen
+if jash has no more items, it should say in his list "None!"
+if invalid input is given in jash's shop, it should os.cls
+continuing in jash's shop after buying out everything doesnt display the stats. it also says that its invalid input.
+when opening your inventory, it asks for input twice AND says its invalid before asking for the third time.
+when using the moveset consumable, it appends new attacks to EVERYONE's moveset
+whittle (kelsey) is absolutely useless WELL OKAY YOU TRY BEING THAT ATTACK THEN
+after a basic attack is used, it should display your energy regen
+"""
