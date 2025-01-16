@@ -450,7 +450,7 @@ class loop:
             elif startingOption == "a":
                 break
         
-        """"
+        
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(2.5, "Your eyes creep open as you slowly pick yourself up from the ground.")
@@ -463,7 +463,7 @@ class loop:
         time.sleep(2)
         print("[You] I don't know. Who am I?")
         time.sleep(2)
-        """
+        
         global playerName
         yes = True
         while yes:
@@ -500,7 +500,7 @@ class loop:
                     elif confirm == "N":
                         yes = True
         os.system("cls")
-        """
+        
         loop.delayPrint(3, "[???] Ah.") 
         loop.delayPrint(2, f"[???] '{playerName}'.") 
         loop.delayPrint(2, "[???] Your name is the worst name I have ever heard.")
@@ -520,7 +520,7 @@ class loop:
         loop.delayPrint(2.5, "The figure sighs before standing up from his throne. A staff materializes in his hand, and he points it at you.")
         loop.delayPrint(5.5, f"[???] Prepare yourself. Your name will be erased from the annals of history.")
         time.sleep(2)
-        """
+        
         # moves
         basicattack = Attack(damage = 5, energyCost = -17.5, name = "Basic Attack", isHealing = False)
         sliceattack = Attack(damage = 10, energyCost = 10, name = "Slice", isHealing = False)
@@ -545,7 +545,6 @@ class loop:
             else:
                 break
         
-        """
         os.system("cls")
         loop.delayPrint(4, "[???] You have been defeated.")
         loop.delayPrint(1.5, "[???] 'Now leave'")
@@ -587,7 +586,6 @@ class loop:
         time.sleep(3)
         loop.loadingScreen()
         os.system("cls")
-        """
 
         headbutt = Attack(15, 10, "Headbutt", isHealing = False)
         slam = Attack(10, 5, "Slam", isHealing = False)
@@ -615,8 +613,7 @@ class loop:
                     break
             else:
                 break
-        
-        """
+    
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(3.5, "[?] Damn, that guy was way tougher than usual...")
@@ -715,7 +712,7 @@ class loop:
         loop.delayPrint(2.5, "[Jade] Now why on earth would you do that?")
         loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight!")
         input("Press Enter to proceed. ") 
-        """
+        
         
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
@@ -779,7 +776,6 @@ class loop:
         Cashmere.energyRegen = 10
         Cashmere.moveset.append(("Whack", "C", whack))
 
-        """
         loop.delayPrint(1.5, "[Jade] Kel, I really hope you are done being a blockhead.") 
         loop.delayPrint(1.5, "[Kelsey] Sorry, I didn't know...")
         loop.delayPrint(2, "[Cashmere] Kelsey! Even if you didn't know, throwing things at walls is highly irresponsible!")
@@ -810,7 +806,7 @@ class loop:
         loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")
         
         input("Entering Jash's shop. Press Enter to proceed. ")
-        """
+        
         
 
         player = inShop.Player(playerName, 500)
@@ -928,7 +924,7 @@ class loop:
             elif useItemsInInventory in ["n", "no"]:
                 loop.delayPrint(1, "Very well. Closing inventory...")
                 break
-        """
+        
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(1, "And as fast as he came, Jash disappears...")
@@ -978,8 +974,7 @@ class loop:
         input("Press Enter to proceed. ")
         loop.loadingScreen()
         os.system("cls")
-        """
-
+        
         enemies.clear()
         
         del(bat)
@@ -1054,7 +1049,6 @@ class loop:
         arachne2 = Enemy("Arachne, Reborn", 450, 450, 30, {"Noxious Shot", "Blood Harvest", "Bite", "Blood Ichor"}, "A")
         enemies.append(arachne2)
 
-        """
         loop.delayPrint(2, "[Jade] What was that...?")
         loop.delayPrint(3, "[Kelsey] No clue, lets get out of here! Fast! Right now!")
         loop.delayPrint(2.5, "[Cashmere] Yeah. Let's try to find some way out.")
@@ -1070,7 +1064,7 @@ class loop:
 
         loop.loadingScreen()
         os.system("cls")
-        """
+        
 
         while True:
             if Ceres.currentHealth <= 0 and Jade.currentHealth <= 0 and Kelsey.currentHealth <= 0 and Cashmere.currentHealth <= 0:
