@@ -410,7 +410,7 @@ class Game:
 
 class loop:
     def tips():
-        randomTip = random.randint(1, 22)
+        randomTip = random.randint(1, 214)
         if randomTip == 1 or randomTip == 2:
             displayedTip = "Tip: Your computer is spying on you. Your government is spying on you. No one is safe."
         elif randomTip == 3 or randomTip == 4:
@@ -506,8 +506,7 @@ class loop:
                     break
             else:
                 break
-        
-        """
+    
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(3.5, "[?] Damn, that guy was way tougher than usual...")
@@ -606,7 +605,7 @@ class loop:
         loop.delayPrint(2.5, "[Jade] Now why on earth would you do that?")
         loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight!")
         input("Press Enter to proceed. ") 
-        """
+        
         
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
@@ -642,7 +641,7 @@ class loop:
 
         stab = Attack(30, 20, "Stab", isHealing = False)
         powerhit = Attack(25, 20, "Power Hit", isHealing = False)
-        whittle = Attack(5, 1, "Whittle", isHealing = False)
+        rebound = Attack(Game.selectedEnemy.currentHealth * 0.15, Kelsey.maxEnergy / 5, "Rebound", isHealing = False)
         whack = Attack(10, 10, "Whack", isHealing = False)
 
         Ceres.currentHealth = 105
@@ -662,7 +661,7 @@ class loop:
         Kelsey.currentEnergy = 65
         Kelsey.maxEnergy = 130
         Kelsey.energyRegen = 15
-        Kelsey.moveset.append(("Whittle", "C", whittle))
+        Kelsey.moveset.append(("Rebound", "C", rebound))
         Cashmere.currentHealth = 150
         Cashmere.maxHealth = 150
         Cashmere.currentEnergy = 85
@@ -670,7 +669,6 @@ class loop:
         Cashmere.energyRegen = 10
         Cashmere.moveset.append(("Whack", "C", whack))
 
-        """
         loop.delayPrint(1.5, "[Jade] Kel, I really hope you are done being a blockhead.") 
         loop.delayPrint(1.5, "[Kelsey] Sorry, I didn't know...")
         loop.delayPrint(2, "[Cashmere] Kelsey! Even if you didn't know, throwing things at walls is highly irresponsible!")
@@ -701,7 +699,7 @@ class loop:
         loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")
         
         input("Entering Jash's shop. Press Enter to proceed. ")
-        """
+        
         
 
         player = inShop.Player(playerName, 500)
@@ -819,7 +817,7 @@ class loop:
             elif useItemsInInventory in ["n", "no"]:
                 loop.delayPrint(1, "Very well. Closing inventory...")
                 break
-        """
+        
         loop.loadingScreen()
         os.system("cls")
         loop.delayPrint(1, "And as fast as he came, Jash disappears...")
@@ -869,8 +867,7 @@ class loop:
         input("Press Enter to proceed. ")
         loop.loadingScreen()
         os.system("cls")
-        """
-
+        
         enemies.clear()
         
         del(bat)
@@ -945,7 +942,6 @@ class loop:
         arachne2 = Enemy("Arachne, Reborn", 450, 450, 30, {"Noxious Shot", "Blood Harvest", "Bite", "Blood Ichor"}, "A")
         enemies.append(arachne2)
 
-        """
         loop.delayPrint(2, "[Jade] What was that...?")
         loop.delayPrint(3, "[Kelsey] No clue, lets get out of here! Fast! Right now!")
         loop.delayPrint(2.5, "[Cashmere] Yeah. Let's try to find some way out.")
@@ -961,7 +957,7 @@ class loop:
 
         loop.loadingScreen()
         os.system("cls")
-        """
+        
 
         while True:
             if Ceres.currentHealth <= 0 and Jade.currentHealth <= 0 and Kelsey.currentHealth <= 0 and Cashmere.currentHealth <= 0:
@@ -1134,21 +1130,23 @@ def cutscene2():
 
 loop.mainLoop()
 
-#when name confirmation is asked, choosing invalid input just lets the name you typed in be the name.
-#choosing no also leads to the "invalid position selected" message to show up again
-#hero position is redundant
+"""
+when name confirmation is asked, choosing invalid input just lets the name you typed in be the name.
+choosing no also leads to the "invalid position selected" message to show up again
+hero position is redundant
 
-#seperate functions for dialogue, attacks, and encounters
-#use a counter to determine what encounter ur on
-#ultimates should be displayed w/ their effect, but your energy has to be enough to actually use it
-#all enemy attacks should be displayed in one command without having to press enter multiple time
-#round attack damages to the nearest integer
-#energy is only added after stats r displayed
-#the last dialogue quickly flashes before it goes to a retarded loading screen
-#if jash has no more items, it should say in his list "None!"
-#if invalid input is given in jash's shop, it should os.cls
-#continuing in jash's shop after buying out everything doesnt display the stats. it also says that its invalid input.
-#when opening your inventory, it asks for input twice AND says its invalid before asking for the third time.
-#when using the moveset consumable, it appends new attacks to EVERYONE's moveset
-#whittle (kelsey) is absolutely useless WELL OKAY YOU TRY BEING THAT ATTACK THEN
-#after a basic attack is used, it should display your energy regen
+seperate functions for dialogue, attacks, and encounters
+use a counter to determine what encounter ur on
+ultimates should be displayed w/ their effect, but your energy has to be enough to actually use it
+all enemy attacks should be displayed in one command without having to press enter multiple time
+round attack damages to the nearest integer
+energy is only added after stats r displayed
+the last dialogue quickly flashes before it goes to a retarded loading screen
+if jash has no more items, it should say in his list "None!"
+if invalid input is given in jash's shop, it should os.cls
+continuing in jash's shop after buying out everything doesnt display the stats. it also says that its invalid input.
+when opening your inventory, it asks for input twice AND says its invalid before asking for the third time.
+when using the moveset consumable, it appends new attacks to EVERYONE's moveset
+whittle (kelsey) is absolutely useless WELL OKAY YOU TRY BEING THAT ATTACK THEN
+after a basic attack is used, it should display your energy regen
+"""
