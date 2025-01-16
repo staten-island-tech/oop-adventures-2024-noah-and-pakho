@@ -440,6 +440,7 @@ class loop:
         input("Press Enter to continue.")
 
     def mainLoop():
+        os.system('cls')
         input("Welcome. Press Enter to start.")
 
         # ask if u wanna see the cutscene
@@ -515,7 +516,7 @@ class loop:
         global currentLevelUltimateModifier
         currentLevelUltimateModifier = 1
 
-        rebound = Attack(round(Game.selectedEnemy.currentHealth * 0.15), round(Kelsey.maxEnergy / 5), "Rebound", isHealing = False)
+        rebound = Attack(round(game.selectedEnemy.currentHealth * 0.15), round(Kelsey.maxEnergy / 5), "Rebound", isHealing = False)
 
         Ceres.currentHealth = 105
         Ceres.maxHealth = 105
