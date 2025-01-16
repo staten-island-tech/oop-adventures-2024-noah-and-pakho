@@ -661,7 +661,7 @@ class loop:
             else:
                 break
         
-        player.gold += 350
+        player.monies += 350
         loop.loadingScreen()
         os.system("cls")
         
@@ -827,9 +827,6 @@ enemies = [Zol]
 
 powerhit = Attack(25, 20, "Power Hit", isHealing = False)
 whack = Attack(10, 10, "Whack", isHealing = False)
-# defined enemy here
-# after 3rd encounter, they r deleted and a new initialization is made
-# 
 
 ## cutscenes
 def cutscene1():
@@ -892,7 +889,7 @@ def cutscene1():
         loop.delayPrint(2, f"[???] You are currently in my temple. Isn't it so beautiful?") 
         loop.delayPrint(3.5, "'No,' you think to yourself.")
         loop.delayPrint(2, "[???] Well, I must ask you to leave now. I have more important matters to focus on right now.")
-        loop.delayPrint(3.5, "No, I won't leave until you give me answers.") # "..."
+        loop.delayPrint(3.5, "No, I won't leave until you give me answers.") 
         loop.delayPrint(2, "Who are you, where am I, and how did I get here?")
         loop.delayPrint(2, "The figure sighs.")
         loop.delayPrint(2.5, "My identity is of no concern to you. Also, I already answered the second question. You're in my tem-")

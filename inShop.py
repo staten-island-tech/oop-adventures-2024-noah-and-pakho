@@ -41,17 +41,17 @@ class Merchant:
             return False
 
         totalCost = item.price * quantity
-        if player.gold < totalCost:
-            print(f"{player.name} doesn't have enough gold.")
+        if player.monies < totalCost:
+            print(f"{player.name} doesn't have enough monies.")
             return False
 
-        player.gold -= totalCost
+        player.monies -= totalCost
         player.add_item(Item(itemName, item.price, quantity, item.position))
         item.quantity -= quantity
         if item.quantity <= 0:
             del self.inventory[itemName]
-        print(f"{player.name} bought {quantity} {itemName}(s) for {totalCost} gold.")
-        print(f"{player.name} has {player.gold} gold left.")
+        print(f"{player.name} bought {quantity} {itemName}(s) for {totalCost} monies.")
+        print(f"{player.name} has {player.monies} monies left.")
         return True
     
     def __str__(self):
@@ -59,13 +59,13 @@ class Merchant:
 
 
 class Player:
-    def __init__(self, name, gold):
+    def __init__(self, name, monies):
         self.name = name
-        self.gold = gold
+        self.monies = monies
         self.inventory = {}
 
     def __str__(self):
-        return f"{self.name} (Gold: {self.gold}, Inventory: {', '.join(self.inventory.keys())})"
+        return f"{self.name} (Monies: {self.monies}, Inventory: {', '.join(self.inventory.keys())})"
 
     def add_item(self, item):
         if item.name in self.inventory:
