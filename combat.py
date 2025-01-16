@@ -410,7 +410,7 @@ class Game:
 
 class loop:
     def tips():
-        randomTip = random.randint(1, 214)
+        randomTip = random.randint(1, 14)
         if randomTip == 1 or randomTip == 2:
             displayedTip = "Tip: Your computer is spying on you. Your government is spying on you. No one is safe."
         elif randomTip == 3 or randomTip == 4:
@@ -424,27 +424,11 @@ class loop:
         elif randomTip == 11:
             displayedTip = "Tip: This project is brought to you by a poorly designed garble of spaghetti code. Please do not test its limits or it will cry. And then I will cry. "
         elif randomTip == 12:
-            displayedTip = "Tip: Hawk One: What's 1 + 1?"
-        elif randomTip == 13:
             displayedTip = "Tip: My grade for this project is so LOW. My report card is going to be a MASSIVE upset. I will FADE away into obscurity after this. I hope to never see any of you again."
-        elif randomTip == 14:
+        elif randomTip == 13:
             displayedTip = "Tip: You just lost the game. If you think that you lost this game, you are deeply mistaken. You instead lost 'The Game', the game where the entire point of the game is to not realize that you lost the game. You see, the point of the game is that you won the game as long as you don't think of the game. As soon as you realize that you have been an active participant of the game, or as soon as you are reminded of the game, you lose."
-        elif randomTip == 15:
-            displayedTip = "Tip: Pakho, remind me to get rid of this tip"
-        elif randomTip == 16:
-            displayedTip = "Tip: How many tips can we display before you realize that none of these are remotely helpful?"
-        elif randomTip == 17:
-            displayedTip = "Tip: KILL CASHMERE"
-        elif randomTip == 18:
-            displayedTip = "Tip: Pay attention to the next tip. It's very important."
-        elif randomTip == 19:
-            displayedTip = "Tip: Actually, I take that back. The last tip was incorrect."
-        elif randomTip == 20:
+        elif randomTip == 14:
             displayedTip = "Tip: im over here playing this game rn i got my fingers on the keys rn typing in enemy positions and stuff, im whimsical as freak man im a player man"
-        elif randomTip == 21:
-            displayedTip = "Tip: Noah, come back and write this tip at like 12 am and its just you venting about this project"
-        elif randomTip == 22:
-            displayedTip = "Tip: There is no Tip."
         
 
         print(displayedTip)
@@ -458,7 +442,7 @@ class loop:
         input("Welcome. Press Enter to start.")
         
         # have an if statement here
-        # cutscene1()
+        cutscene1()
 
         # characters/heroes
         global currentLevel
@@ -641,7 +625,7 @@ class loop:
 
         stab = Attack(30, 20, "Stab", isHealing = False)
         powerhit = Attack(25, 20, "Power Hit", isHealing = False)
-        rebound = Attack(Game.selectedEnemy.currentHealth * 0.15, Kelsey.maxEnergy / 5, "Rebound", isHealing = False)
+        rebound = Attack(round(Game.selectedEnemy.currentHealth * 0.15), round(Kelsey.maxEnergy / 5), "Rebound", isHealing = False)
         whack = Attack(10, 10, "Whack", isHealing = False)
 
         Ceres.currentHealth = 105
