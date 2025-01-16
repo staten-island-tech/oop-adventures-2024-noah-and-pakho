@@ -284,6 +284,16 @@ class Game:
                     if selectedMove.isHealing:
                         if selectedMove.name == "Group Heal" or selectedMove.name == "Cook":
                             continue 
+                    elif selectedMove.name == "Curveball":
+                        damage = random.randint(Kelsey.level * 2, Kelsey.level * 2 + 35)
+                        self.selectedEnemy.currentHealth -= damage
+                        print(f"{self.selectedHero.name} dealt {damage} damage to {self.selectedEnemy.name}! ({self.selectedEnemy.currentHealth} / {self.selectedEnemy.maxHealth})")
+                        input("Press Enter to continue.")
+
+                        if self.selectedEnemy.currentHealth <= 0:
+                            self.selectedEnemy.currentHealth = 0
+                            print(f"{self.selectedEnemy.name} has been defeated!")
+                            self.selectedEnemy = None
                     else:
                         damage = selectedMove.damage + (self.selectedHero.level * 2)
                         self.selectedEnemy.currentHealth -= damage
@@ -431,8 +441,6 @@ class loop:
             displayedTip = "Tip: You just lost the game. If you think that you lost this game, you are deeply mistaken. You instead lost 'The Game', the game where the entire point of the game is to not realize that you lost the game. You see, the point of the game is that you won the game as long as you don't think of the game. As soon as you realize that you have been an active participant of the game, or as soon as you are reminded of the game, you lose."
         elif randomTip == 19:
             displayedTip = "Tip: im over here playing this game rn i got my fingers on the keys rn typing in enemy positions and stuff, im whimsical as freak man im a player man"
-        
-
         print(displayedTip)
     def loadingScreen():
         os.system("cls")
@@ -472,7 +480,7 @@ class loop:
         enemies.append(yeOldeGnome)
         
         while True:
-            if Ceres.currentHealth <= 0 and Jade.currentHealth <= 0 and Kelsey.currentHealth <= 0 and Cashmere.currentHealth <= 0:
+            if all(hero.currentHealth == 0 for hero in game.heroes):
                 raise SystemExit
             game.heroSelect()
             if game.selectedHero:
@@ -502,6 +510,8 @@ class loop:
         enemies.append(undeadMiner)
         enemies.append(bat)
         while True:
+            if all(hero.currentHealth == 0 for hero in game.heroes):
+                raise SystemExit
             game.heroSelect()
             if game.selectedHero:
                 combatActive = game.combatTurn()
@@ -544,7 +554,7 @@ class loop:
         Cashmere.energyRegen = 10
         Cashmere.moveset.append(("Whack", "C", whack))
 
-        cutscene4()
+        # cutscene4()
         input("Entering Jash's shop. Press Enter to proceed. ")
         global player
         player = inShop.Player(playerName, 500)
@@ -581,7 +591,7 @@ class loop:
             Ceres.moveset.append(("Trick", "00", trick))
 
         while True:
-            if Ceres.currentHealth <= 0 and Jade.currentHealth <= 0 and Kelsey.currentHealth <= 0 and Cashmere.currentHealth <= 0:
+            if all(hero.currentHealth == 0 for hero in game.heroes):
                 raise SystemExit
             game.heroSelect()
             if game.selectedHero:
@@ -599,7 +609,7 @@ class loop:
         currentLevel = 3
         currentLevelUltimateModifier = 1.25
 
-        curveball = Attack(random.randint(Kelsey.level * 2, Kelsey.level * 2 + 35), random.randint(round(Kelsey.maxEnergy / 10), round(Kelsey.maxEnergy / 6)), "Curveball", isHealing = False)
+        curveball = Attack(random.randint(Kelsey.level * 2, Kelsey.level * 2 + 35), random.randint(round(Kelsey.maxEnergy / 25), round(Kelsey.maxEnergy / 2)), "Curveball", isHealing = False)
         groupHeal = Attack(20, 25, "Group Heal", isHealing = True)
         strike = Attack(40, 25, "Strike", isHealing = False)
         energySupport = Attack(0, 15, "Energy Support", isHealing = True)
@@ -643,7 +653,7 @@ class loop:
         
 
         while True:
-            if Ceres.currentHealth <= 0 and Jade.currentHealth <= 0 and Kelsey.currentHealth <= 0 and Cashmere.currentHealth <= 0:
+            if all(hero.currentHealth == 0 for hero in game.heroes):
                 raise SystemExit
             game.heroSelect()
             if game.selectedHero:
@@ -814,7 +824,7 @@ Cashmere = Hero("Cashmere", 140, 140, 75, 150, 5, currentLevel, [("Basic Attack"
 heroes = [Ceres]
 
 ## enemies
-Zol = Enemy("???", 100000000, 100000000, 100000000, {"Demolish"}, "A")
+Zol = Enemy("???", 100000000, 100000000, 999999999999999999999999999999999999999999999, {"Demolish"}, "A")
 enemies = [Zol]
 
 powerhit = Attack(25, 20, "Power Hit", isHealing = False)
@@ -846,7 +856,7 @@ def cutscene1():
                 input("[???] Speak up. (Press Enter to retry.) ")
                 os.system("cls")
             elif playerName == "Queenie":
-                print("Hi, Mr. Whalen.")
+                print("Hi, Mr. Whalen...")
                 time.sleep(1)
                 yes = False
                 while not yes:
