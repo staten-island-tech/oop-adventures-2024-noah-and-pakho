@@ -12,7 +12,7 @@ currentLevelUltimateModifier = 0.75
 playerName = ""
 
 class Hero: 
-    def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset):
+    def __init__(self, name, currentHealth, maxHealth, currentEnergy, maxEnergy, energyRegen, level, moveset, position):
         self.name = name
         self.currentHealth = currentHealth
         self.maxHealth = maxHealth
@@ -21,6 +21,7 @@ class Hero:
         self.energyRegen = energyRegen
         self.level = level
         self.moveset = moveset
+        self.position = position
     
     def displayStats(self):
         print(f"Name: {self.name}")
@@ -150,7 +151,7 @@ class Game:
         for hero in self.heroes:
             if hero.currentEnergy > hero.maxEnergy:
                 hero.currentEnergy = hero.maxEnergy
-            print(f"Name: {hero.name}")
+            print(f"Name: {hero.name} [{hero.position}]")
             print(f"Health: [{hero.currentHealth} / {hero.maxHealth}] | Energy: [{hero.currentEnergy} / {hero.maxEnergy}]")
 
     def heroSelect(self):
@@ -490,6 +491,9 @@ class loop:
         Kelsey.currentEnergy = 55
         Cashmere.currentHealth = 140
         Cashmere.currentEnergy = 75
+        voraciousSpider = Enemy("Voracious Spider", 80, 80, 15, {"String Shot", "Venom Shot", "Lunge"}, "A") # enemy attacks are defined in enemy class
+        undeadMiner = Enemy("Undead Miner", 110, 110, 7.5, {"Shovel Whack", "Shovel Smack"}, "B")
+        bat = Enemy("Bat", 20, 20, 20, {"Nibble", "Blood Ichor"}, "C")
 
         enemies.clear()
         enemies.append(voraciousSpider)
@@ -541,35 +545,7 @@ class loop:
         Cashmere.energyRegen = 10
         Cashmere.moveset.append(("Whack", "C", whack))
 
-        loop.delayPrint(1.5, "[Jade] Kel, I really hope you are done being a blockhead.") 
-        loop.delayPrint(1.5, "[Kelsey] Sorry, I didn't know...")
-        loop.delayPrint(2, "[Cashmere] Kelsey! Even if you didn't know, throwing things at walls is highly irresponsible!")
-        loop.delayPrint(0.5, "[Kelsey] I didn't know! I'm sorry! This isn't my fault!")
-        loop.delayPrint(1.5, "Cashmere sighs and looks at you. You give him a dissapointed look back.")
-        loop.delayPrint(2.5, "[Jade] Considering how the rock YOU threw summoned those monsters, I'd say the entirety of this is your fault...")
-        loop.delayPrint(1, f"[{playerName}] Guys, just shut up already.")
-        loop.loadingScreen()
-        os.system("cls")
-        loop.delayPrint(1.5, "The crew ventures further into the cave. A while later, Kelsey stumbles upon an opening in one of the cave walls. ")
-        loop.delayPrint(2, "[Kelsey] Yo, guys! Check this out!")
-        loop.delayPrint(2.5, "[Jade] What now...?")
-        loop.delayPrint(2, "[Kelsey] I swear it's not anything bad this time! Look! There's a little hole here!")
-        loop.delayPrint(3.5, "You lean in to investigate. Suddenly, a strange little figure pokes its head out of the hole!")
-        loop.delayPrint(2.5, "[???] Hello, young travelers!")
-        loop.delayPrint(3, "[Jade] EW, EW, EW! WHAT IS THAT? GET IT AWAY!!")
-        loop.delayPrint(1.5, "[Cashmere] Calm down. It seems to be a... person.")
-        loop.delayPrint(1, "Homunculus, maybe.")
-        loop.delayPrint(1.5, "[???] Fear not, young travelers. I am not here to hurt, but to help. You may call me Jash.")
-        loop.delayPrint(2, "[Jade] Jash is quite the name.")
-        loop.delayPrint(1, "[Jash] I'm aware.")
-        loop.delayPrint(1.5, "[Jash] Anyhow, I would like to lend my assistance... for a price.")
-        loop.delayPrint(3, f"[{playerName}] A price?")
-        loop.delayPrint(2, "[Jash] This price... it is a mythical currency. It may be quite common, but do not let its rarity fool you. This commodity is quite valuable, when handled by the right person...")
-        loop.delayPrint(1.5, "[Cashmere] Is it money?")
-        loop.delayPrint(1, "[Jash] That is correct.")
-        loop.delayPrint(1.5, "[Cashmere] Could have just said that, doofus.")
-        loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")
-        
+        # cutscene4()
         input("Entering Jash's shop. Press Enter to proceed. ")
         
         
@@ -766,18 +742,7 @@ class loop:
         arachne2 = Enemy("Arachne, Reborn", 450, 450, 30, {"Noxious Shot", "Blood Harvest", "Bite", "Blood Ichor"}, "A")
         enemies.append(arachne2)
 
-        loop.delayPrint(2, "[Jade] What was that...?")
-        loop.delayPrint(3, "[Kelsey] No clue, lets get out of here! Fast! Right now!")
-        loop.delayPrint(2.5, "[Cashmere] Yeah. Let's try to find some way out.")
-        loop.delayPrint(2, "[Cashmere] We need to stick together, though. We might get ambushed again.")
-        loop.delayPrint(2, f"[{playerName}] It might be a good to check our surroundings.")
-        loop.delayPrint(3, "As you turn around, you hear a strange crawling noise that raises all the hairs on your body. Your eyes widen.")
-        loop.delayPrint(2.5, f"[Kelsey] What's the matter, {playerName}?")
-        loop.delayPrint(2, "As you turn to face whatever is behind you, Jade lets out a shriek.")
-        loop.delayPrint(2.5, "[Jade] GET IT AWAY, GET IT AWAY, GET IT AWAY!")
-        loop.delayPrint(3, "[Cashmere] I thought we killed it!")
-        loop.delayPrint(2.5, "[Kelsey] Does it matter? We should kill it right now!")
-        input("Press Enter to continue. ")
+        # cutscene6()
 
         loop.loadingScreen()
         os.system("cls")
@@ -839,18 +804,19 @@ slam = Attack(10, 5, "Slam", isHealing = False)
 cook = Attack(50, 17.5, "Cook", isHealing = True)
 
 ## heroes
-Ceres = Hero(playerName, 90, 90, 45, 90, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)])
-Jade = Hero("Jade", 120, 120, 50, 100, 2.5, currentLevel, [("Basic Attack", "A", basicattack), ("Headbutt", "B", headbutt)])
-Kelsey = Hero("Kelsey", 75, 75, 55, 110, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam)])
-Cashmere = Hero("Cashmere", 140, 140, 75, 150, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook)])
+Ceres = Hero(playerName, 90, 90, 45, 90, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Slice", "B", sliceattack)], "A")
+Jade = Hero("Jade", 120, 120, 50, 100, 2.5, currentLevel, [("Basic Attack", "A", basicattack), ("Headbutt", "B", headbutt)], "B")
+Kelsey = Hero("Kelsey", 75, 75, 55, 110, 10, currentLevel, [("Basic Attack", "A", basicattack), ("Slam", "B", slam)], "C")
+Cashmere = Hero("Cashmere", 140, 140, 75, 150, 5, currentLevel, [("Basic Attack", "A", basicattack), ("Cook", "B", cook)], "D")
 heroes = [Ceres]
 
 ## enemies
 Zol = Enemy("???", 100000000, 100000000, 100000000, {"Demolish"}, "A")
-voraciousSpider = Enemy("Voracious Spider", 80, 80, 15, {"String Shot", "Venom Shot", "Lunge"}, "A") # enemy attacks are defined in enemy class
-undeadMiner = Enemy("Undead Miner", 110, 110, 7.5, {"Shovel Whack", "Shovel Smack"}, "B")
-bat = Enemy("Bat", 20, 20, 20, {"Nibble", "Blood Ichor"}, "C")
 enemies = [Zol]
+
+# defined enemy here
+# after 3rd encounter, they r deleted and a new initialization is made
+# 
 
 ## cutscenes
 def cutscene1():
@@ -1064,6 +1030,35 @@ def cutscene3():
         loop.delayPrint(2.5, "[Jade] Now why on earth would you do that?")
         loop.delayPrint(1.5, "[Cashmere] Now's not the time to bicker, guys. Get ready to fight!")
         input("Press Enter to proceed. ") 
+def cutscene4():
+        loop.delayPrint(1.5, "[Jade] Kel, I really hope you are done being a blockhead.") 
+        loop.delayPrint(1.5, "[Kelsey] Sorry, I didn't know...")
+        loop.delayPrint(2, "[Cashmere] Kelsey! Even if you didn't know, throwing things at walls is highly irresponsible!")
+        loop.delayPrint(0.5, "[Kelsey] I didn't know! I'm sorry! This isn't my fault!")
+        loop.delayPrint(1.5, "Cashmere sighs and looks at you. You give him a dissapointed look back.")
+        loop.delayPrint(2.5, "[Jade] Considering how the rock YOU threw summoned those monsters, I'd say the entirety of this is your fault...")
+        loop.delayPrint(1, f"[{playerName}] Guys, just shut up already.")
+        loop.loadingScreen()
+        os.system("cls")
+        loop.delayPrint(1.5, "The crew ventures further into the cave. A while later, Kelsey stumbles upon an opening in one of the cave walls. ")
+        loop.delayPrint(2, "[Kelsey] Yo, guys! Check this out!")
+        loop.delayPrint(2.5, "[Jade] What now...?")
+        loop.delayPrint(2, "[Kelsey] I swear it's not anything bad this time! Look! There's a little hole here!")
+        loop.delayPrint(3.5, "You lean in to investigate. Suddenly, a strange little figure pokes its head out of the hole!")
+        loop.delayPrint(2.5, "[???] Hello, young travelers!")
+        loop.delayPrint(3, "[Jade] EW, EW, EW! WHAT IS THAT? GET IT AWAY!!")
+        loop.delayPrint(1.5, "[Cashmere] Calm down. It seems to be a... person.")
+        loop.delayPrint(1, "Homunculus, maybe.")
+        loop.delayPrint(1.5, "[???] Fear not, young travelers. I am not here to hurt, but to help. You may call me Jash.")
+        loop.delayPrint(2, "[Jade] Jash is quite the name.")
+        loop.delayPrint(1, "[Jash] I'm aware.")
+        loop.delayPrint(1.5, "[Jash] Anyhow, I would like to lend my assistance... for a price.")
+        loop.delayPrint(3, f"[{playerName}] A price?")
+        loop.delayPrint(2, "[Jash] This price... it is a mythical currency. It may be quite common, but do not let its rarity fool you. This commodity is quite valuable, when handled by the right person...")
+        loop.delayPrint(1.5, "[Cashmere] Is it money?")
+        loop.delayPrint(1, "[Jash] That is correct.")
+        loop.delayPrint(1.5, "[Cashmere] Could have just said that, doofus.")
+        loop.delayPrint(2, "[Jash] I am not here to debate about specific details. Would you like to purchase items from me?")     
 def cutscene5():
         loop.loadingScreen()
         os.system("cls")
@@ -1114,13 +1109,23 @@ def cutscene5():
         input("Press Enter to proceed. ")
         loop.loadingScreen()
         os.system("cls")
+def cutscene6():
+        loop.delayPrint(2, "[Jade] What was that...?")
+        loop.delayPrint(3, "[Kelsey] No clue, lets get out of here! Fast! Right now!")
+        loop.delayPrint(2.5, "[Cashmere] Yeah. Let's try to find some way out.")
+        loop.delayPrint(2, "[Cashmere] We need to stick together, though. We might get ambushed again.")
+        loop.delayPrint(2, f"[{playerName}] It might be a good to check our surroundings.")
+        loop.delayPrint(3, "As you turn around, you hear a strange crawling noise that raises all the hairs on your body. Your eyes widen.")
+        loop.delayPrint(2.5, f"[Kelsey] What's the matter, {playerName}?")
+        loop.delayPrint(2, "As you turn to face whatever is behind you, Jade lets out a shriek.")
+        loop.delayPrint(2.5, "[Jade] GET IT AWAY, GET IT AWAY, GET IT AWAY!")
+        loop.delayPrint(3, "[Cashmere] I thought we killed it!")
+        loop.delayPrint(2.5, "[Kelsey] Does it matter? We should kill it right now!")
+        input("Press Enter to continue. ")
+
 loop.mainLoop()
 
 """
-when name confirmation is asked, choosing invalid input just lets the name you typed in be the name.
-choosing no also leads to the "invalid position selected" message to show up again
-hero position is redundant
-
 seperate functions for dialogue, attacks, and encounters
 use a counter to determine what encounter ur on
 ultimates should be displayed w/ their effect, but your energy has to be enough to actually use it
