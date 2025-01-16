@@ -850,7 +850,7 @@ def cutscene1():
             if not playerName:
                 input("[???] Speak up. (Press Enter to retry.) ")
                 os.system("cls")
-            elif playerName == "Queenie":
+            elif playerName in ["Queenie", "Noah", "Pakho", "Paco", "Whalen"]:
                 print("Hi, Mr. Whalen...")
                 time.sleep(1)
                 yes = False
