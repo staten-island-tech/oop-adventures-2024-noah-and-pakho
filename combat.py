@@ -445,7 +445,7 @@ class loop:
         input("Welcome. Press Enter to start.")
 
         # ask if u wanna see the cutscene
-        # cutscene1()
+        cutscene1()
 
         game = Game(heroes, enemies)
         while True:
@@ -459,7 +459,7 @@ class loop:
                 break
         
         # ask if you wanna see the cutscene
-        # cutscene2()
+        cutscene2()
 
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
@@ -483,7 +483,7 @@ class loop:
                 break
         
         # ask if you wanna see the cutscene
-        # cutscene3()
+        cutscene3()
         
         Ceres.currentHealth = 90
         Ceres.currentEnergy = 45
@@ -544,7 +544,7 @@ class loop:
         Cashmere.energyRegen = 10
         Cashmere.moveset.append(("Whack", "C", whack))
 
-        # cutscene4()
+        cutscene4()
         input("Entering Jash's shop. Press Enter to proceed. ")
         global player
         player = inShop.Player(playerName, 500)
@@ -558,7 +558,7 @@ class loop:
         merchant.add_item(strengthItem)
         merchant.add_item(movesetConsumable00)
         
-        # cutscene5()
+        cutscene5()
         
         loop.shopNInventory()
 
@@ -636,7 +636,7 @@ class loop:
         arachne2 = Enemy("Arachne, Reborn", 450, 450, 30, {"Noxious Shot", "Blood Harvest", "Bite", "Blood Ichor"}, "A")
         enemies.append(arachne2)
 
-        # cutscene6()
+        cutscene6()
 
         loop.loadingScreen()
         os.system("cls")
