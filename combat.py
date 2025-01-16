@@ -517,7 +517,7 @@ class loop:
         global currentLevelUltimateModifier
         currentLevelUltimateModifier = 1
 
-        rebound = Attack(round(game.selectedEnemy.currentHealth * 0.15), round(Kelsey.maxEnergy / 5), "Rebound", isHealing = False)
+        rebound = Attack(round(Kelsey.maxHealth * 0.35), round(Kelsey.maxEnergy / 5), "Rebound", isHealing = False)
 
         Ceres.currentHealth = 105
         Ceres.maxHealth = 105
