@@ -542,9 +542,6 @@ class loop:
 
         # cutscene4()
         input("Entering Jash's shop. Press Enter to proceed. ")
-        
-        
-
         player = inShop.Player(playerName, 500)
         strengthItem = inShop.Item("Strength Modifier", 40, 1, "A")
         movesetConsumable00 = inShop.Item("Moveset Consumable 00", 350, 1, "B")
@@ -553,113 +550,7 @@ class loop:
         merchant.add_item(strengthItem)
         merchant.add_item(movesetConsumable00)
 
-        while True:
-            os.system("cls")
-            merchant.list_items()
-            boughtItem = input("Select an item for purchase. ").strip().upper()
-
-            items = list(merchant.inventory.values())
-            validLetters = [item.position for item in items]
-
-            if boughtItem not in validLetters:
-                input("Invalid input. Press enter to try again. ")
-                continue
-
-            boughtItemSelected = next(item for item in items if item.position == boughtItem)
-            boughtItemName = boughtItemSelected.name
-
-            boughtItemAmt = (input("How many would you like to buy? ")).strip()
-            try:
-                boughtItemAmt = int(boughtItemAmt)
-                if boughtItemAmt <= 0:
-                    input("Quantity must be greater than 0. Press Enter to continue. ")
-                    continue
-            except ValueError:
-                input("Invalid quantity. Press Enter to try again. ")
-                continue
-
-            os.system('cls')
-            merchant.sell_item(player, boughtItemName, boughtItemAmt)
-
-            print(player)
-            print(merchant)
-            
-            while True:
-                continueChoice = input("Continue? Y/N ").strip().lower()
-                if continueChoice in ["y", "yes"]:
-                    if merchant.inventory:
-                        os.system("cls")
-                        merchant.list_items()
-                        break
-                    else:
-                        os.system("cls")
-                        input("Invalid selection. Press Enter to retry. ")
-                elif continueChoice in ["n", "no"]:
-                    break
-                else:
-                    input("Invalid input. Press Enter to try again.")
-            if continueChoice in ["n", "no"]:
-                break               
-        
-        os.system("cls")
-        loop.delayPrint(1.5, "[Jash] Hehe... Pleasure doing business...")
-        time.sleep(1.5)
-        input("Press Enter to open the inventory. ")
-        time.sleep(3)
-        os.system("cls")
-        print(player)
-        while True:
-            if not player.inventory:
-                input("Nothing in the inventory to use. Press Enter to continue. ")
-                break
-            useItemsInInventory = input("Would you like to use anything in the inventory? Y/N ").strip().lower()
-            if useItemsInInventory not in ["y", "n", "yes", "no"]:
-                loop.delayPrint(2.5, "Invalid input. Try again.")
-            elif useItemsInInventory in ["y", "yes"]:
-                os.system("cls")
-                loop.delayPrint(1, player)
-                
-                print("Items in your inventory:")
-                for item in player.inventory.values():
-                    print(f"{item} [{item.position}]") 
-
-                itemLetter = input("Which item would you like to use? Input the corresponding letter: ").strip().upper()
-
-                inventoryItems = list(player.inventory.values())
-                validLetters = [item.position for item in inventoryItems]
-
-                if itemLetter not in validLetters:
-                    loop.delayPrint(2, "Invalid selection. Try again.")
-                    continue
-
-                itemToUse = next(item for item in inventoryItems if item.position == itemLetter)
-
-                if itemToUse:
-                    print(f"Are you sure you want to use {itemToUse.name}? (Y/N)")
-                    useConfirm = input().strip().lower()
-                    if useConfirm in ["y", "yes"]:
-                        player.use_item(itemToUse.name)
-                        loop.delayPrint(1.5, f"{itemToUse.name} has been used.")
-                        if itemToUse.name == "Moveset Consumable 00":
-                            trick = Attack(40, 65, "Trick", isHealing = False)
-                            global usedTrick
-                            usedTrick = True
-                        elif itemToUse.name == "Strength Modifier":
-                            global temporaryLevel
-                            temporaryLevel = 3
-                            currentLevel = temporaryLevel
-                            global temporaryLevelUltimateModifier
-                            temporaryLevelUltimateModifier = 1.25
-                            currentLevelUltimateModifier = temporaryLevelUltimateModifier
-                        continue
-                    else:
-                        loop.delayPrint(1.5, "Item use canceled.")
-                        break
-                else:
-                    loop.delayPrint(2, "Item not found.")
-            elif useItemsInInventory in ["n", "no"]:
-                loop.delayPrint(1, "Very well. Closing inventory...")
-                break
+        shopNInventory()
         
         # cutscene5()
         
@@ -1123,7 +1014,114 @@ def cutscene6():
         loop.delayPrint(3, "[Cashmere] I thought we killed it!")
         loop.delayPrint(2.5, "[Kelsey] Does it matter? We should kill it right now!")
         input("Press Enter to continue. ")
+def shopNInventory():
+        while True:
+            os.system("cls")
+            loop.merchant.list_items()
+            boughtItem = input("Select an item for purchase. ").strip().upper()
 
+            items = list(loop.merchant.inventory.values())
+            validLetters = [item.position for item in items]
+
+            if boughtItem not in validLetters:
+                input("Invalid input. Press enter to try again. ")
+                continue
+
+            boughtItemSelected = next(item for item in items if item.position == boughtItem)
+            boughtItemName = boughtItemSelected.name
+
+            boughtItemAmt = (input("How many would you like to buy? ")).strip()
+            try:
+                boughtItemAmt = int(boughtItemAmt)
+                if boughtItemAmt <= 0:
+                    input("Quantity must be greater than 0. Press Enter to continue. ")
+                    continue
+            except ValueError:
+                input("Invalid quantity. Press Enter to try again. ")
+                continue
+
+            os.system('cls')
+            loop.merchant.sell_item(loop.player, boughtItemName, boughtItemAmt)
+
+            print(loop.player)
+            print(loop.merchant)
+            
+            while True:
+                continueChoice = input("Continue? Y/N ").strip().lower()
+                if continueChoice in ["y", "yes"]:
+                    if loop.merchant.inventory:
+                        os.system("cls")
+                        loop.merchant.list_items()
+                        break
+                    else:
+                        os.system("cls")
+                        input("Invalid selection. Press Enter to retry. ")
+                elif continueChoice in ["n", "no"]:
+                    break
+                else:
+                    input("Invalid input. Press Enter to try again.")
+            if continueChoice in ["n", "no"]:
+                break               
+        
+        os.system("cls")
+        loop.delayPrint(1.5, "[Jash] Hehe... Pleasure doing business...")
+        time.sleep(1.5)
+        input("Press Enter to open the inventory. ")
+        time.sleep(3)
+        os.system("cls")
+        print(loop.player)
+        while True:
+            if not loop.player.inventory:
+                input("Nothing in the inventory to use. Press Enter to continue. ")
+                break
+            useItemsInInventory = input("Would you like to use anything in the inventory? Y/N ").strip().lower()
+            if useItemsInInventory not in ["y", "n", "yes", "no"]:
+                loop.delayPrint(2.5, "Invalid input. Try again.")
+            elif useItemsInInventory in ["y", "yes"]:
+                os.system("cls")
+                loop.delayPrint(1, loop.player)
+                
+                print("Items in your inventory:")
+                for item in loop.player.inventory.values():
+                    print(f"{item} [{item.position}]") 
+
+                itemLetter = input("Which item would you like to use? Input the corresponding letter: ").strip().upper()
+
+                inventoryItems = list(loop.player.inventory.values())
+                validLetters = [item.position for item in inventoryItems]
+
+                if itemLetter not in validLetters:
+                    loop.delayPrint(2, "Invalid selection. Try again.")
+                    continue
+
+                itemToUse = next(item for item in inventoryItems if item.position == itemLetter)
+
+                if itemToUse:
+                    print(f"Are you sure you want to use {itemToUse.name}? (Y/N)")
+                    useConfirm = input().strip().lower()
+                    if useConfirm in ["y", "yes"]:
+                        loop.player.use_item(itemToUse.name)
+                        loop.delayPrint(1.5, f"{itemToUse.name} has been used.")
+                        if itemToUse.name == "Moveset Consumable 00":
+                            trick = Attack(40, 65, "Trick", isHealing = False)
+                            global usedTrick
+                            usedTrick = True
+                        elif itemToUse.name == "Strength Modifier":
+                            global temporaryLevel
+                            temporaryLevel = 3
+                            currentLevel = temporaryLevel
+                            global temporaryLevelUltimateModifier
+                            temporaryLevelUltimateModifier = 1.25
+                            currentLevelUltimateModifier = temporaryLevelUltimateModifier
+                        continue
+                    else:
+                        loop.delayPrint(1.5, "Item use canceled.")
+                        break
+                else:
+                    loop.delayPrint(2, "Item not found.")
+            elif useItemsInInventory in ["n", "no"]:
+                loop.delayPrint(1, "Very well. Closing inventory...")
+                break
 loop.mainLoop()
 
 """
