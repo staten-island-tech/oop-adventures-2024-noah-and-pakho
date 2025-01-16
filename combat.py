@@ -515,6 +515,8 @@ class loop:
         global currentLevelUltimateModifier
         currentLevelUltimateModifier = 1
 
+        rebound = Attack(round(Game.selectedEnemy.currentHealth * 0.15), round(Kelsey.maxEnergy / 5), "Rebound", isHealing = False)
+
         Ceres.currentHealth = 105
         Ceres.maxHealth = 105
         Ceres.currentEnergy = 50
@@ -814,7 +816,6 @@ Zol = Enemy("???", 100000000, 100000000, 100000000, {"Demolish"}, "A")
 enemies = [Zol]
 
 powerhit = Attack(25, 20, "Power Hit", isHealing = False)
-rebound = Attack(round(Game.selectedEnemy.currentHealth * 0.15), round(Kelsey.maxEnergy / 5), "Rebound", isHealing = False)
 whack = Attack(10, 10, "Whack", isHealing = False)
 # defined enemy here
 # after 3rd encounter, they r deleted and a new initialization is made
