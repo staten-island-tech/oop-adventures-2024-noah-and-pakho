@@ -1,3 +1,5 @@
+this document is for noah only
+
 about a week ago i used chatgpt for the assignment but didnt record my exact prompts & its answers. i know that i tried to use it to finish the assignment beacuse i didn't think id finish the assignment. it mainly helped with the attack selection method, and the function is still used in this code. i retained a few of the things that chatgpt used in its code, including things such as list comprehensions, tuple unpacking, and using infinite loops for error handling. all of the code now is written by me and pakho.
 below are my recent chatgpt prompts.
 
